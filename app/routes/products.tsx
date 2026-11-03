@@ -4,9 +4,10 @@ import { SectionHeading } from "~/components/common/SectionHeading";
 import { Button } from "~/components/common/Button";
 import { CategoryFilter } from "~/components/sections/products/CategoryFilter";
 import { ProductGrid } from "~/components/sections/products/ProductGrid";
+import { ProductQuickViewModal } from "~/components/sections/products/ProductQuickViewModal";
 import { getProducts, PRODUCT_CATEGORIES } from "~/data/products";
-import type { ProductCategory } from "~/types/product";
-import { ShieldCheck, FileText, ArrowRight } from "lucide-react";
+import type { Product, ProductCategory } from "~/types/product";
+import { ShieldCheck, FileText, ArrowRight, Search, X } from "lucide-react";
 
 export function meta() {
   return [
@@ -21,10 +22,24 @@ export function meta() {
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState<"all" | ProductCategory>("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
+  // Filter products by category and active search query
   const displayedProducts = useMemo(() => {
-    return getProducts(selectedCategory);
-  }, [selectedCategory]);
+    let list = getProducts(selectedCategory);
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.composition.toLowerCase().includes(q) ||
+          (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
+          p.shortDescription.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [selectedCategory, searchQuery]);
 
   const productCounts = useMemo(() => {
     const all = getProducts().length;
@@ -47,26 +62,73 @@ export default function ProductsPage() {
         />
 
         {/* Regulatory & Institutional Notice Banner */}
-        <div className="mb-10 p-4 rounded-xl bg-amber-50/70 border border-amber-200/70 flex items-center gap-3 text-xs sm:text-sm text-amber-900">
+        <div className="my-8 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/70 flex items-center gap-3 text-xs sm:text-sm text-amber-900">
           <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0" />
           <p>
             <strong>Institutional Notice:</strong> The information provided below is intended solely for registered medical practitioners, hospitals, and authorised channel distribution partners. ZILTON LIFE CARE does not sell directly to retail consumers online.
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="mb-10">
+        {/* Live Search & Filter Bar */}
+        <div className="mb-8 space-y-4">
+          {/* Live Search Input */}
+          <div className="max-w-md mx-auto relative">
+            <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by brand name or composition (e.g. Meropenem, Amino Acids)..."
+              className="w-full pl-11 pr-10 py-3 text-sm bg-white border border-[#DCE8E0] rounded-2xl shadow-xs focus:outline-none focus:ring-2 focus:ring-[#087B59] focus:border-transparent transition-all placeholder:text-gray-400"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="p-1 rounded-full text-gray-400 hover:text-gray-600 absolute right-3 top-1/2 -translate-y-1/2"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Category Filter Pills */}
           <CategoryFilter
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
             productCounts={productCounts}
           />
+
+          {/* Active Search & Count Indicator */}
+          <div className="flex items-center justify-between text-xs text-gray-500 px-1 pt-1">
+            <span>
+              Showing <strong>{displayedProducts.length}</strong> of{" "}
+              <strong>{getProducts().length}</strong> pharmaceutical formulations
+            </span>
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="text-[#087B59] font-medium hover:underline"
+              >
+                Reset search
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Product Grid */}
         <ProductGrid
           products={displayedProducts}
           selectedCategory={selectedCategory}
+          onQuickView={(p) => setQuickViewProduct(p)}
+        />
+
+        {/* Quick View Modal */}
+        <ProductQuickViewModal
+          product={quickViewProduct}
+          onClose={() => setQuickViewProduct(null)}
         />
 
         {/* Partnership / Product Enquiry CTA */}
@@ -74,7 +136,7 @@ export default function ProductsPage() {
           <div className="max-w-xl text-center md:text-left">
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#E8F4EE] bg-white/10 px-3 py-1 rounded-full mb-3">
               <FileText className="w-3.5 h-3.5" />
-              Institutional Supply & Distribution
+              Institutional Supply &amp; Distribution
             </span>
             <h3 className="text-xl sm:text-2xl font-bold">
               Require batch details or distribution terms?

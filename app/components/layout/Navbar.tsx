@@ -28,44 +28,46 @@ export function Navbar() {
 
   const activeLinkClass = ({ isActive }: { isActive: boolean }) =>
     [
-      "text-sm font-semibold transition-colors duration-150",
+      "text-sm font-semibold transition-all duration-200 relative py-1",
       isActive
-        ? "text-[#087B59]"
-        : "text-[#46534C] hover:text-[#087B59]",
+        ? "text-[#07845E] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#07845E] after:rounded-full"
+        : "text-[#53635C] hover:text-[#07845E]",
     ].join(" ");
 
   return (
     <header
       className={[
-        "sticky top-0 z-50 bg-white transition-shadow duration-200",
-        scrolled ? "shadow-[0_1px_8px_0_rgb(23_59_48/0.10)]" : "",
+        "sticky top-0 z-50 bg-[#FAFCFA]/90 backdrop-blur-md transition-all duration-300 border-b",
+        scrolled
+          ? "border-[#E4EBE6] shadow-[0_4px_20px_rgba(18,61,50,0.06)]"
+          : "border-transparent",
       ].join(" ")}
       role="banner"
     >
       <Container>
         <nav
-          className="flex h-16 items-center justify-between"
+          className="flex h-18 items-center justify-between"
           aria-label="Main navigation"
         >
           {/* Logo / Brand */}
           <Link
             to="/"
-            className="flex flex-col leading-none focus-visible:outline-[#087B59]"
+            className="flex flex-col leading-none focus-visible:outline-[#07845E] group"
             aria-label={`${COMPANY.shortName} — home`}
           >
             <span
-              className="text-lg font-extrabold tracking-tight text-[#087B59]"
+              className="text-xl font-extrabold tracking-tight text-[#123D32] group-hover:text-[#07845E] transition-colors"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               ZILTON
             </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#46534C]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#07845E] mt-0.5">
               Life Care
             </span>
           </Link>
 
           {/* Desktop nav links */}
-          <ul className="hidden md:flex items-center gap-7" role="list">
+          <ul className="hidden md:flex items-center gap-8" role="list">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}>
                 <NavLink to={item.to} className={activeLinkClass} end={item.to === "/"}>
@@ -85,7 +87,7 @@ export function Navbar() {
           {/* Mobile menu toggle */}
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-[#46534C] hover:bg-[#E8F4EE] transition-colors"
+            className="md:hidden inline-flex items-center justify-center rounded-xl p-2.5 text-[#53635C] hover:bg-[#DFF1E9] transition-colors focus-visible:outline-[#07845E]"
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
@@ -100,7 +102,7 @@ export function Navbar() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden border-t border-[#DCE8E0] bg-white"
+          className="md:hidden border-t border-[#E4EBE6] bg-[#FAFCFA] shadow-lg animate-fade-in"
           role="dialog"
           aria-label="Navigation menu"
         >
@@ -113,10 +115,10 @@ export function Navbar() {
                     end={item.to === "/"}
                     className={({ isActive }) =>
                       [
-                        "block rounded-lg px-4 py-3 text-sm font-semibold transition-colors",
+                        "block rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
                         isActive
-                          ? "bg-[#E8F4EE] text-[#087B59]"
-                          : "text-[#46534C] hover:bg-[#E8F4EE] hover:text-[#087B59]",
+                          ? "bg-[#DFF1E9] text-[#07845E]"
+                          : "text-[#53635C] hover:bg-[#F2F7F4] hover:text-[#07845E]",
                       ].join(" ")
                     }
                     onClick={() => setMenuOpen(false)}
@@ -125,7 +127,7 @@ export function Navbar() {
                   </NavLink>
                 </li>
               ))}
-              <li className="mt-3 pt-3 border-t border-[#DCE8E0]">
+              <li className="mt-3 pt-3 border-t border-[#E4EBE6]">
                 <Button to="/contact" size="sm" className="w-full justify-center">
                   Get in Touch
                 </Button>

@@ -2,6 +2,7 @@ import { Container } from "~/components/common/Container";
 import { SectionHeading } from "~/components/common/SectionHeading";
 import { QualityHero } from "~/components/sections/quality/QualityHero";
 import { QualityPillars } from "~/components/sections/quality/QualityPillars";
+import { QualityLifecycleFlow } from "~/components/sections/quality/QualityLifecycleFlow";
 import { PartnerStandards } from "~/components/sections/quality/PartnerStandards";
 import { Button } from "~/components/common/Button";
 import { ShieldCheck, ArrowRight } from "lucide-react";
@@ -33,6 +34,9 @@ export default function QualityPage() {
 
         {/* 3 Pillars */}
         <QualityPillars />
+
+        {/* 4-Stage Lifecycle Flow */}
+        <QualityLifecycleFlow />
 
         {/* Manufacturing & Regulatory Notice */}
         <PartnerStandards />

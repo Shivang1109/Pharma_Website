@@ -1,5 +1,5 @@
 type SectionHeadingProps = {
-  /** Small label above the title */
+  /** Refined eyebrow label positioned above the title */
   eyebrow?: string;
   title: string;
   description?: string;
@@ -8,8 +8,8 @@ type SectionHeadingProps = {
 };
 
 /**
- * Reusable section heading used across all pages.
- * Provides consistent eyebrow → title → description hierarchy.
+ * Reusable Minimal Luxury section heading block.
+ * Provides a consistent, accessible typographic hierarchy across corporate pages.
  */
 export function SectionHeading({
   eyebrow,
@@ -23,15 +23,17 @@ export function SectionHeading({
   return (
     <div className={["flex flex-col gap-3", alignClass, className].join(" ")}>
       {eyebrow && (
-        <span className="text-sm font-semibold uppercase tracking-widest text-[#087B59]">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DFF1E9] border border-[#E4EBE6] text-[11px] font-bold uppercase tracking-widest text-[#07845E]">
           {eyebrow}
-        </span>
+        </div>
       )}
-      <h2 className="font-heading text-3xl font-bold text-[#173B30] sm:text-4xl leading-tight">
+      <h2
+        className="font-heading text-3xl font-bold text-[#123D32] sm:text-4xl lg:text-[42px] leading-tight tracking-tight"
+      >
         {title}
       </h2>
       {description && (
-        <p className="mt-1 max-w-2xl text-base text-[#46534C] leading-relaxed">
+        <p className="mt-1 max-w-2xl text-base text-[#53635C] leading-relaxed">
           {description}
         </p>
       )}

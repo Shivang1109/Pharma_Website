@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -10,9 +11,13 @@ import {
   submitContactForm,
   type ContactSubmissionResponse,
 } from "~/services/contact.service";
-import { CheckCircle2, AlertTriangle, Loader2, Send } from "lucide-react";
+import { CheckCircle2, AlertTriangle, Loader2, Send, Tag, X } from "lucide-react";
 
 export const ContactForm: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const productParam = searchParams.get("product");
+  const typeParam = searchParams.get("type");
+
   const [submissionStatus, setSubmissionStatus] = useState<ContactSubmissionResponse | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -21,6 +26,7 @@ export const ContactForm: React.FC = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -29,10 +35,30 @@ export const ContactForm: React.FC = () => {
       organization: "",
       email: "",
       phone: "",
-      enquiryType: "general",
-      message: "",
+      enquiryType: (typeParam as any) || (productParam ? "product-related" : "general"),
+      message: productParam
+        ? `I would like to enquire regarding commercial availability, batch supply, and pricing terms for ${productParam}.`
+        : "",
     },
   });
+
+  // Keep form in sync if search params change
+  useEffect(() => {
+    if (productParam) {
+      setValue("enquiryType", "product-related");
+      setValue(
+        "message",
+        `I would like to enquire regarding commercial availability, batch supply, and pricing terms for ${productParam}.`
+      );
+    }
+  }, [productParam, setValue]);
+
+  const clearProductPreFill = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("product");
+    setSearchParams(nextParams);
+    setValue("message", "");
+  };
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -92,6 +118,25 @@ export const ContactForm: React.FC = () => {
         <p className="text-sm text-[#46534C] mt-1">
           Complete the form below and our team will get back to you promptly.
         </p>
+
+        {productParam && (
+          <div className="mt-4 p-3 rounded-xl bg-[#E8F4EE] border border-[#DCE8E0] flex items-center justify-between gap-3 text-xs text-[#087B59] font-medium">
+            <div className="flex items-center gap-2">
+              <Tag className="w-4 h-4 shrink-0" />
+              <span>
+                Pre-selected Product Enquiry: <strong>{productParam}</strong>
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={clearProductPreFill}
+              className="p-1 text-gray-400 hover:text-gray-700 rounded-full hover:bg-white/80 transition-colors"
+              aria-label="Remove pre-selected product"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
       </div>
 
       {serverError && (

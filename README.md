@@ -11,7 +11,7 @@ The codebase is strictly modularized to support parallel development between **D
 ### Developer 2 (Catalogue & Business Functionality Lead) — Completed Modules:
 - **Module 1: Product Catalogue**
   - Data contracts: `app/types/product.ts`
-  - Structured dataset: `app/data/products.ts` (Critical Care Injection, Nutrition IV, Nutrition Sachet)
+  - Structured dataset: `app/data/products.ts` (12 official formulations across Critical Care Injections, IV Antibiotics, Nutrition IV, Nutrition Sachets)
   - Modular UI: `app/components/sections/products/CategoryFilter.tsx`, `ProductCard.tsx`, `ProductGrid.tsx`
   - Route view: `app/routes/products.tsx`
   - Visual fallbacks: `public/images/products/*.svg`
@@ -32,12 +32,12 @@ The codebase is strictly modularized to support parallel development between **D
 - **Dependency & Client Tracking**
   - `CLIENT_REQUIREMENTS.md`
 
-### Developer 1 (UI & Shared Experience Lead) — Scope to Integrate:
-- Design tokens & typography: `app/styles/tailwind.css`
+### Developer 1 (UI & Shared Experience Lead) — Completed:
+- Design tokens & typography: `app/app.css` (Manrope + Inter)
 - Global layout: `Navbar.tsx`, `Footer.tsx`, `SiteLayout.tsx` (`app/components/layout/`)
 - Homepage (`app/routes/home.tsx` & `app/components/sections/home/`)
 - About Us page (`app/routes/about.tsx` & `app/components/sections/about/`)
-- Shared primitives enhancement: `app/components/common/Button.tsx`, `Container.tsx`, `SectionHeading.tsx`
+- Shared primitives: `app/components/common/Button.tsx`, `Container.tsx`, `SectionHeading.tsx`
 
 ---
 
