@@ -1,477 +1,396 @@
-import type { Route } from "./+types/home";
+import React from "react";
 import { Link } from "react-router";
-import {
-  ArrowRight,
-  ShieldCheck,
-  Handshake,
-  Leaf,
-  CheckCircle2,
-  Sparkles,
-  Building2,
-  Award,
-  FlaskConical,
-} from "lucide-react";
-import { Button } from "~/components/common/Button";
-import { Container } from "~/components/common/Container";
-import { SectionHeading } from "~/components/common/SectionHeading";
-import { StatisticCard } from "~/components/common/StatisticCard";
-import { COMPANY } from "~/data/company";
+import { ArrowUpRight, ArrowRight, ShieldCheck, Thermometer, FileCheck, Layers } from "lucide-react";
+import { SplitLines } from "~/components/motion/SplitLines";
+import { Reveal } from "~/components/motion/Reveal";
+import { Magnetic } from "~/components/motion/Magnetic";
+import { Marquee } from "~/components/motion/Marquee";
+import { ScrollText } from "~/components/motion/ScrollText";
+import { CountUp } from "~/components/motion/CountUp";
+import { DrawPath } from "~/components/motion/DrawPath";
+import { ImageSlot } from "~/components/ui/ImageSlot";
+import { generateRouteMeta } from "~/utils/seo";
+import { PRODUCT_CATEGORIES } from "~/data/products";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Zilton Life Care — Minimal Luxury Healthcare & Clinical Formulations" },
-    {
-      name: "description",
-      content:
-        "Zilton Life Care Private Limited is a premier pharmaceutical marketing company delivering sterile critical care injectables and clinical nutrition solutions across India.",
-    },
-  ];
+export function meta() {
+  return generateRouteMeta({
+    title: "Minimal Luxury Healthcare & Clinical Formulations",
+    description:
+      "Zilton Life Care Private Limited is a pharmaceutical marketing enterprise delivering critical care injectables, IV infusions, and therapeutic nutrition solutions across India.",
+    canonicalPath: "/",
+  });
 }
 
-/* ─── Section: Hero ──────────────────────────────────────────── */
-function Hero() {
-  return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-b from-[#DFF1E9]/40 via-[#FAFCFA] to-[#FAFCFA] pt-16 pb-20 sm:pt-24 sm:pb-28"
-      aria-label="Hero"
-    >
-      {/* Ambient background blur elements */}
-      <div
-        className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-[#07845E]/5 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-[#DFF1E9]/60 blur-2xl"
-        aria-hidden="true"
-      />
-
-      <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-          {/* Left Column: Headlines & CTA */}
-          <div className="lg:col-span-7 luxury-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#DFF1E9] border border-[#07845E]/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-6">
-              <span className="h-2 w-2 rounded-full bg-[#07845E] animate-pulse" />
-              Corporate Pharmaceutical Marketing
-            </div>
-
-            <h1
-              className="text-4xl font-extrabold text-[#123D32] sm:text-5xl lg:text-6xl leading-[1.12] tracking-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Better Healthcare.{" "}
-              <span className="text-[#07845E]">Healthier Lives.</span>
-            </h1>
-
-            <p className="mt-6 text-base sm:text-lg text-[#53635C] leading-relaxed max-w-xl font-normal">
-              A healthcare organisation committed to clinical precision, high-integrity sourcing, and verified pharmaceutical formulations across Critical Care, Clinical Nutrition IV, and Therapeutic Sachets.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button to="/products" size="lg" className="shadow-sm">
-                Explore Product Portfolio <ArrowRight size={16} className="ml-2" />
-              </Button>
-              <Button to="/about" size="lg" variant="outline">
-                Corporate Profile
-              </Button>
-            </div>
-
-            {/* Trust Metrics Strip */}
-            <div className="mt-12 pt-8 border-t border-[#E4EBE6] grid grid-cols-3 gap-6">
-              <StatisticCard
-                value="3"
-                label="Core Clinical Portfolios"
-                sublabel="Specialised Formulations"
-              />
-              <StatisticCard
-                value="100%"
-                label="Audited cGMP Partners"
-                sublabel="Verified Quality"
-              />
-              <StatisticCard
-                value="GDP"
-                label="Compliant Logistics"
-                sublabel="Controlled Chain"
-              />
-            </div>
-          </div>
-
-          {/* Right Column: High-Fidelity Medical Graphic */}
-          <div className="lg:col-span-5 flex justify-center luxury-fade-in">
-            <div className="relative w-full max-w-md lg:max-w-none">
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#07845E]/15 to-[#DFF1E9]/40 blur-xl opacity-60" />
-              <div className="relative rounded-3xl border border-[#E4EBE6] bg-white p-3 shadow-lg">
-                <img
-                  src="/images/hero/hero-medical-graphic.svg"
-                  alt="Zilton Life Care pharmaceutical manufacturing and distribution excellence"
-                  className="w-full h-auto rounded-2xl select-none"
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: About teaser ─────────────────────────────────── */
-function AboutTeaser() {
-  return (
-    <section className="py-20 sm:py-28 bg-white border-y border-[#E4EBE6]" aria-labelledby="about-teaser-heading">
-      <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-6 order-2 lg:order-1 flex justify-center">
-            <div className="relative w-full max-w-md">
-              <div className="rounded-3xl border border-[#E4EBE6] bg-[#F2F7F4] p-3 shadow-sm">
-                <img
-                  src="/images/company/company-graphic.svg"
-                  alt="Zilton Life Care corporate partnership and clinical quality assurance"
-                  className="w-full h-auto rounded-2xl select-none"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-6 order-1 lg:order-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DFF1E9] px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-4">
-              <Building2 className="w-3.5 h-3.5 text-[#07845E]" />
-              Corporate Identity
-            </span>
-            <h2
-              id="about-teaser-heading"
-              className="mb-5 text-3xl font-extrabold text-[#123D32] sm:text-4xl tracking-tight leading-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              A Heritage Built on Quality, Sourcing &amp; Compliance
-            </h2>
-            <p className="mb-5 text-base text-[#53635C] leading-relaxed">
-              Zilton Life Care Private Limited is a dedicated pharmaceutical marketing organisation based in Mumbai. We specialize in bringing audited, premium-grade hospital and clinical formulations to healthcare providers across India.
-            </p>
-            <p className="mb-8 text-base text-[#53635C] leading-relaxed">
-              Guided by our foundational principle — <em className="font-semibold text-[#123D32]">"{COMPANY.mission}"</em> — we ensure every batch adheres to strict Good Distribution Practices (GDP) and certified cGMP manufacturing protocols.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Button to="/about" variant="outline">
-                Our Corporate Profile <ArrowRight size={16} className="ml-2" />
-              </Button>
-              <Button to="/quality" variant="outline">
-                Quality Assurance Framework
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: Product categories ───────────────────────────── */
-function ProductCategories() {
-  const categories = [
-    {
-      id: "critical-care-injection",
-      label: "Critical Care Injections",
-      badge: "Sterile Injectables",
-      icon: <ShieldCheck size={28} className="text-[#07845E]" />,
-      description:
-        "High-potency, sterile lyophilized and liquid injectable formulations engineered for hospital intensive care units, emergency settings, and acute surgical therapy.",
-      highlights: ["Sterile ICU formulations", "Batch-tested purity", "Complete COA documentation"],
-    },
-    {
-      id: "nutrition-iv",
-      label: "Clinical Nutrition IV",
-      badge: "Infusion Solutions",
-      icon: <Leaf size={28} className="text-[#07845E]" />,
-      description:
-        "Balanced parenteral nutrition and amino acid infusions formulated to sustain critically ill, post-operative, and catabolic patients requiring targeted vascular feeding.",
-      highlights: ["Balanced amino-acid profiles", "Targeted osmolarity", "Strict particulate control"],
-    },
-    {
-      id: "nutrition-sachet",
-      label: "Nutritional Sachets",
-      badge: "Oral Therapeutics",
-      icon: <Handshake size={28} className="text-[#07845E]" />,
-      description:
-        "High-bioavailability dietary and nutritional supplements packed in hermetically sealed sachets for enhanced shelf stability and precise therapeutic administration.",
-      highlights: ["Hermetically sealed packaging", "Patient-compliant dosing", "Targeted micronutrition"],
-    },
-  ];
-
-  return (
-    <section
-      className="py-20 sm:py-28 bg-[#FAFCFA]"
-      aria-labelledby="products-section-heading"
-    >
-      <Container>
-        <SectionHeading
-          eyebrow="Core Portfolios"
-          title="Clinical Formulations"
-          description="Three focused therapeutic divisions delivering certified formulations to hospitals, distributors, and healthcare institutions."
-          align="center"
-          className="mb-14"
-        />
-
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              className="luxury-card flex flex-col justify-between p-8 rounded-2xl bg-white border border-[#E4EBE6] hover:border-[#07845E]/40"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#DFF1E9] text-[#07845E]">
-                    {cat.icon}
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#123D32] bg-[#F2F7F4] border border-[#E4EBE6] px-3 py-1 rounded-full">
-                    {cat.badge}
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-bold text-[#123D32] mb-3"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {cat.label}
-                </h3>
-                <p className="text-sm text-[#53635C] leading-relaxed mb-6">
-                  {cat.description}
-                </p>
-
-                <div className="space-y-2 mb-8 pt-4 border-t border-[#E4EBE6]/60">
-                  {cat.highlights.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#123D32]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#07845E] shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link
-                to={`/products#${cat.id}`}
-                className="inline-flex items-center justify-between w-full pt-4 border-t border-[#E4EBE6] text-sm font-semibold text-[#07845E] hover:text-[#123D32] transition-colors group"
-              >
-                <span>View Formulations</span>
-                <ArrowRight size={16} className="transform transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-14 text-center">
-          <Button to="/products" size="lg" className="shadow-xs">
-            Browse Complete Catalogue
-          </Button>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: Quality teaser banner ────────────────────────── */
-function QualityTeaser() {
-  return (
-    <section
-      className="py-16 sm:py-24 bg-white"
-      aria-labelledby="quality-teaser-heading"
-    >
-      <Container>
-        <div className="relative overflow-hidden rounded-3xl bg-[#123D32] px-8 py-16 text-center text-white sm:px-16 lg:py-20 shadow-xl">
-          {/* Subtle gradient background glow */}
-          <div
-            className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#07845E]/20 blur-3xl"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-[#DFF1E9]/10 blur-2xl"
-            aria-hidden="true"
-          />
-
-          <div className="relative max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFF1E9] mb-5">
-              <Award className="w-4 h-4 text-[#DFF1E9]" />
-              cGMP Sourced &amp; Quality Controlled
-            </span>
-
-            <h2
-              id="quality-teaser-heading"
-              className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl tracking-tight leading-tight mb-6"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Unyielding Commitment to Clinical Standards
-            </h2>
-
-            <p className="mb-10 text-base sm:text-lg text-[#DFF1E9]/85 leading-relaxed font-light">
-              We mandate thorough Certificate of Analysis (COA) verification, cold-chain integrity, and audited batch traceability across every formulation delivered into the healthcare ecosystem.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button to="/quality" size="lg" variant="secondary">
-                Explore Quality Assurance <ArrowRight size={16} className="ml-2" />
-              </Button>
-              <Button to="/contact" size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:border-white">
-                Request COA Documents
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: Vision, Mission, Values ──────────────────────── */
-function VisionMissionValues() {
-  return (
-    <section
-      className="py-20 sm:py-28 bg-[#F2F7F4] border-y border-[#E4EBE6]"
-      aria-labelledby="vmv-heading"
-    >
-      <Container>
-        <SectionHeading
-          eyebrow="Corporate Purpose"
-          title="Vision, Mission &amp; Values"
-          description="The principles that govern our operations, ethical distribution standards, and healthcare industry partnerships."
-          align="center"
-          className="mb-14"
-        />
-
-        {/* Vision & Mission Split Cards */}
-        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="luxury-card rounded-2xl border border-[#E4EBE6] bg-white p-8 sm:p-10">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#07845E] bg-[#DFF1E9] px-3 py-1 rounded-full">
-                Vision
-              </span>
-              <Sparkles className="w-5 h-5 text-[#07845E]" />
-            </div>
-            <p
-              className="text-2xl font-extrabold text-[#123D32] leading-snug"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              "{COMPANY.vision}"
-            </p>
-            <p className="mt-4 text-sm text-[#53635C] leading-relaxed">
-              Striving toward an ecosystem where every hospital, patient, and clinician has reliable access to tested therapeutic treatments without compromise.
-            </p>
-          </div>
-
-          <div className="luxury-card rounded-2xl border border-[#E4EBE6] bg-white p-8 sm:p-10">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#07845E] bg-[#DFF1E9] px-3 py-1 rounded-full">
-                Mission
-              </span>
-              <FlaskConical className="w-5 h-5 text-[#07845E]" />
-            </div>
-            <p
-              className="text-2xl font-extrabold text-[#123D32] leading-snug"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              "{COMPANY.mission}"
-            </p>
-            <p className="mt-4 text-sm text-[#53635C] leading-relaxed">
-              Bridging premier cGMP pharmaceutical manufacturing with institutional demand through rigorous compliance and dependable distribution.
-            </p>
-          </div>
-        </div>
-
-        {/* Core Values 6-Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {COMPANY.values.map((value, idx) => (
-            <div
-              key={value.label}
-              className="luxury-card flex flex-col p-6 rounded-2xl border border-[#E4EBE6] bg-white"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#DFF1E9] text-[#123D32] text-xs font-bold">
-                  0{idx + 1}
-                </span>
-                <h3
-                  className="font-bold text-[#123D32] text-base"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {value.label}
-                </h3>
-              </div>
-              <p className="text-sm text-[#53635C] leading-relaxed">
-                {value.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: Institutional Supply CTA ─────────────────────── */
-function InstitutionalCTA() {
-  return (
-    <section className="py-20 sm:py-28 bg-white" aria-labelledby="institutional-heading">
-      <Container>
-        <div className="max-w-3xl mx-auto text-center">
-          <SectionHeading
-            eyebrow="Commercial Enquiries"
-            title="Institutional Distribution &amp; Supply"
-            description="We welcome collaboration with authorized pharmaceutical stockists, healthcare hospital networks, and state healthcare institutions across India."
-            align="center"
-            className="mb-8"
-          />
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button to="/contact" size="lg">
-              Initiate Commercial Enquiry
-            </Button>
-            <Button to="/products" size="lg" variant="outline">
-              Review Product Specs
-            </Button>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Section: Contact Bar ──────────────────────────────────── */
-function ContactBar() {
-  return (
-    <section className="py-12 bg-[#DFF1E9] border-t border-[#E4EBE6]" aria-labelledby="contact-bar-heading">
-      <Container>
-        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
-          <div>
-            <h3
-              id="contact-bar-heading"
-              className="text-lg font-bold text-[#123D32]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Direct Corporate Liaison
-            </h3>
-            <p className="text-sm text-[#53635C] mt-0.5">
-              Connect directly with our regulatory and commercial team in Mumbai.
-            </p>
-          </div>
-          <Button to="/contact" size="md">
-            Contact Support Desk <ArrowRight size={16} className="ml-2" />
-          </Button>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ─── Page export ────────────────────────────────────────────── */
 export default function HomePage() {
   return (
-    <>
-      <Hero />
-      <AboutTeaser />
-      <ProductCategories />
-      <QualityTeaser />
-      <VisionMissionValues />
-      <InstitutionalCTA />
-      <ContactBar />
-    </>
+    <div className="overflow-hidden">
+      {/* ─── 1. HERO SECTION ───────────────────────────────────── */}
+      <section className="relative min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-between pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center flex-1">
+          {/* Left Column: Headlines & Positioning */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            {/* Single Elegant Tag */}
+            <div className="mb-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#0B996F] animate-pulse" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#1F3D33] font-semibold">
+                Institutional Pharma Marketing · Mumbai
+              </span>
+            </div>
+
+            {/* Main Headline: Line-by-line mask reveal with italic word */}
+            <div className="text-fluid-hero font-editorial font-bold text-[#1F3D33] tracking-tighter">
+              <SplitLines italicWord="Lives.">
+                {"Better Healthcare.\nHealthier Lives."}
+              </SplitLines>
+            </div>
+
+            <p className="mt-6 text-base sm:text-lg text-[#4A6056] leading-relaxed max-w-xl font-light">
+              We market hospital-grade critical care parenterals and specialized clinical nutrition formulations, built upon rigorous cGMP partner audits and disciplined distribution.
+            </p>
+
+            {/* Hero CTAs */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Magnetic strength={0.25}>
+                <Link
+                  to="/products"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 shadow-md"
+                >
+                  <span>Explore 12 Formulations</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Magnetic>
+
+              <Magnetic strength={0.2}>
+                <Link
+                  to="/quality"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-transparent hover:bg-[#1F3D33]/5 text-[#1F3D33] border border-[#1F3D33]/25 font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200"
+                >
+                  <span>Quality Framework</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </Magnetic>
+            </div>
+          </div>
+
+          {/* Right Column: Abstract SVG Composition + Layered Slot */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            <div className="relative w-full max-w-md aspect-square rounded-3xl bg-[#FCFAF5] border border-[#1F3D33]/15 p-6 shadow-sm overflow-hidden flex flex-col justify-between">
+              {/* Abstract Technical Grid & Orbit Lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40">
+                <defs>
+                  <pattern id="hero-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1F3D33" strokeWidth="0.5" strokeOpacity="0.15" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#hero-grid)" />
+                {/* Orbital concentric rings */}
+                <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#0B996F" strokeWidth="1" strokeDasharray="4 4" className="animate-[spin_40s_linear_infinite]" />
+                <circle cx="50%" cy="50%" r="22%" fill="none" stroke="#1F3D33" strokeWidth="1" opacity="0.3" />
+                {/* Temperature Line Indicator */}
+                <path d="M 30 220 Q 120 180 200 240 T 380 200" fill="none" stroke="#0B996F" strokeWidth="2" strokeDasharray="6 3" />
+              </svg>
+
+              {/* Top Technical Metadata */}
+              <div className="relative z-10 flex items-center justify-between font-mono text-[10px] text-[#1F3D33]/60 tracking-wider">
+                <span>SYSTEM ID / ZLC-2026</span>
+                <span className="flex items-center gap-1 text-[#0B996F]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0B996F]" />
+                  BATCH COMPLIANT
+                </span>
+              </div>
+
+              {/* Center Abstract Emblem & Cold Chain Metric */}
+              <div className="relative z-10 my-auto text-center flex flex-col items-center">
+                <div className="w-16 h-16 rounded-2xl bg-[#1F3D33] text-[#F6F4EE] flex items-center justify-center p-3 shadow-lg mb-3">
+                  <img
+                    src="/images/branding/logo-512.png"
+                    alt="Zilton Emblem"
+                    className="w-full h-full object-contain filter invert"
+                  />
+                </div>
+                <h3 className="font-editorial text-lg font-bold text-[#1F3D33]">
+                  Cold-Chain Precision
+                </h3>
+                <span className="font-mono text-xs text-[#0B996F] font-semibold mt-0.5">
+                  2°C – 8°C Monitored Line
+                </span>
+              </div>
+
+              {/* Bottom Architectural Image Slot (Optional Layer) */}
+              <div className="relative z-10 pt-3 border-t border-[#1F3D33]/10 flex items-center justify-between font-mono text-[9px] text-[#4A6056]">
+                <span>DIVISIONS: CRITICAL CARE / NUTRITION</span>
+                <span>MUMBAI DESK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Thin Live Ticker Row (Replaces the old 3 stat boxes) */}
+        <div className="mt-12 pt-6 border-t border-[#1F3D33]/15 grid grid-cols-3 gap-4 font-mono text-center sm:text-left">
+          <div>
+            <span className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D33]">
+              <CountUp end={3} duration={1} />
+            </span>
+            <span className="block text-[11px] uppercase tracking-wider text-[#4A6056] mt-0.5">
+              Clinical Divisions
+            </span>
+          </div>
+
+          <div>
+            <span className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D33]">
+              <CountUp end={12} duration={1.2} />
+            </span>
+            <span className="block text-[11px] uppercase tracking-wider text-[#4A6056] mt-0.5">
+              Formulations Marketed
+            </span>
+          </div>
+
+          <div>
+            <span className="text-2xl sm:text-3xl font-bold font-editorial text-[#0B996F]">
+              GDP
+            </span>
+            <span className="block text-[11px] uppercase tracking-wider text-[#4A6056] mt-0.5">
+              Cold-Chain Compliance
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 2. MARQUEE STRIP ──────────────────────────────────── */}
+      <Marquee
+        items={[
+          "Critical Care Injections",
+          "Clinical Nutrition IV",
+          "Nutritional Sachets",
+          "GDP Compliant Logistics",
+          "Institutional Supply Only",
+          "Schedule M Certified Partners",
+        ]}
+      />
+
+      {/* ─── 3. WHO WE ARE & 3-STEP FLOW ───────────────────────── */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto border-b border-[#1F3D33]/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left: ScrollText Statement & 3-Step Flow */}
+          <div className="lg:col-span-7">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-4">
+              01 / Enterprise Identity
+            </span>
+
+            <ScrollText as="h2">
+              Zilton Life Care is an institutional pharmaceutical marketing enterprise dedicated to therapeutic precision, verified quality parameters, and disciplined supply to intensive healthcare facilities.
+            </ScrollText>
+
+            {/* 3-Step Pathway with DrawPath SVG */}
+            <div id="pathway-flow" className="mt-16 space-y-8 relative pl-6 border-l-2 border-[#1F3D33]/15">
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#1F3D33] text-[#F6F4EE] flex items-center justify-center font-mono text-[9px] font-bold">
+                  1
+                </span>
+                <h4 className="font-editorial text-lg font-bold text-[#1F3D33]">
+                  Audited cGMP Manufacturing
+                </h4>
+                <p className="text-sm text-[#4A6056] mt-1 leading-relaxed font-light">
+                  All formulations are compounded in certified partner facilities operating in compliance with statutory Schedule M cleanroom standards.
+                </p>
+              </div>
+
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#0B996F] text-white flex items-center justify-center font-mono text-[9px] font-bold">
+                  2
+                </span>
+                <h4 className="font-editorial text-lg font-bold text-[#1F3D33]">
+                  Mumbai Quality Review
+                </h4>
+                <p className="text-sm text-[#4A6056] mt-1 leading-relaxed font-light">
+                  Batch testing archives and analytical Certificates of Analysis (CoAs) are examined prior to market release.
+                </p>
+              </div>
+
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#1F3D33] text-[#F6F4EE] flex items-center justify-center font-mono text-[9px] font-bold">
+                  3
+                </span>
+                <h4 className="font-editorial text-lg font-bold text-[#1F3D33]">
+                  Hospitals, ICUs &amp; Stockists
+                </h4>
+                <p className="text-sm text-[#4A6056] mt-1 leading-relaxed font-light">
+                  Dispatched under temperature-governed protocols directly to institutional pharmacies and licensed distributors.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Architectural ImageSlot */}
+          <div className="lg:col-span-5">
+            <ImageSlot
+              slotKey="aboutPlant"
+              ratio="4/5"
+              caption="Cleanroom terminal packaging and batch inspection."
+              className="shadow-md"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 4. PORTFOLIO DIVISIONS (Pinned Scene Style) ──────── */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 pb-6 border-b border-[#1F3D33]/15 gap-4">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-2">
+              02 / Clinical Focus
+            </span>
+            <h2 className="text-fluid-h2 font-editorial font-bold text-[#1F3D33]">
+              Three Targeted Portfolios
+            </h2>
+          </div>
+          <p className="text-sm text-[#4A6056] max-w-sm font-light">
+            Therapeutic lines specifically formulated for intensive hospital settings and clinical recovery.
+          </p>
+        </div>
+
+        {/* 3 Full-Height Division Panels */}
+        <div className="space-y-12">
+          {PRODUCT_CATEGORIES.map((cat, idx) => {
+            const num = `0${idx + 1}`;
+            return (
+              <div
+                key={cat.id}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-12 rounded-3xl bg-[#FCFAF5] border border-[#1F3D33]/15 hover:border-[#0B996F]/40 transition-colors duration-300"
+              >
+                <div className="lg:col-span-7">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="font-mono text-xs font-bold text-[#0B996F] bg-[#DFEAE2] px-3 py-1 rounded-full">
+                      {num} / DIVISION
+                    </span>
+                    <span className="font-mono text-xs text-[#4A6056]">
+                      Rx Institutional
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-editorial font-bold text-[#1F3D33] mb-3">
+                    {cat.name}
+                  </h3>
+
+                  <p className="text-sm sm:text-base text-[#4A6056] leading-relaxed mb-6 font-light">
+                    {cat.description}
+                  </p>
+
+                  <div className="pt-4 border-t border-[#1F3D33]/10 flex flex-wrap items-center gap-3">
+                    <Link
+                      to={`/products#${cat.id}`}
+                      className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider font-bold text-[#1F3D33] hover:text-[#0B996F] transition-colors"
+                    >
+                      <span>View Division Range</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5">
+                  <ImageSlot
+                    slotKey={`division.${cat.id}`}
+                    ratio="16/9"
+                    caption={`${cat.name} clinical formulation profile.`}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ─── 5. QUALITY: SINGLE DARK FULL-BLEED BAND ─────────── */}
+      <section className="bg-[#1F3D33] text-[#F6F4EE] py-20 sm:py-28 my-16 select-none">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-3">
+              03 / Rigorous Governance
+            </span>
+            <h2 className="text-fluid-h2 font-editorial font-bold text-white tracking-tight leading-tight">
+              Engineered for therapeutic efficacy. Every batch verified before clinical dispatch.
+            </h2>
+          </div>
+
+          {/* 4 Animated Metric Columns — Clean Typography, No Boxed Cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-10 border-t border-white/10 font-mono">
+            <div>
+              <span className="text-3xl sm:text-4xl font-bold font-editorial text-white block">
+                cGMP
+              </span>
+              <span className="text-xs text-[#0B996F] font-semibold uppercase tracking-wider block mt-1">
+                Partner Audited
+              </span>
+              <p className="text-[11px] text-white/60 mt-1 leading-relaxed font-light">
+                Schedule M certified contract production facilities.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-3xl sm:text-4xl font-bold font-editorial text-white block">
+                100%
+              </span>
+              <span className="text-xs text-[#0B996F] font-semibold uppercase tracking-wider block mt-1">
+                CoA Archive
+              </span>
+              <p className="text-[11px] text-white/60 mt-1 leading-relaxed font-light">
+                Certificates of Analysis provided upon institutional request.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-3xl sm:text-4xl font-bold font-editorial text-white block">
+                2°–8°C
+              </span>
+              <span className="text-xs text-[#0B996F] font-semibold uppercase tracking-wider block mt-1">
+                Cold-Chain Monitored
+              </span>
+              <p className="text-[11px] text-white/60 mt-1 leading-relaxed font-light">
+                Thermal validation for sensitive injectable solutions.
+              </p>
+            </div>
+
+            <div>
+              <span className="text-3xl sm:text-4xl font-bold font-editorial text-white block">
+                LOT ID
+              </span>
+              <span className="text-xs text-[#0B996F] font-semibold uppercase tracking-wider block mt-1">
+                Batch Traceability
+              </span>
+              <p className="text-[11px] text-white/60 mt-1 leading-relaxed font-light">
+                Linear documentation from production to hospital pharmacy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. CLOSING CTA: OVERSIZED "LET'S TALK." ─────────── */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto text-center">
+        <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-4">
+          Institutional Dialogue
+        </span>
+
+        <h2 className="font-editorial text-[10vw] sm:text-[8vw] font-bold text-[#1F3D33] tracking-tighter leading-none mb-8">
+          Let&apos;s talk.
+        </h2>
+
+        <p className="text-base sm:text-lg text-[#4A6056] max-w-lg mx-auto font-light leading-relaxed mb-10">
+          Connect directly with our Mumbai corporate desk for hospital quotations, batch allocations, or distribution partnerships.
+        </p>
+
+        <div className="flex justify-center">
+          <Magnetic strength={0.3}>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] font-mono text-sm uppercase tracking-wider font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl"
+            >
+              <span>Start a conversation</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Magnetic>
+        </div>
+      </section>
+    </div>
   );
 }

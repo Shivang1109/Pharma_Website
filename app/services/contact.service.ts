@@ -7,34 +7,60 @@ export interface ContactSubmissionResponse {
   message: string;
   submissionId?: string;
   timestamp?: string;
+  isSimulated: boolean;
+  receivedData?: {
+    fullName: string;
+    organization?: string;
+    email: string;
+    phone: string;
+    enquiryType: string;
+    productName?: string;
+    subject: string;
+  };
 }
 
 /**
  * Service to dispatch contact enquiries.
  * 
- * Note for production:
- * Integrate the client-approved submission provider (e.g. Resend, AWS SES serverless function, or Formspree)
- * here once recipient credentials and provider are selected.
- * NEVER expose private API keys or SMTP passwords in frontend code.
+ * Production Integration Architecture:
+ * - When the client provisions official corporate mailboxes and selects an email dispatch service
+ *   (e.g., AWS SES, Resend, SendGrid, or corporate SMTP relay via an authenticated server action / API route),
+ *   wire the POST call here.
+ * - Current State: Validated frontend simulation with reference code generation.
+ * - Security note: NEVER expose private API keys or SMTP passwords in frontend bundle code.
  */
 export async function submitContactForm(
   payload: ContactPayload
 ): Promise<ContactSubmissionResponse> {
-  // Simulate network dispatch with realistic latency
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  // Simulate network latency (750ms)
+  await new Promise((resolve) => setTimeout(resolve, 750));
 
-  if (!payload.email || !payload.fullName || !payload.message) {
+  if (!payload.email || !payload.fullName || !payload.message || !payload.subject) {
     return {
       success: false,
-      message: "Mandatory enquiry fields are missing. Please verify your submission.",
+      message: "Mandatory enquiry fields are missing. Please verify all required inputs.",
+      isSimulated: true,
     };
   }
+
+  // Generate deterministic-style reference identifier
+  const refCode = `ZLC-${Date.now().toString(36).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`;
 
   return {
     success: true,
     message:
-      "Thank you for reaching out to ZILTON LIFE CARE. Your enquiry has been received and our corporate representative will connect with you shortly.",
-    submissionId: `ZLC-${Date.now().toString(36).toUpperCase()}`,
+      "Your corporate enquiry has been successfully logged on this staging environment. In production, this record will be securely dispatched to ZILTON LIFE CARE's designated executive desk.",
+    submissionId: refCode,
     timestamp: new Date().toISOString(),
+    isSimulated: true,
+    receivedData: {
+      fullName: payload.fullName,
+      organization: payload.organization,
+      email: payload.email,
+      phone: payload.phone,
+      enquiryType: payload.enquiryType,
+      productName: payload.productName,
+      subject: payload.subject,
+    },
   };
 }

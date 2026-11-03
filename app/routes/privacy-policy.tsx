@@ -1,14 +1,13 @@
 import { LegalPageLayout } from "~/components/sections/legal/LegalPageLayout";
+import { generateRouteMeta } from "~/utils/seo";
 
 export function meta() {
-  return [
-    { title: "Privacy Policy | ZILTON LIFE CARE PRIVATE LIMITED" },
-    {
-      name: "description",
-      content:
-        "Privacy Policy for ZILTON LIFE CARE PRIVATE LIMITED detailing our data handling practices for business enquiries.",
-    },
-  ];
+  return generateRouteMeta({
+    title: "Privacy Policy",
+    description:
+      "Privacy Policy for ZILTON LIFE CARE PRIVATE LIMITED detailing our data handling practices for business enquiries.",
+    canonicalPath: "/privacy-policy",
+  });
 }
 
 export default function PrivacyPolicyPage() {

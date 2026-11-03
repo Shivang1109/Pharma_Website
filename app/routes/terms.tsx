@@ -1,14 +1,13 @@
 import { LegalPageLayout } from "~/components/sections/legal/LegalPageLayout";
+import { generateRouteMeta } from "~/utils/seo";
 
 export function meta() {
-  return [
-    { title: "Terms of Use | ZILTON LIFE CARE PRIVATE LIMITED" },
-    {
-      name: "description",
-      content:
-        "Terms and Conditions governing the use of the corporate website of ZILTON LIFE CARE PRIVATE LIMITED.",
-    },
-  ];
+  return generateRouteMeta({
+    title: "Terms of Use",
+    description:
+      "Terms and Conditions governing the use of the corporate website of ZILTON LIFE CARE PRIVATE LIMITED.",
+    canonicalPath: "/terms",
+  });
 }
 
 export default function TermsPage() {

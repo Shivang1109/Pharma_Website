@@ -1,142 +1,160 @@
-import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router";
-import { Menu, X } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NAV_ITEMS } from "~/data/navigation";
 import { COMPANY } from "~/data/company";
-import { Button } from "~/components/common/Button";
-import { Container } from "~/components/common/Container";
+import { Magnetic } from "~/components/motion/Magnetic";
 
-export function Navbar() {
+export const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const location = useLocation();
 
-  // Add shadow on scroll
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 20);
+
+      // Hide on scroll down, show on scroll up
+      if (currentY > lastScrollY.current && currentY > 150) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
+  // Close mobile menu on route change
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) setMenuOpen(false);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const activeLinkClass = ({ isActive }: { isActive: boolean }) =>
-    [
-      "text-sm font-semibold transition-all duration-200 relative py-1",
-      isActive
-        ? "text-[#07845E] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#07845E] after:rounded-full"
-        : "text-[#53635C] hover:text-[#07845E]",
-    ].join(" ");
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <header
-      className={[
-        "sticky top-0 z-50 bg-[#FAFCFA]/90 backdrop-blur-md transition-all duration-300 border-b",
+      className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
-          ? "border-[#E4EBE6] shadow-[0_4px_20px_rgba(18,61,50,0.06)]"
-          : "border-transparent",
-      ].join(" ")}
-      role="banner"
+          ? "bg-[#F6F4EE]/90 backdrop-blur-md border-b border-[#1F3D33]/10 py-3.5 shadow-xs"
+          : "bg-transparent py-5"
+      }`}
     >
-      <Container>
-        <nav
-          className="flex h-18 items-center justify-between"
-          aria-label="Main navigation"
-        >
-          {/* Logo / Brand */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="flex items-center justify-between" aria-label="Main Navigation">
+          {/* Logo & Clinical Wordmark */}
           <Link
             to="/"
-            className="flex flex-col leading-none focus-visible:outline-[#07845E] group"
-            aria-label={`${COMPANY.shortName} — home`}
+            className="flex items-center gap-3 group focus-visible:outline-[#0B996F]"
+            aria-label={`${COMPANY.name} — Homepage`}
           >
-            <span
-              className="text-xl font-extrabold tracking-tight text-[#123D32] group-hover:text-[#07845E] transition-colors"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              ZILTON
-            </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#07845E] mt-0.5">
-              Life Care
-            </span>
+            <div className="w-10 h-10 rounded-lg bg-[#1F3D33] p-1.5 flex items-center justify-center text-[#F6F4EE] shadow-xs group-hover:scale-105 transition-transform">
+              <img
+                src="/images/branding/logo-512.png"
+                alt="Zilton Logo"
+                className="w-full h-full object-contain filter invert contrast-200"
+              />
+            </div>
+            <div className="flex flex-col leading-none">
+              <span className="font-editorial text-lg tracking-tight font-bold text-[#1F3D33]">
+                Zilton
+              </span>
+              <span className="font-mono text-[9px] tracking-widest uppercase text-[#0B996F] font-semibold mt-0.5">
+                Life Care
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop nav links */}
-          <ul className="hidden md:flex items-center gap-8" role="list">
+          {/* Desktop Nav Items with Sliding Underline Indicator */}
+          <ul className="hidden md:flex items-center gap-8 relative" role="list">
             {NAV_ITEMS.map((item) => (
-              <li key={item.to}>
-                <NavLink to={item.to} className={activeLinkClass} end={item.to === "/"}>
-                  {item.label}
+              <li key={item.to} className="relative">
+                <NavLink
+                  to={item.to}
+                  end={item.to === "/"}
+                  className={({ isActive }) =>
+                    `text-xs font-mono uppercase tracking-wider font-semibold transition-colors py-2 ${
+                      isActive ? "text-[#1F3D33]" : "text-[#4A6056] hover:text-[#0B996F]"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {item.label}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0B996F] rounded-full animate-in fade-in duration-300" />
+                      )}
+                    </>
+                  )}
                 </NavLink>
               </li>
             ))}
           </ul>
 
-          {/* Desktop CTA */}
+          {/* Desktop Magnetic Enquiry Action */}
           <div className="hidden md:block">
-            <Button to="/contact" size="sm">
-              Get in Touch
-            </Button>
+            <Magnetic strength={0.3}>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] text-xs font-mono uppercase tracking-wider font-semibold shadow-xs transition-colors duration-200"
+              >
+                <span>Institutional Desk</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </Magnetic>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile Menu Hamburger */}
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-xl p-2.5 text-[#53635C] hover:bg-[#DFF1E9] transition-colors focus-visible:outline-[#07845E]"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 text-[#1F3D33] hover:bg-[#1F3D33]/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B996F]"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpen((prev) => !prev)}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </nav>
-      </Container>
 
-      {/* Mobile menu panel */}
-      {menuOpen && (
-        <div
-          id="mobile-menu"
-          className="md:hidden border-t border-[#E4EBE6] bg-[#FAFCFA] shadow-lg animate-fade-in"
-          role="dialog"
-          aria-label="Navigation menu"
-        >
-          <Container>
-            <ul className="flex flex-col gap-1 py-4" role="list">
+        {/* Mobile Navigation Drawer */}
+        {menuOpen && (
+          <div className="md:hidden mt-4 pt-4 pb-6 border-t border-[#1F3D33]/10 bg-[#F6F4EE] animate-in fade-in slide-in-from-top-2 duration-200">
+            <ul className="space-y-3 px-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <NavLink
                     to={item.to}
                     end={item.to === "/"}
                     className={({ isActive }) =>
-                      [
-                        "block rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
+                      `block px-3 py-2 rounded-lg text-sm font-mono tracking-wider uppercase font-semibold ${
                         isActive
-                          ? "bg-[#DFF1E9] text-[#07845E]"
-                          : "text-[#53635C] hover:bg-[#F2F7F4] hover:text-[#07845E]",
-                      ].join(" ")
+                          ? "bg-[#1F3D33] text-[#F6F4EE]"
+                          : "text-[#4A6056] hover:bg-[#1F3D33]/5 text-[#1F3D33]"
+                      }`
                     }
-                    onClick={() => setMenuOpen(false)}
                   >
                     {item.label}
                   </NavLink>
                 </li>
               ))}
-              <li className="mt-3 pt-3 border-t border-[#E4EBE6]">
-                <Button to="/contact" size="sm" className="w-full justify-center">
-                  Get in Touch
-                </Button>
-              </li>
             </ul>
-          </Container>
-        </div>
-      )}
+            <div className="mt-4 pt-3 border-t border-[#1F3D33]/10 px-2">
+              <Link
+                to="/contact"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1F3D33] text-[#F6F4EE] text-xs font-mono uppercase tracking-wider font-semibold"
+              >
+                <span>Institutional Enquiry</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
-}
-
+};

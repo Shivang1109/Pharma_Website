@@ -1,14 +1,13 @@
 import { LegalPageLayout } from "~/components/sections/legal/LegalPageLayout";
+import { generateRouteMeta } from "~/utils/seo";
 
 export function meta() {
-  return [
-    { title: "Legal & Medical Disclaimer | ZILTON LIFE CARE PRIVATE LIMITED" },
-    {
-      name: "description",
-      content:
-        "Important pharmaceutical and medical disclaimer for ZILTON LIFE CARE PRIVATE LIMITED website visitors.",
-    },
-  ];
+  return generateRouteMeta({
+    title: "Legal & Medical Disclaimer",
+    description:
+      "Important pharmaceutical and medical disclaimer for ZILTON LIFE CARE PRIVATE LIMITED website visitors.",
+    canonicalPath: "/disclaimer",
+  });
 }
 
 export default function DisclaimerPage() {

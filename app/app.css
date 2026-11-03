@@ -1,141 +1,158 @@
-/* ─── Google Fonts — must come before @import "tailwindcss" ─── */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+/* ─── Google Fonts — Clinical Editorial Typography ─────────── */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap");
 
 @import "tailwindcss";
 
-/* ─── Approved Minimal Luxury Corporate Design Tokens ───────── */
+/* ─── Clinical Editorial Design System Tokens ───────────────── */
 @theme {
   /* Typography */
-  --font-heading: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-sans:    "Inter",   ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Manrope", Georgia, serif;
+  --font-heading: "Fraunces", "Manrope", Georgia, serif;
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Approved Brand Color Palette */
-  --color-forest-primary:   #123D32;
-  --color-emerald-primary:  #07845E;
-  --color-emerald-hover:    #05684A;
-  --color-sage-soft:        #DFF1E9;
-  --color-bg-main:          #FAFCFA;
+  /* Palette: Warm Paper & Deep Pharma Green */
+  --color-paper:            #F6F4EE;
+  --color-paper-soft:       #ECE8DF;
+  --color-paper-card:       #FCFAF5;
+  --color-ink:              #1F3D33;
+  --color-ink-muted:        #4A6056;
+  --color-ink-faint:        #84978E;
+  
+  --color-emerald-accent:   #0B996F;
+  --color-emerald-deep:     #086B4E;
+  --color-sage-soft:        #DFEAE2;
+  
+  --color-amber-accent:     #D97706;
+
+  /* Legacy brand token aliases for backwards compatibility */
+  --color-forest-primary:   #1F3D33;
+  --color-forest-deep:      #162C25;
+  --color-emerald-primary:  #0B996F;
+  --color-emerald-hover:    #086B4E;
+  --color-bg-main:          #F6F4EE;
   --color-surface-white:    #FFFFFF;
-  --color-body-text:        #53635C;
-  --color-border-subtle:    #E4EBE6;
-  --color-surface-soft:     #F2F7F4;
+  --color-surface-soft:     #FCFAF5;
+  --color-body-text:        #4A6056;
+  --color-border-subtle:    #E3DDD2;
 
-  /* Backward Compatibility Aliases */
-  --color-emerald-hover-alias: #05684A;
-  --color-mint-soft:        #DFF1E9;
-  --color-forest-deep:      #123D32;
+  /* Container */
+  --container-max:          1280px;
 
-  /* Layout & Geometry */
-  --container-max:          1240px;
-  --radius-luxury-sm:       0.5rem;   /* 8px */
-  --radius-luxury-md:       0.75rem;  /* 12px */
-  --radius-luxury-lg:       1rem;     /* 16px */
-  --radius-luxury-xl:       1.5rem;   /* 24px */
-
-  /* Luxury Shadows */
-  --shadow-luxury-subtle:   0 2px 10px 0 rgba(18, 61, 50, 0.04);
-  --shadow-luxury-card:     0 4px 20px -2px rgba(18, 61, 50, 0.06);
-  --shadow-luxury-hover:    0 16px 32px -6px rgba(18, 61, 50, 0.10);
-  --shadow-luxury-nav:      0 1px 12px 0 rgba(18, 61, 50, 0.05);
+  /* Radii: Mixed Sharp & Refined */
+  --radius-sharp:           0.125rem;
+  --radius-editorial-sm:    0.375rem;
+  --radius-editorial-md:    0.75rem;
+  --radius-editorial-lg:    1.25rem;
+  --radius-editorial-xl:    2rem;
 }
 
 /* ─── Base Styles ────────────────────────────────────────────── */
 html {
-  scroll-behavior: smooth;
-  background-color: #FAFCFA;
+  background-color: #F6F4EE;
+  color: #1F3D33;
+  scroll-behavior: auto; /* Managed by Lenis smooth scroll */
 }
 
 body {
-  background-color: #FAFCFA;
-  color: #53635C;
+  background-color: #F6F4EE;
+  color: #4A6056;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+/* Editorial Serif Headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: #123D32;
-  letter-spacing: -0.02em;
+  color: #1F3D33;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.font-editorial {
+  font-family: var(--font-display);
+}
+
+.font-mono-meta {
+  font-family: var(--font-mono);
+}
+
+/* ─── Editorial Fluid Typography ─────────────────────────────── */
+.text-fluid-hero {
+  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.text-fluid-h2 {
+  font-size: clamp(1.85rem, 3.5vw + 0.5rem, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.text-fluid-h3 {
+  font-size: clamp(1.35rem, 2vw + 0.5rem, 2rem);
   line-height: 1.2;
 }
 
-/* ─── Accessible Focus Ring ──────────────────────────────────── */
-:focus-visible {
-  outline: 2px solid #07845E;
-  outline-offset: 3px;
-  border-radius: 6px;
+/* ─── Selection & Scrollbar ──────────────────────────────────── */
+::selection {
+  background-color: #1F3D33;
+  color: #F6F4EE;
 }
 
-/* ─── Balanced Premium Animations (CSS Engine) ───────────────── */
-@keyframes luxuryFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-@keyframes luxuryFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+::-webkit-scrollbar-track {
+  background: #F6F4EE;
 }
 
-@keyframes luxuryScaleUp {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+::-webkit-scrollbar-thumb {
+  background: #C8D4CC;
+  border-radius: 9999px;
 }
 
-.animate-fade-up {
-  animation: luxuryFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+::-webkit-scrollbar-thumb:hover {
+  background: #0B996F;
 }
 
-.animate-fade-in {
-  animation: luxuryFadeIn 0.5s ease-out forwards;
+/* ─── Shimmer & Mask Keyframes ───────────────────────────────── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 
-.animate-scale-up {
-  animation: luxuryScaleUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes lineReveal {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0%); }
 }
 
-/* Smooth Luxury Card Elevation */
-.luxury-card {
-  background-color: #FFFFFF;
-  border: 1px solid #E4EBE6;
-  border-radius: 1rem;
-  box-shadow: var(--shadow-luxury-subtle);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.28s ease;
+.animate-shimmer {
+  animation: shimmer 3.5s infinite linear;
 }
 
-.luxury-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-luxury-hover);
-  border-color: rgba(7, 132, 94, 0.35);
+/* ─── Line Reveal Mask Wrapper ───────────────────────────────── */
+.line-mask-wrap {
+  overflow: hidden;
+  display: block;
 }
 
-/* ─── Reduced Motion Support ─────────────────────────────────── */
+.line-mask-child {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ─── Reduced Motion Overrides ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

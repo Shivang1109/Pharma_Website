@@ -50,14 +50,14 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#123D32]/60 backdrop-blur-xs transition-opacity duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#123D32]/60 backdrop-blur-xs luxury-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="quick-view-title"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-[#E4EBE6] overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-[#E4EBE6] overflow-hidden flex flex-col max-h-[90vh] luxury-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
@@ -75,7 +75,7 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-full text-[#53635C] hover:text-[#123D32] hover:bg-white transition-colors focus-visible:outline-[#07845E]"
+            className="p-2 rounded-full text-[#53635C] hover:text-[#123D32] hover:bg-white transition-colors focus-visible:outline-[#07845E] cursor-pointer"
             aria-label="Close product quick view"
           >
             <X className="w-5 h-5" />
@@ -86,12 +86,25 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
           {/* Product Title & Visual */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-            <div className="w-32 h-32 shrink-0 bg-[#F2F7F4] rounded-2xl border border-[#E4EBE6] flex items-center justify-center p-4">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-contain"
-              />
+            <div className="w-28 h-28 sm:w-32 sm:h-32 shrink-0 bg-[#F2F7F4] rounded-2xl border border-[#E4EBE6] flex flex-col items-center justify-center p-3 text-center">
+              {product.image ? (
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center">
+                  <img
+                    src="/images/branding/logo-512.png"
+                    alt="Zilton Life Care Mark"
+                    className="w-12 h-12 object-contain opacity-80"
+                  />
+                  <span className="text-[9px] font-bold text-[#123D32] mt-1.5 uppercase tracking-wider">
+                    Packshot Pending
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex-1 text-center sm:text-left">
               <h3
@@ -143,10 +156,10 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
               <Thermometer className="w-5 h-5 text-[#07845E] shrink-0 mt-0.5" />
               <div>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-[#53635C] block">
-                  Storage Conditions
+                  Storage Parameters
                 </span>
                 <span className="text-xs text-[#53635C] block mt-0.5 leading-relaxed">
-                  Store below 25°C. Protect from moisture &amp; direct light. Do not freeze.
+                  Product-specific as per approved packaging insert. Protect from excessive heat, moisture &amp; direct light.
                 </span>
               </div>
             </div>

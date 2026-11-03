@@ -1,25 +1,31 @@
+import React from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { FloatingContactWidget } from "~/components/common/FloatingContactWidget";
+import { LenisProvider } from "~/components/motion/LenisProvider";
+import { CustomCursor } from "~/components/motion/CustomCursor";
+import { Preloader } from "~/components/motion/Preloader";
+import { PageTransition } from "~/components/motion/PageTransition";
 
 type SiteLayoutProps = {
   children: React.ReactNode;
 };
 
-/**
- * Wraps every page with the shared Navbar, Footer, and Floating Contact Widget.
- * Used in root.tsx so all routes inherit the layout automatically.
- */
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col relative bg-[#FAFCFA] selection:bg-[#DFF1E9] selection:text-[#123D32]">
-      <Navbar />
-      <main id="main-content" className="flex-1" tabIndex={-1}>
-        {children}
-      </main>
-      <Footer />
-      <FloatingContactWidget />
-    </div>
+    <LenisProvider>
+      <Preloader />
+      <CustomCursor />
+      <div className="flex min-h-screen flex-col relative bg-[#F6F4EE] text-[#1F3D33] selection:bg-[#1F3D33] selection:text-[#F6F4EE]">
+        <Navbar />
+        <main id="main-content" className="flex-1 pt-20" tabIndex={-1}>
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
+        <Footer />
+        <FloatingContactWidget />
+      </div>
+    </LenisProvider>
   );
 }
-

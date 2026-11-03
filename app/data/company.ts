@@ -23,6 +23,7 @@ export const COMPANY = {
   email:        null,             // PENDING — official email not yet provided
   whatsapp:     null,             // PENDING — confirm if phone is WhatsApp Business
 
+  tagline: "Caring for Life, Committed to Health",
   vision:  "Better Healthcare, Healthier Lives.",
   mission: "Delivering Quality, Building Trust, Improving Lives.",
 

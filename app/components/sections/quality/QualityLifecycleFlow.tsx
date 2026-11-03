@@ -1,79 +1,88 @@
 import React from "react";
-import { CheckCircle2, FlaskConical, ThermometerSnowflake, Hospital } from "lucide-react";
+import { CheckCircle2, FileCheck2, Thermometer, Hospital, Building2, Truck } from "lucide-react";
 
 export const QualityLifecycleFlow: React.FC = () => {
   const steps = [
     {
       step: "01",
-      title: "Partner Audit",
-      subtitle: "Facility Qualification",
+      title: "Partner Qualification",
+      subtitle: "Manufacturing Partner Evaluation",
+      actor: "Contract Manufacturing Plants",
+      role: "Audited by Zilton Life Care",
       description:
-        "Rigorous verification of third-party cleanrooms, air filtration systems, and cGMP compliance before contracting any formulation batch.",
+        "Rigorous verification of licensed third-party cleanrooms, air filtration systems, and cGMP compliance before any formulation agreement is initiated.",
       icon: CheckCircle2,
     },
     {
       step: "02",
-      title: "Analytical Testing",
-      subtitle: "CoA Verification",
+      title: "Documentation Review",
+      subtitle: "Analytical Batch Release",
+      actor: "Testing Laboratories",
+      role: "Reviewed by Zilton Quality Desk",
       description:
-        "Every batch lot undergoes HPLC assay, bacterial endotoxin testing, and absolute sterility verification prior to dispatch authorization.",
-      icon: FlaskConical,
+        "Every production lot is cross-verified against verified testing protocols covering chemical assay, microbial limits, and sterility documentation.",
+      icon: FileCheck2,
     },
     {
       step: "03",
-      title: "Cold-Chain Transit",
-      subtitle: "GDP Storage",
+      title: "Distribution Controls",
+      subtitle: "Product-Specific Handling",
+      actor: "Specialized Logistics Partners",
+      role: "Monitored under GDP Guidelines",
       description:
-        "Strict adherence to temperature thresholds for sensitive injectables and parenteral infusions across regional warehousing nodes.",
-      icon: ThermometerSnowflake,
+        "Preserving formulation potency through dedicated storage and transit conditions aligned strictly with each drug's approved technical specifications.",
+      icon: Thermometer,
     },
     {
       step: "04",
-      title: "Institutional Delivery",
-      subtitle: "Traceable Supply",
+      title: "Institutional Supply",
+      subtitle: "Traceable Hospital Delivery",
+      actor: "Healthcare Institutions & Stockists",
+      role: "Governed by Zilton Distribution",
       description:
-        "Final dispatch to verified hospitals, ICUs, and licensed distribution channel partners with documented lot traceability.",
+        "Authorized dispatch to registered medical practitioners, hospital intensive care units, and licensed stockists with batch lot identification.",
       icon: Hospital,
     },
   ];
 
   return (
-    <div className="py-14 border-t border-[#E4EBE6]">
-      <div className="text-center max-w-2xl mx-auto mb-12">
+    <div className="py-16 sm:py-20 border-t border-[#E4EBE6]">
+      <div className="text-center max-w-2xl mx-auto mb-14">
         <span className="text-xs uppercase tracking-wider font-semibold text-[#123D32] bg-[#DFF1E9] px-3.5 py-1 rounded-full">
           Quality Control Lifecycle
         </span>
         <h2
-          className="mt-4 text-2xl sm:text-3xl font-extrabold text-[#123D32]"
+          className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#123D32]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          The 4-Stage Quality Assurance Cycle
+          The Four-Stage Quality Assurance Cycle
         </h2>
-        <p className="mt-2 text-sm text-[#53635C]">
-          Documented diligence from source manufacturing audit to healthcare facility receipt.
+        <p className="mt-3 text-sm sm:text-base text-[#53635C]">
+          A structured framework distinguishing manufacturing partner execution from Zilton corporate oversight at every milestone.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-container">
         {steps.map((item, idx) => {
           const Icon = item.icon;
           return (
             <div
               key={item.step}
-              className="luxury-card relative p-6 rounded-2xl bg-white border border-[#E4EBE6] hover:border-[#07845E]/40 transition-all flex flex-col justify-between"
+              className="luxury-card hover-lift relative p-6 sm:p-7 rounded-3xl bg-white border border-[#E4EBE6] flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
+                {/* Header Row */}
+                <div className="flex items-center justify-between mb-5">
                   <span className="text-2xl font-black text-[#DFF1E9] font-mono">
                     {item.step}
                   </span>
-                  <div className="p-2.5 rounded-xl bg-[#DFF1E9] text-[#07845E]">
+                  <div className="p-3 rounded-2xl bg-[#DFF1E9] text-[#07845E] shadow-2xs">
                     <Icon className="w-5 h-5" />
                   </div>
                 </div>
 
                 <h3
-                  className="text-base font-bold text-[#123D32] leading-snug"
+                  className="text-lg font-bold text-[#123D32] leading-snug"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {item.title}
@@ -82,7 +91,17 @@ export const QualityLifecycleFlow: React.FC = () => {
                   {item.subtitle}
                 </span>
 
-                <p className="mt-3 text-xs text-[#53635C] leading-relaxed">
+                {/* Actor & Oversight Pill */}
+                <div className="mt-4 p-2.5 rounded-xl bg-[#F2F7F4] border border-[#E4EBE6] text-[11px] space-y-0.5">
+                  <span className="text-[#53635C] block">
+                    Execution: <strong className="text-[#123D32]">{item.actor}</strong>
+                  </span>
+                  <span className="text-[#07845E] font-medium block">
+                    Oversight: {item.role}
+                  </span>
+                </div>
+
+                <p className="mt-4 text-xs sm:text-sm text-[#53635C] leading-relaxed">
                   {item.description}
                 </p>
               </div>

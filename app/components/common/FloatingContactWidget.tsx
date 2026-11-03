@@ -1,109 +1,163 @@
-import React, { useState, useEffect } from "react";
-import { MessageCircle, Phone, ArrowUp, X } from "lucide-react";
-import { COMPANY } from "~/data/company";
+import React, { useState } from "react";
+import { MessageSquare, X, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { submitContactForm } from "~/services/contact.service";
 
 export const FloatingContactWidget: React.FC = () => {
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (honeypot) return; // Spam trap
+    if (!fullName || !phone || !message) return;
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsSubmitting(true);
+    try {
+      await submitContactForm({
+        fullName,
+        phone,
+        email: "quick-enquiry@ziltonlifecare.internal",
+        subject: "Quick Institutional Desk Enquiry",
+        enquiryType: "general",
+        message,
+        consent: true,
+      } as any);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setIsOpen(false);
+        setFullName("");
+        setPhone("");
+        setMessage("");
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const whatsappMessage = encodeURIComponent(
-    "Hello Zilton Life Care team, I am contacting you regarding pharmaceutical distribution and institutional supply enquiries."
-  );
-  const whatsappUrl = `https://wa.me/919819667211?text=${whatsappMessage}`;
-
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-none">
-      {/* Back to Top Button */}
-      {showBackToTop && (
-        <button
-          type="button"
-          onClick={scrollToTop}
-          className="pointer-events-auto p-3 bg-white text-[#123D32] rounded-full shadow-lg border border-[#E4EBE6] hover:bg-[#DFF1E9] hover:text-[#07845E] transition-all duration-200 focus-visible:outline-[#07845E]"
-          aria-label="Scroll back to top"
-        >
-          <ArrowUp className="w-4 h-4" />
-        </button>
-      )}
-
-      {/* Expanded Quick Contact Panel */}
+    <div className="fixed bottom-6 right-6 z-40 select-none">
+      {/* Mini-Drawer Popup */}
       {isOpen && (
-        <div className="pointer-events-auto mb-1 w-72 bg-white rounded-2xl shadow-2xl border border-[#E4EBE6] p-4 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+        <div className="mb-3 w-80 sm:w-96 rounded-2xl bg-[#FCFAF5] border border-[#1F3D33]/20 shadow-2xl p-5 text-left animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <div className="flex items-center justify-between pb-3 border-b border-[#1F3D33]/10">
             <div>
-              <p className="text-xs font-bold text-gray-900">Direct Enquiry</p>
-              <p className="text-[11px] text-[#07845E] font-medium">Zilton Life Care Desk</p>
+              <span className="font-mono text-[9px] uppercase tracking-widest text-[#0B996F] font-bold block">
+                Instant Access
+              </span>
+              <h4 className="font-editorial text-base font-bold text-[#1F3D33]">
+                Quick Institutional Desk
+              </h4>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100"
-              aria-label="Close contact options"
+              className="p-1 rounded-full text-[#4A6056] hover:text-[#1F3D33] hover:bg-[#1F3D33]/5 cursor-pointer"
+              aria-label="Close drawer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="pt-3 space-y-2">
-            {/* WhatsApp Option */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-2.5 rounded-xl bg-[#DFF1E9]/60 hover:bg-[#DFF1E9] text-[#123D32] transition-colors text-xs font-semibold"
-            >
-              <div className="p-1.5 rounded-lg bg-[#07845E] text-white">
-                <MessageCircle className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="block leading-tight">Chat on WhatsApp</span>
-                <span className="text-[10px] text-[#07845E] font-medium">
-                  +91 9819667211
-                </span>
-              </div>
-            </a>
+          {submitted ? (
+            <div className="py-8 text-center">
+              <CheckCircle2 className="w-10 h-10 text-[#0B996F] mx-auto mb-2" />
+              <p className="font-editorial text-lg font-bold text-[#1F3D33]">
+                Enquiry Logged
+              </p>
+              <p className="text-xs text-[#4A6056] mt-1 font-mono">
+                Our Mumbai corporate desk will dial you promptly.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+              {/* Honeypot field for bot protection */}
+              <input
+                type="text"
+                name="b_url"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+              />
 
-            {/* Direct Phone Call Option */}
-            <a
-              href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-800 transition-colors text-xs font-semibold"
-            >
-              <div className="p-1.5 rounded-lg bg-[#123D32] text-white">
-                <Phone className="w-4 h-4" />
-              </div>
               <div>
-                <span className="block leading-tight">Call Business Desk</span>
-                <span className="text-[10px] text-gray-500 font-normal">
-                  Direct Line
-                </span>
+                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-semibold mb-1">
+                  Representative Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Dr. Rajesh Sharma"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-[#1F3D33]/20 bg-white focus:outline-none focus:ring-1 focus:ring-[#0B996F] text-[#1F3D33]"
+                />
               </div>
-            </a>
-          </div>
+
+              <div>
+                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-semibold mb-1">
+                  Contact Phone
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="+91 9819667211"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-[#1F3D33]/20 bg-white focus:outline-none focus:ring-1 focus:ring-[#0B996F] text-[#1F3D33]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-semibold mb-1">
+                  Query or Target SKU
+                </label>
+                <textarea
+                  required
+                  rows={2}
+                  placeholder="Inquiring about hospital supply terms for MEROZIL 1gm..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-[#1F3D33]/20 bg-white focus:outline-none focus:ring-1 focus:ring-[#0B996F] text-[#1F3D33]"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-2.5 px-4 bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] rounded-lg font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+              >
+                {isSubmitting ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Send Fast Enquiry</span>
+                  </>
+                )}
+              </button>
+            </form>
+          )}
         </div>
       )}
 
-      {/* Main Floating Trigger Button */}
+      {/* Floating Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-[#07845E] hover:bg-[#05684A] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-200 focus-visible:outline-[#07845E] group"
-        aria-label="Open fast business enquiry"
-        aria-expanded={isOpen}
+        className="flex items-center gap-2.5 px-4 py-3 bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] rounded-full shadow-xl hover:shadow-2xl transition-all duration-200 border border-white/20 cursor-pointer group"
+        aria-label="Toggle quick enquiry drawer"
       >
-        <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        <span className="text-xs font-bold tracking-wide hidden sm:inline">
-          Quick Enquiry
+        <MessageSquare className="w-4 h-4 text-[#0B996F] group-hover:text-white transition-colors" />
+        <span className="font-mono text-xs uppercase tracking-wider font-semibold">
+          Fast Enquiry
         </span>
       </button>
     </div>
