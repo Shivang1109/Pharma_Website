@@ -1,66 +1,79 @@
 import type { ContactFormData } from "~/schemas/contact.schema";
 
-export type ContactPayload = ContactFormData;
+export type ContactPayload = ContactFormData & { honeypot?: string };
 
 export interface ContactSubmissionResponse {
   success: boolean;
   message: string;
   submissionId?: string;
   timestamp?: string;
-  isSimulated: boolean;
+  isLiveEndpoint?: boolean;
   receivedData?: {
     fullName: string;
     organization?: string;
     email: string;
     phone: string;
-    enquiryType: string;
+    enquiryType?: string;
     productName?: string;
-    subject: string;
+    subject?: string;
   };
 }
 
 /**
  * Service to dispatch contact enquiries.
  * 
- * Production Integration Architecture:
- * - When the client provisions official corporate mailboxes and selects an email dispatch service
- *   (e.g., AWS SES, Resend, SendGrid, or corporate SMTP relay via an authenticated server action / API route),
- *   wire the POST call here.
- * - Current State: Validated frontend simulation with reference code generation.
- * - Security note: NEVER expose private API keys or SMTP passwords in frontend bundle code.
+ * Production Configuration:
+ * - Configure `VITE_CONTACT_FORM_ENDPOINT` in `.env` (e.g. Formspree URL, AWS SES endpoint, or serverless webhook).
+ * - When set, submissions are dispatched live via HTTP POST.
+ * - Honeypot field `_gotcha` / `b_url` protects against automated spam.
  */
 export async function submitContactForm(
   payload: ContactPayload
 ): Promise<ContactSubmissionResponse> {
-  // Simulate network latency (750ms)
-  await new Promise((resolve) => setTimeout(resolve, 750));
-
-  if (!payload.email || !payload.fullName || !payload.message || !payload.subject) {
+  // Honeypot spam defense
+  if (payload.honeypot) {
     return {
       success: false,
-      message: "Mandatory enquiry fields are missing. Please verify all required inputs.",
-      isSimulated: true,
+      message: "Submission rejected.",
     };
   }
 
-  // Generate deterministic-style reference identifier
-  const refCode = `ZLC-${Date.now().toString(36).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`;
+  const endpoint = typeof import.meta !== "undefined" ? (import.meta as any).env?.VITE_CONTACT_FORM_ENDPOINT : null;
+
+  if (endpoint) {
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        return {
+          success: true,
+          message: "Thank you for reaching out. Your enquiry has been dispatched directly to our executive corporate desk.",
+          submissionId: `ZLC-${Date.now().toString(36).toUpperCase()}`,
+          timestamp: new Date().toISOString(),
+          isLiveEndpoint: true,
+        };
+      }
+    } catch {
+      // Fallback to error
+      return {
+        success: false,
+        message: "Enquiry dispatch failed over the network. Please connect via telephone (+91 9819667211).",
+      };
+    }
+  }
+
+  // Staged demonstration latency & reference generation
+  await new Promise((resolve) => setTimeout(resolve, 750));
 
   return {
     success: true,
-    message:
-      "Your corporate enquiry has been successfully logged on this staging environment. In production, this record will be securely dispatched to ZILTON LIFE CARE's designated executive desk.",
-    submissionId: refCode,
+    message: "Thank you for reaching out. Your enquiry has been logged on staging. (Configure VITE_CONTACT_FORM_ENDPOINT for live SMTP/API delivery).",
+    submissionId: `ZLC-${Date.now().toString(36).toUpperCase()}`,
     timestamp: new Date().toISOString(),
-    isSimulated: true,
-    receivedData: {
-      fullName: payload.fullName,
-      organization: payload.organization,
-      email: payload.email,
-      phone: payload.phone,
-      enquiryType: payload.enquiryType,
-      productName: payload.productName,
-      subject: payload.subject,
-    },
+    isLiveEndpoint: false,
   };
 }
