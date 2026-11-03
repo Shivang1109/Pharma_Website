@@ -56,30 +56,67 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let is404 = false;
+  let message = "System Exception";
+  let details = "An unexpected application error occurred.";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    is404 = error.status === 404;
+    message = is404 ? "Document Not Found" : "HTTP Exception";
+    details = is404
+      ? "The clinical index or document reference you requested does not exist or has been relocated."
+      : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <div className="min-h-screen bg-[#F6F4EE] text-[#1F3D33] flex flex-col justify-between p-6 sm:p-12">
+      <header className="flex items-center justify-between border-b border-[#1F3D33]/15 pb-6">
+        <span className="font-editorial text-xl font-bold tracking-tight">Zilton Life Care</span>
+        <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F]">
+          {is404 ? "ERROR 404 · MISSING ROUTE" : "EXCEPTION"}
+        </span>
+      </header>
+
+      <main className="max-w-2xl my-auto py-16">
+        <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-bold block mb-3">
+          Status / {is404 ? "404" : "500"}
+        </span>
+        <h1 className="font-editorial text-4xl sm:text-6xl font-bold tracking-tight text-[#1F3D33] leading-none mb-6">
+          {message}
+        </h1>
+        <p className="text-base sm:text-lg text-[#4A6056] font-light leading-relaxed mb-8">
+          {details}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-4 font-mono text-xs uppercase tracking-wider font-semibold">
+          <a
+            href="/"
+            className="px-6 py-3.5 rounded-full bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] transition-colors"
+          >
+            Return to Homepage
+          </a>
+          <a
+            href="/products"
+            className="px-6 py-3.5 rounded-full bg-transparent border border-[#1F3D33]/20 hover:bg-[#1F3D33]/5 text-[#1F3D33] transition-colors"
+          >
+            Browse Products
+          </a>
+        </div>
+
+        {stack && (
+          <pre className="mt-10 p-4 rounded-xl bg-black/5 border border-[#1F3D33]/10 text-xs font-mono overflow-x-auto text-[#1F3D33]">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </main>
+
+      <footer className="border-t border-[#1F3D33]/15 pt-6 font-mono text-xs text-[#4A6056]">
+        &copy; {new Date().getFullYear()} ZILTON LIFE CARE PRIVATE LIMITED · MUMBAI
+      </footer>
+    </div>
   );
 }
