@@ -1,15 +1,17 @@
-import { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
+import gsap from "gsap";
+import { Flip } from "gsap/Flip";
+import { Search, X, ShieldAlert, ArrowUpRight } from "lucide-react";
 import { Container } from "~/components/common/Container";
-import { SectionHeading } from "~/components/common/SectionHeading";
-import { Button } from "~/components/common/Button";
 import { CategoryFilter } from "~/components/sections/products/CategoryFilter";
 import { ProductGrid } from "~/components/sections/products/ProductGrid";
-import { ProductQuickViewModal } from "~/components/sections/products/ProductQuickViewModal";
+import { ProductDrawer } from "~/components/sections/products/ProductDrawer";
 import { getProducts, PRODUCT_CATEGORIES } from "~/data/products";
 import type { Product, ProductCategory } from "~/types/product";
-import { ShieldCheck, FileText, ArrowRight, Search, X, Sparkles, Building2 } from "lucide-react";
 import { generateRouteMeta } from "~/utils/seo";
+
+gsap.registerPlugin(Flip);
 
 export function meta() {
   return generateRouteMeta({
@@ -23,11 +25,11 @@ export function meta() {
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState<"all" | ProductCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
-
+  const [activeDrawerProduct, setActiveDrawerProduct] = useState<Product | null>(null);
   const location = useLocation();
+  const gridContainerRef = useRef<HTMLDivElement>(null);
 
-  // Sync with URL hash or query params if coming from navigation links
+  // Sync with URL hash or search params
   useEffect(() => {
     if (location.hash) {
       const hash = location.hash.replace("#", "") as ProductCategory;
@@ -43,7 +45,7 @@ export default function ProductsPage() {
     }
   }, [location.hash, location.search]);
 
-  // Multi-field search across product name, composition, subCategory, and category
+  // Filtered dataset
   const displayedProducts = useMemo(() => {
     let list = getProducts(selectedCategory);
     if (searchQuery.trim()) {
@@ -60,7 +62,7 @@ export default function ProductsPage() {
     return list;
   }, [selectedCategory, searchQuery]);
 
-  // Dynamic product counts derived from verified dataset
+  // Product counts
   const productCounts = useMemo(() => {
     const all = getProducts().length;
     const counts: Record<string, number> = { all };
@@ -70,148 +72,98 @@ export default function ProductsPage() {
     return counts;
   }, []);
 
-  const handleResetFilters = () => {
-    setSearchQuery("");
-    setSelectedCategory("all");
+  const handleCategoryChange = (category: "all" | ProductCategory) => {
+    if (gridContainerRef.current) {
+      const state = Flip.getState(gridContainerRef.current.querySelectorAll("article"));
+      setSelectedCategory(category);
+      requestAnimationFrame(() => {
+        if (gridContainerRef.current) {
+          Flip.from(state, {
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.04,
+          });
+        }
+      });
+    } else {
+      setSelectedCategory(category);
+    }
   };
 
   return (
-    <div className="py-12 sm:py-20 bg-[#FAFCFA]">
-      <Container>
-        {/* Products Hero Introduction */}
-        <div className="max-w-3xl mx-auto text-center mb-10 luxury-fade-up">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#DFF1E9] border border-[#07845E]/20 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-5 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#07845E]" />
-            <span>Prescription Pharmaceutical Portfolio</span>
-          </div>
-
-          <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#123D32] tracking-tight leading-[1.12]"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Clinical Formulations &amp; Hospital Supply
+    <div className="py-12 sm:py-20">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Editorial Products Header */}
+        <div className="max-w-3xl mb-12">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-3">
+            01 / Formulations Catalogue
+          </span>
+          <h1 className="text-fluid-hero font-editorial font-bold text-[#1F3D33] tracking-tight">
+            Parenteral &amp; Clinical Portfolios
           </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-[#53635C] leading-relaxed font-normal">
-            Quality-assured pharmaceutical portfolio distributed strictly to registered healthcare institutions, hospital intensive care units, and licensed channel distribution partners across India.
+          <p className="mt-4 text-base sm:text-lg text-[#4A6056] font-light leading-relaxed">
+            12 specialized pharmaceutical preparations spanning intensive critical care injectables, trace element infusions, and therapeutic oral nutrition sachets.
           </p>
+        </div>
 
-          {/* Key Portfolio Indicators */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-[#123D32]">
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-[#E4EBE6] shadow-2xs flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-[#07845E]" />
-              12 Formulations
-            </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-[#E4EBE6] shadow-2xs flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5 text-[#07845E]" />
-              3 Clinical Divisions
-            </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-[#E4EBE6] shadow-2xs flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#07845E]" />
-              Audited cGMP Sourcing
+        {/* Refined Institutional Prescription Notice (Not a yellow alert box) */}
+        <div className="mb-10 p-4 rounded-2xl bg-[#FCFAF5] border border-[#1F3D33]/15 flex items-center justify-between gap-4 text-xs font-mono text-[#1F3D33]">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-[#0B996F]" />
+            <span>
+              <strong>INSTITUTIONAL NOTICE:</strong> Strictly for hospital procurement committees, registered healthcare stockists, and licensed pharmacies. Rx Only.
             </span>
           </div>
+          <span className="hidden sm:inline text-[#4A6056] text-[11px]">
+            SCHEDULE PRESCRIPTION DRUGS
+          </span>
         </div>
 
-        {/* Regulatory & Institutional Notice Banner */}
-        <div className="my-8 p-4 sm:p-5 rounded-2xl bg-[#DFF1E9]/50 border border-[#07845E]/20 flex items-center gap-3.5 text-xs sm:text-sm text-[#123D32] max-w-4xl mx-auto shadow-2xs">
-          <ShieldCheck className="w-5 h-5 text-[#07845E] shrink-0" />
-          <p className="leading-relaxed">
-            <strong>Institutional Supply Notice:</strong> The formulations detailed below are intended strictly for licensed hospital procurement boards, registered clinicians, and authorized channel distribution partners. ZILTON LIFE CARE does not engage in direct-to-consumer retail sales.
-          </p>
-        </div>
+        {/* Search & Category Filter Bar */}
+        <div className="mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 pb-6 border-b border-[#1F3D33]/10">
+          {/* Category Filter */}
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            onSelectCategory={handleCategoryChange}
+            productCounts={productCounts}
+          />
 
-        {/* Live Search & Filter Bar */}
-        <div className="mb-10 space-y-5 max-w-4xl mx-auto">
-          {/* Live Search Input */}
-          <div className="max-w-lg mx-auto relative">
-            <Search className="w-4 h-4 text-[#53635C] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+          {/* Search Input */}
+          <div className="relative w-full md:w-72 shrink-0">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1F3D33]/50 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by brand name or composition (e.g. Meropenem, Zinc, HMB)..."
-              className="w-full pl-11 pr-10 py-3 text-sm bg-white border border-[#E4EBE6] rounded-2xl shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#07845E] focus:border-transparent transition-all placeholder:text-[#53635C]/60 text-[#123D32]"
-              aria-label="Search pharmaceutical formulations"
+              placeholder="Search active molecule..."
+              className="w-full pl-10 pr-9 py-2.5 rounded-full bg-[#FCFAF5] border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] placeholder:text-[#4A6056]/60 focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="p-1 rounded-full text-[#53635C] hover:text-[#123D32] absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
-                aria-label="Clear search query"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4A6056] hover:text-[#1F3D33]"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
+        </div>
 
-          {/* Category Filter Navigation */}
-          <CategoryFilter
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-            productCounts={productCounts}
+        {/* Catalog Grid */}
+        <div ref={gridContainerRef}>
+          <ProductGrid
+            products={displayedProducts}
+            onSelectProduct={(p) => setActiveDrawerProduct(p)}
           />
-
-          {/* Active Search & Count Indicator */}
-          <div className="flex items-center justify-between text-xs text-[#53635C] px-2 pt-1">
-            <span>
-              Displaying <strong>{displayedProducts.length}</strong> of{" "}
-              <strong>{getProducts().length}</strong> verified formulations
-            </span>
-            {(searchQuery || selectedCategory !== "all") && (
-              <button
-                type="button"
-                onClick={handleResetFilters}
-                className="text-[#07845E] font-bold hover:underline cursor-pointer"
-              >
-                Reset filters
-              </button>
-            )}
-          </div>
         </div>
 
-        {/* Product Grid */}
-        <ProductGrid
-          products={displayedProducts}
-          selectedCategory={selectedCategory}
-          onQuickView={(p) => setQuickViewProduct(p)}
-          onResetFilters={handleResetFilters}
+        {/* Technical Specs Drawer */}
+        <ProductDrawer
+          product={activeDrawerProduct}
+          onClose={() => setActiveDrawerProduct(null)}
         />
-
-        {/* Quick View Modal */}
-        <ProductQuickViewModal
-          product={quickViewProduct}
-          onClose={() => setQuickViewProduct(null)}
-        />
-
-        {/* Partnership / Product Enquiry CTA */}
-        <div className="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#123D32] to-[#07845E] text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="max-w-xl text-center md:text-left">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFF1E9] bg-white/10 px-3.5 py-1 rounded-full mb-3">
-              <FileText className="w-3.5 h-3.5" />
-              Institutional Supply &amp; Distribution
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Require batch availability or institutional pricing?
-            </h3>
-            <p className="mt-3 text-sm sm:text-base text-[#DFF1E9]/85 font-light leading-relaxed">
-              Reach out to our commercial liaison desk in Mumbai for availability schedules, hospital supply agreements, and comprehensive COA documentation.
-            </p>
-          </div>
-          <div className="shrink-0">
-            <Button
-              to="/contact?type=product-related"
-              variant="secondary"
-              size="lg"
-              className="font-semibold shadow-md flex items-center gap-2"
-            >
-              Initiate Commercial Enquiry
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-      </Container>
+      </div>
     </div>
   );
 }

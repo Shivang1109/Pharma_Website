@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import type { ProductCategory } from "~/types/product";
 import { PRODUCT_CATEGORIES } from "~/data/products";
-import { ShieldCheck, Leaf, Package, Layers } from "lucide-react";
 
 interface CategoryFilterProps {
   selectedCategory: "all" | ProductCategory;
@@ -14,82 +13,44 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   onSelectCategory,
   productCounts = {},
 }) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const categoryIcons: Record<string, React.ElementType> = {
-    all: Layers,
-    "critical-care-injection": ShieldCheck,
-    "nutrition-iv": Leaf,
-    "nutrition-sachet": Package,
-  };
-
   const options = [
-    { id: "all" as const, label: "All Formulations", count: productCounts["all"] },
+    { id: "all" as const, label: "All Formulations", count: productCounts["all"] ?? 12 },
     ...PRODUCT_CATEGORIES.map((cat) => ({
       id: cat.id,
       label: cat.name,
-      count: productCounts[cat.id],
+      count: productCounts[cat.id] ?? 0,
     })),
   ];
-
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    let nextIndex = index;
-    if (e.key === "ArrowRight") {
-      nextIndex = (index + 1) % options.length;
-    } else if (e.key === "ArrowLeft") {
-      nextIndex = (index - 1 + options.length) % options.length;
-    } else {
-      return;
-    }
-    e.preventDefault();
-    onSelectCategory(options[nextIndex].id);
-    const buttons = scrollContainerRef.current?.querySelectorAll<HTMLButtonElement>("button");
-    buttons?.[nextIndex]?.focus();
-  };
 
   return (
     <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto py-2 no-scrollbar">
       <div
-        ref={scrollContainerRef}
         role="tablist"
-        aria-label="Filter formulations by therapeutic category"
-        className="inline-flex p-1.5 bg-[#F2F7F4] rounded-2xl border border-[#E4EBE6] gap-1.5 shadow-2xs"
+        aria-label="Filter formulations by category"
+        className="inline-flex p-1.5 rounded-full bg-[#FCFAF5] border border-[#1F3D33]/15 gap-1.5 shadow-2xs"
       >
-        {options.map((option, idx) => {
+        {options.map((option) => {
           const isActive = selectedCategory === option.id;
-          const Icon = categoryIcons[option.id] || Layers;
-
           return (
             <button
               key={option.id}
               role="tab"
               aria-selected={isActive}
-              tabIndex={isActive ? 0 : -1}
               onClick={() => onSelectCategory(option.id)}
-              onKeyDown={(e) => handleKeyDown(e, idx)}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[#07845E] focus:ring-offset-1 cursor-pointer ${
+              className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                 isActive
-                  ? "bg-[#123D32] text-white shadow-xs"
-                  : "text-[#53635C] hover:text-[#123D32] hover:bg-white/80"
+                  ? "bg-[#1F3D33] text-[#F6F4EE] shadow-xs"
+                  : "text-[#4A6056] hover:text-[#1F3D33] hover:bg-[#1F3D33]/5"
               }`}
             >
-              <Icon
-                className={`w-3.5 h-3.5 shrink-0 ${
-                  isActive ? "text-[#DFF1E9]" : "text-[#07845E]"
-                }`}
-              />
               <span>{option.label}</span>
-              {typeof option.count === "number" && (
-                <span
-                  className={`ml-1 px-2 py-0.5 text-[10px] font-bold rounded-full transition-colors ${
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-[#DFF1E9] text-[#123D32]"
-                  }`}
-                >
-                  {option.count}
-                </span>
-              )}
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                  isActive ? "bg-[#0B996F] text-white" : "bg-[#1F3D33]/10 text-[#1F3D33]"
+                }`}
+              >
+                {option.count}
+              </span>
             </button>
           );
         })}
