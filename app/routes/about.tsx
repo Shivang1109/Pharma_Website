@@ -47,14 +47,14 @@ function CompanyIntro() {
     <section className="py-16 sm:py-20 bg-white" aria-labelledby="company-intro-heading">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
-          {/* Image placeholder — replace with approved company/facility image */}
-          <div
-            className="h-72 w-full rounded-2xl bg-[#E8F4EE] flex items-center justify-center lg:h-96 order-2 lg:order-1"
-            aria-hidden="true"
-          >
-            <span className="text-sm text-[#087B59] font-medium opacity-60">
-              [Company image — pending client asset]
-            </span>
+          {/* Company Graphic */}
+          <div className="flex items-center justify-center order-2 lg:order-1">
+            <img
+              src="/images/company/company-graphic.svg"
+              alt="Zilton Life Care manufacturing partner and institutional supply network"
+              className="w-full max-w-lg h-auto rounded-2xl shadow-sm border border-[#DCE8E0]"
+              loading="lazy"
+            />
           </div>
           <div className="order-1 lg:order-2">
             <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-[#087B59]">

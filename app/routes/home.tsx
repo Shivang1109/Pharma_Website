@@ -21,41 +21,93 @@ export function meta({}: Route.MetaArgs) {
 function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-[#E8F4EE] via-white to-white py-20 sm:py-28"
+      className="relative overflow-hidden bg-gradient-to-br from-[#E8F4EE] via-white to-white py-16 sm:py-24"
       aria-label="Hero"
     >
-      {/* Decorative circle */}
+      {/* Decorative ambient background accents */}
       <div
-        className="pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full bg-[#087B59]/5"
+        className="pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full bg-[#087B59]/5 blur-2xl"
         aria-hidden="true"
       />
+      <div
+        className="pointer-events-none absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-[#087B59]/5 blur-xl"
+        aria-hidden="true"
+      />
+
       <Container>
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-4 inline-block rounded-full bg-[#E8F4EE] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#087B59]">
-            Pharmaceutical Marketing
-          </span>
-          <h1
-            className="mb-6 text-4xl font-extrabold text-[#173B30] sm:text-5xl lg:text-6xl leading-[1.1]"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Better Healthcare.{" "}
-            <span className="text-[#087B59]">Healthier Lives.</span>
-          </h1>
-          <p className="mb-10 text-lg text-[#46534C] leading-relaxed max-w-2xl mx-auto">
-            Quality-driven pharmaceutical solutions and trusted healthcare
-            partnerships — delivering the right products to those who need them most.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button to="/products" size="lg">
-              Explore Products
-            </Button>
-            <Button to="/about" size="lg" variant="outline">
-              About Us
-            </Button>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+          {/* Left Column: Headlines & CTA */}
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#E8F4EE] border border-[#DCE8E0] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#087B59] mb-5">
+              <span className="h-2 w-2 rounded-full bg-[#087B59] animate-pulse" />
+              Pharmaceutical Marketing
+            </div>
+
+            <h1
+              className="text-4xl font-extrabold text-[#173B30] sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Better Healthcare.{" "}
+              <span className="text-[#087B59]">Healthier Lives.</span>
+            </h1>
+
+            <p className="mt-5 text-base sm:text-lg text-[#46534C] leading-relaxed max-w-xl">
+              Quality-driven pharmaceutical solutions and trusted healthcare
+              partnerships — delivering sterile critical care injectables and clinical nutrition to hospitals and healthcare providers.
+            </p>
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Button to="/products" size="lg" className="shadow-sm hover:shadow-md">
+                Explore Products
+              </Button>
+              <Button to="/about" size="lg" variant="outline">
+                About Us
+              </Button>
+            </div>
+
+            {/* Trust Metrics Strip */}
+            <div className="mt-10 pt-8 border-t border-[#DCE8E0] grid grid-cols-3 gap-4">
+              <div>
+                <p className="font-heading text-2xl font-extrabold text-[#173B30] sm:text-3xl">
+                  3
+                </p>
+                <p className="text-xs text-[#46534C] font-medium mt-0.5">
+                  Core Clinical Categories
+                </p>
+              </div>
+              <div>
+                <p className="font-heading text-2xl font-extrabold text-[#087B59] sm:text-3xl">
+                  100%
+                </p>
+                <p className="text-xs text-[#46534C] font-medium mt-0.5">
+                  Audited cGMP Sourcing
+                </p>
+              </div>
+              <div>
+                <p className="font-heading text-2xl font-extrabold text-[#173B30] sm:text-3xl">
+                  GDP
+                </p>
+                <p className="text-xs text-[#46534C] font-medium mt-0.5">
+                  Cold-Chain Logistics
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: High-Fidelity Medical Graphic */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-md lg:max-w-none">
+              <img
+                src="/images/hero/hero-medical-graphic.svg"
+                alt="Zilton Life Care quality pharmaceutical operations"
+                className="w-full h-auto drop-shadow-xl select-none"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </Container>
-      {/* Placeholder note: Replace section background with a licensed hero image */}
     </section>
   );
 }
@@ -63,7 +115,7 @@ function Hero() {
 /* ─── Section: About teaser ─────────────────────────────────── */
 function AboutTeaser() {
   return (
-    <section className="py-16 sm:py-20 bg-white" aria-labelledby="about-teaser-heading">
+    <section className="py-16 sm:py-24 bg-white" aria-labelledby="about-teaser-heading">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <div>
@@ -90,14 +142,14 @@ function AboutTeaser() {
               Learn More About Us <ArrowRight size={16} className="ml-2" />
             </Button>
           </div>
-          {/* Image placeholder — replace with licensed company/team image */}
-          <div
-            className="h-72 w-full rounded-2xl bg-[#E8F4EE] flex items-center justify-center lg:h-96"
-            aria-hidden="true"
-          >
-            <span className="text-sm text-[#087B59] font-medium opacity-60">
-              [Company image — pending client asset]
-            </span>
+          {/* Company Graphic */}
+          <div className="flex items-center justify-center">
+            <img
+              src="/images/company/company-graphic.svg"
+              alt="Zilton Life Care pharmaceutical partnership and supply network"
+              className="w-full max-w-lg h-auto rounded-2xl shadow-sm border border-[#DCE8E0]"
+              loading="lazy"
+            />
           </div>
         </div>
       </Container>

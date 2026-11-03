@@ -7,11 +7,13 @@ import { Info, PackageX } from "lucide-react";
 interface ProductGridProps {
   products: Product[];
   selectedCategory: "all" | ProductCategory;
+  onQuickView?: (product: Product) => void;
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   selectedCategory,
+  onQuickView,
 }) => {
   const currentCategoryInfo =
     selectedCategory !== "all"
@@ -41,7 +43,11 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       {products.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onQuickView={onQuickView}
+            />
           ))}
         </div>
       ) : (
