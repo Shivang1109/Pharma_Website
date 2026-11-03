@@ -60,13 +60,14 @@ export const CustomCursor: React.FC = () => {
       ref={cursorRef}
       className={`fixed top-0 left-0 pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-200 flex items-center justify-center font-mono text-[9px] font-bold tracking-wider ${
         cursorText
-          ? "w-14 h-14 bg-[#1F3D33] text-[#F6F4EE] shadow-xl"
+          ? "w-14 h-14 bg-[#1B634E] text-[#F6F4EE] shadow-xl"
           : isHovered
-          ? "w-8 h-8 bg-[#0B996F]/30 backdrop-blur-xs border border-[#0B996F]"
-          : "w-3 h-3 bg-[#1F3D33]/80"
+          ? "w-8 h-8 bg-[#0D9E71]/30 backdrop-blur-xs border border-[#0D9E71]"
+          : "w-3 h-3 bg-[#1B634E]/80"
       }`}
     >
       {cursorText}
     </div>
   );
 };
+

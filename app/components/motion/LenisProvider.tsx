@@ -31,3 +31,4 @@ export const LenisProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return <>{children}</>;
 };
+

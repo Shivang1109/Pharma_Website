@@ -34,7 +34,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
     <figure className={`group relative w-full overflow-hidden ${className}`}>
       <div
         style={aspectStyle}
-        className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#E8EFEA] border border-[#1F3D33]/15 transition-all duration-500"
+        className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#E8EFEA] border border-[#1B634E]/15 transition-all duration-500"
       >
         {src ? (
           <img
@@ -53,7 +53,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
             <div
               className="absolute inset-0 opacity-15 pointer-events-none"
               style={{
-                backgroundImage: `radial-gradient(#1F3D33 0.75px, transparent 0.75px)`,
+                backgroundImage: `radial-gradient(#1B634E 0.75px, transparent 0.75px)`,
                 backgroundSize: "16px 16px",
               }}
             />
@@ -63,15 +63,15 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
 
             {/* Top Wireframe Corner Marks */}
             <div className="relative z-10 flex items-center justify-between">
-              <span className="font-mono text-[9px] sm:text-[10px] tracking-widest text-[#1F3D33]/50 font-medium">
+              <span className="font-mono text-[9px] sm:text-[10px] tracking-widest text-[#1B634E]/50 font-medium">
                 {labelText}
               </span>
-              <div className="w-2 h-2 border-t border-r border-[#1F3D33]/40" />
+              <div className="w-2 h-2 border-t border-r border-[#1B634E]/40" />
             </div>
 
             {/* Center Geometric Emblem */}
             <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto py-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/40 border border-[#1F3D33]/15 flex items-center justify-center text-[#1F3D33]/60 mb-2 backdrop-blur-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/40 border border-[#1B634E]/15 flex items-center justify-center text-[#1B634E]/60 mb-2 backdrop-blur-xs">
                 <svg
                   width="20"
                   height="20"
@@ -86,20 +86,20 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
                   <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.2" />
                 </svg>
               </div>
-              <span className="font-mono text-[8px] sm:text-[9px] tracking-widest text-[#1F3D33]/50 uppercase">
+              <span className="font-mono text-[8px] sm:text-[9px] tracking-widest text-[#1B634E]/50 uppercase">
                 STUDIO ASSET SLOT
               </span>
             </div>
 
             {/* Bottom Technical Scale Indicator */}
-            <div className="relative z-10 flex items-center justify-between border-t border-[#1F3D33]/10 pt-2.5">
-              <span className="font-mono text-[8px] text-[#1F3D33]/40">
+            <div className="relative z-10 flex items-center justify-between border-t border-[#1B634E]/10 pt-2.5">
+              <span className="font-mono text-[8px] text-[#1B634E]/40">
                 CALIBRATED 100%
               </span>
               <div className="flex gap-1">
-                <span className="w-1 h-1 rounded-full bg-[#1F3D33]/30" />
-                <span className="w-1 h-1 rounded-full bg-[#1F3D33]/30" />
-                <span className="w-1 h-1 rounded-full bg-[#1F3D33]/30" />
+                <span className="w-1 h-1 rounded-full bg-[#1B634E]/30" />
+                <span className="w-1 h-1 rounded-full bg-[#1B634E]/30" />
+                <span className="w-1 h-1 rounded-full bg-[#1B634E]/30" />
               </div>
             </div>
           </div>
@@ -115,3 +115,4 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
     </figure>
   );
 };
+

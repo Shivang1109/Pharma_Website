@@ -109,29 +109,29 @@ export default function ContactPage() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Heading */}
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-3">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-3">
             01 / Executive Communications
           </span>
-          <h1 className="text-fluid-hero font-editorial font-bold text-[#1F3D33] tracking-tight">
+          <h1 className="text-fluid-hero font-editorial font-bold text-[#1B634E] tracking-tight">
             Institutional Dialogue Desk
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#4A6056] font-light leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#3E6958] font-light leading-relaxed">
             Direct your commercial inquiries, hospital tender schedules, or regulatory batch documentation requests to our Mumbai corporate office.
           </p>
         </div>
 
         {/* ─── SPLIT LAYOUT ──────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left Column: Dark Green Corporate Panel with Map ImageSlot */}
-          <div className="lg:col-span-5 bg-[#1F3D33] text-[#F6F4EE] p-8 sm:p-10 rounded-3xl border border-[#1F3D33] shadow-xl space-y-8 select-none">
+          {/* Left Column: Lightened Vibrant Green Corporate Panel with Map ImageSlot */}
+          <div className="lg:col-span-5 bg-[#1B634E] text-[#F6F4EE] p-8 sm:p-10 rounded-3xl border border-[#1B634E] shadow-xl space-y-8 select-none">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#0B996F] font-bold block mb-2">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#DCEEE4] font-bold block mb-2">
                 Registered Office
               </span>
-              <h2 className="font-editorial text-2xl font-bold text-white leading-tight">
+              <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-white leading-tight">
                 Zilton Life Care Pvt Ltd
               </h2>
-              <address className="not-italic text-xs sm:text-sm text-white/80 font-light mt-3 leading-relaxed">
+              <address className="not-italic text-xs sm:text-sm text-white/85 font-light mt-3 leading-relaxed">
                 LAXMI HOUSING &amp; FINANCE, 67 B, GOPAL MANSION,<br />
                 GURUNANAK ROAD, BANDRA WEST,<br />
                 MUMBAI – 400050, MAHARASHTRA, INDIA
@@ -139,67 +139,67 @@ export default function ContactPage() {
             </div>
 
             {/* Direct Lines */}
-            <div className="space-y-4 pt-4 border-t border-white/10 font-mono text-xs text-white/90">
+            <div className="space-y-4 pt-4 border-t border-white/15 font-mono text-xs text-white/95">
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#0B996F] shrink-0" />
+                <Phone className="w-4 h-4 text-[#DCEEE4] shrink-0" />
                 <a
                   href="tel:+919819667211"
-                  className="hover:text-[#0B996F] transition-colors font-bold text-sm tracking-wide"
+                  className="hover:text-white transition-colors font-bold text-sm tracking-wide"
                 >
                   +91 9819667211
                 </a>
               </div>
 
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#0B996F] shrink-0" />
-                <span className="text-white/70">
+                <Mail className="w-4 h-4 text-[#DCEEE4] shrink-0" />
+                <span className="text-white/80">
                   info@ziltonlifecare.com
                 </span>
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-[#0B996F] shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-[#DCEEE4] shrink-0 mt-0.5" />
                 <div>
                   <span className="block font-semibold">Monday – Saturday: 09:30 – 18:30 IST</span>
-                  <span className="text-[10px] text-white/60">Closed on Sundays &amp; National Holidays</span>
+                  <span className="text-[10px] text-white/70">Closed on Sundays &amp; National Holidays</span>
                 </div>
               </div>
             </div>
 
             {/* Office Map Architectural Image Slot */}
             <div className="pt-2">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-white/60 block mb-2">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#DCEEE4] block mb-2">
                 LOCATION / MUMBAI REGION
               </span>
               <ImageSlot
                 slotKey="contactOffice"
                 ratio="16/9"
                 caption="Bandra West corporate desk."
-                className="rounded-2xl border border-white/10"
+                className="rounded-2xl border border-white/15"
               />
             </div>
 
             {/* Statutory Disclaimer */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-white/75 font-light leading-relaxed">
+            <div className="p-4 rounded-xl bg-white/10 border border-white/15 text-xs text-white/85 font-light leading-relaxed">
               <strong>Statutory Notice:</strong> This contact desk does not provide patient consultations or emergency services. For medical emergencies, consult your local healthcare facility immediately.
             </div>
           </div>
 
           {/* Right Column: Enquiry Form with Floating Labels & Honeypot */}
-          <div className="lg:col-span-7 bg-[#FCFAF5] p-8 sm:p-12 rounded-3xl border border-[#1F3D33]/15 shadow-sm">
+          <div className="lg:col-span-7 bg-[#FCFAF5] p-8 sm:p-12 rounded-3xl border border-[#1B634E]/15 shadow-sm">
             {submissionStatus?.success ? (
               <div className="py-12 text-center space-y-4 animate-in fade-in duration-300">
-                <div className="w-16 h-16 rounded-full bg-[#DFEAE2] text-[#0B996F] flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 rounded-full bg-[#DCEEE4] text-[#0D9E71] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-10 h-10 stroke-[2]" />
                 </div>
-                <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#1F3D33]">
+                <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#1B634E]">
                   Enquiry Logged
                 </h3>
-                <p className="text-sm text-[#4A6056] max-w-md mx-auto leading-relaxed font-light">
+                <p className="text-sm text-[#3E6958] max-w-md mx-auto leading-relaxed font-light">
                   {submissionStatus.message}
                 </p>
                 {submissionStatus.submissionId && (
-                  <div className="inline-block px-4 py-2 rounded-lg bg-white border border-[#1F3D33]/15 font-mono text-xs text-[#1F3D33]">
+                  <div className="inline-block px-4 py-2 rounded-lg bg-white border border-[#1B634E]/15 font-mono text-xs text-[#1B634E]">
                     REFERENCE: <strong>{submissionStatus.submissionId}</strong>
                   </div>
                 )}
@@ -210,7 +210,7 @@ export default function ContactPage() {
                       setSubmissionStatus(null);
                       reset();
                     }}
-                    className="font-mono text-xs uppercase tracking-wider font-bold text-[#0B996F] hover:text-[#1F3D33] underline"
+                    className="font-mono text-xs uppercase tracking-wider font-bold text-[#0D9E71] hover:text-[#1B634E] underline cursor-pointer"
                   >
                     Submit Another Request
                   </button>
@@ -231,15 +231,15 @@ export default function ContactPage() {
 
                 {/* Pre-filled Product Tag Badge */}
                 {productParam && (
-                  <div className="p-3 rounded-xl bg-[#DFEAE2] border border-[#0B996F]/30 flex items-center justify-between gap-2 text-xs font-mono text-[#1F3D33]">
+                  <div className="p-3 rounded-xl bg-[#DCEEE4] border border-[#0D9E71]/30 flex items-center justify-between gap-2 text-xs font-mono text-[#1B634E]">
                     <div className="flex items-center gap-2">
-                      <Tag className="w-3.5 h-3.5 text-[#0B996F]" />
+                      <Tag className="w-3.5 h-3.5 text-[#0D9E71]" />
                       <span>Referenced Formulation: <strong>{productParam}</strong></span>
                     </div>
                     <button
                       type="button"
                       onClick={clearProduct}
-                      className="text-[#4A6056] hover:text-[#1F3D33] p-1"
+                      className="text-[#3E6958] hover:text-[#1B634E] p-1 cursor-pointer"
                       aria-label="Clear referenced product"
                     >
                       <X className="w-3.5 h-3.5" />
@@ -257,14 +257,14 @@ export default function ContactPage() {
                 {/* Full Name & Organization */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                       Representative Name *
                     </label>
                     <input
                       type="text"
                       placeholder="Dr. Rajesh Sharma"
                       {...register("fullName")}
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                     />
                     {errors.fullName && (
                       <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.fullName.message}</p>
@@ -272,14 +272,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                       Institution / Hospital
                     </label>
                     <input
                       type="text"
                       placeholder="City Healthcare Consortium"
                       {...register("organization")}
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                     />
                   </div>
                 </div>
@@ -287,14 +287,14 @@ export default function ContactPage() {
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                       Official Email *
                     </label>
                     <input
                       type="email"
                       placeholder="procurement@hospital.org"
                       {...register("email")}
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                     />
                     {errors.email && (
                       <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.email.message}</p>
@@ -302,14 +302,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                    <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                       Telephone *
                     </label>
                     <input
                       type="tel"
                       placeholder="+91 9819667211"
                       {...register("phone")}
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                     />
                     {errors.phone && (
                       <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.phone.message}</p>
@@ -319,12 +319,12 @@ export default function ContactPage() {
 
                 {/* Enquiry Type Selector */}
                 <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                     Enquiry Classification *
                   </label>
                   <select
                     {...register("enquiryType")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                   >
                     {ENQUIRY_TYPES.map((type) => (
                       <option key={type.value} value={type.value}>
@@ -336,14 +336,14 @@ export default function ContactPage() {
 
                 {/* Subject */}
                 <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                     Subject Line *
                   </label>
                   <input
                     type="text"
                     placeholder="Institutional tender pricing schedule..."
                     {...register("subject")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                   />
                   {errors.subject && (
                     <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.subject.message}</p>
@@ -352,14 +352,14 @@ export default function ContactPage() {
 
                 {/* Message */}
                 <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                     Detailed Message &amp; Required Volumes *
                   </label>
                   <textarea
                     rows={4}
                     placeholder="Provide details regarding delivery timeframe, destination city, and projected batch requirement..."
                     {...register("message")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
                   />
                   {errors.message && (
                     <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.message.message}</p>
@@ -372,9 +372,9 @@ export default function ContactPage() {
                     <input
                       type="checkbox"
                       {...register("consent")}
-                      className="mt-0.5 rounded border-[#1F3D33]/20 text-[#0B996F] focus:ring-[#0B996F]"
+                      className="mt-0.5 rounded border-[#1B634E]/20 text-[#0D9E71] focus:ring-[#0D9E71]"
                     />
-                    <span className="text-xs text-[#4A6056] leading-relaxed">
+                    <span className="text-xs text-[#3E6958] leading-relaxed">
                       I certify that this inquiry represents an institutional, clinical, or commercial request.
                     </span>
                   </label>
@@ -388,7 +388,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 px-6 rounded-xl bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shadow-md"
+                    className="w-full py-4 px-6 rounded-xl bg-[#1B634E] hover:bg-[#0D9E71] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shadow-md"
                   >
                     {isSubmitting ? (
                       <>

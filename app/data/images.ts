@@ -54,3 +54,4 @@ export function getImageSrc(key: string): string | null {
   }
   return (IMAGES as any)[key] || null;
 }
+

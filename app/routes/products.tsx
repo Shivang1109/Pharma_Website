@@ -95,32 +95,32 @@ export default function ProductsPage() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Products Header */}
         <div className="max-w-3xl mb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#0B996F] font-semibold block mb-3">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-3">
             01 / Formulations Catalogue
           </span>
-          <h1 className="text-fluid-hero font-editorial font-bold text-[#1F3D33] tracking-tight">
+          <h1 className="text-fluid-hero font-editorial font-bold text-[#1B634E] tracking-tight">
             Parenteral &amp; Clinical Portfolios
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#4A6056] font-light leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#3E6958] font-light leading-relaxed">
             12 specialized pharmaceutical preparations spanning intensive critical care injectables, trace element infusions, and therapeutic oral nutrition sachets.
           </p>
         </div>
 
-        {/* Refined Institutional Prescription Notice (Not a yellow alert box) */}
-        <div className="mb-10 p-4 rounded-2xl bg-[#FCFAF5] border border-[#1F3D33]/15 flex items-center justify-between gap-4 text-xs font-mono text-[#1F3D33]">
+        {/* Refined Institutional Prescription Notice */}
+        <div className="mb-10 p-4 rounded-2xl bg-[#FCFAF5] border border-[#1B634E]/15 flex items-center justify-between gap-4 text-xs font-mono text-[#1B634E]">
           <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-[#0B996F]" />
+            <span className="w-2 h-2 rounded-full bg-[#0D9E71]" />
             <span>
               <strong>INSTITUTIONAL NOTICE:</strong> Strictly for hospital procurement committees, registered healthcare stockists, and licensed pharmacies. Rx Only.
             </span>
           </div>
-          <span className="hidden sm:inline text-[#4A6056] text-[11px]">
+          <span className="hidden sm:inline text-[#3E6958] text-[11px]">
             SCHEDULE PRESCRIPTION DRUGS
           </span>
         </div>
 
         {/* Search & Category Filter Bar */}
-        <div className="mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 pb-6 border-b border-[#1F3D33]/10">
+        <div className="mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 pb-6 border-b border-[#1B634E]/10">
           {/* Category Filter */}
           <CategoryFilter
             selectedCategory={selectedCategory}
@@ -130,19 +130,19 @@ export default function ProductsPage() {
 
           {/* Search Input */}
           <div className="relative w-full md:w-72 shrink-0">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1F3D33]/50 pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1B634E]/50 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search active molecule..."
-              className="w-full pl-10 pr-9 py-2.5 rounded-full bg-[#FCFAF5] border border-[#1F3D33]/15 text-xs font-mono text-[#1F3D33] placeholder:text-[#4A6056]/60 focus:outline-none focus:ring-1 focus:ring-[#0B996F]"
+              className="w-full pl-10 pr-9 py-2.5 rounded-full bg-[#FCFAF5] border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] placeholder:text-[#3E6958]/60 focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4A6056] hover:text-[#1F3D33]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3E6958] hover:text-[#1B634E] cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>

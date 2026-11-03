@@ -39,7 +39,7 @@ export const ProductDrawer: React.FC<ProductDrawerProps> = ({ product, onClose }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#1F3D33]/50 backdrop-blur-xs cursor-pointer"
+            className="fixed inset-0 bg-[#1B634E]/40 backdrop-blur-xs cursor-pointer"
           />
 
           {/* Sliding Right-Side Drawer */}
@@ -48,22 +48,22 @@ export const ProductDrawer: React.FC<ProductDrawerProps> = ({ product, onClose }
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 w-full max-w-lg h-full bg-[#FCFAF5] border-l border-[#1F3D33]/15 shadow-2xl flex flex-col justify-between overflow-hidden"
+            className="relative z-10 w-full max-w-lg h-full bg-[#FCFAF5] border-l border-[#1B634E]/15 shadow-2xl flex flex-col justify-between overflow-hidden"
           >
             {/* Drawer Header */}
-            <div className="p-6 border-b border-[#1F3D33]/10 flex items-center justify-between bg-[#F6F4EE]">
+            <div className="p-6 border-b border-[#1B634E]/10 flex items-center justify-between bg-[#F6F4EE]">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#0B996F] font-bold block">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#0D9E71] font-bold block">
                   {categoryInfo?.name || "Therapeutic Division"}
                 </span>
-                <span className="font-mono text-xs text-[#1F3D33]/60">
+                <span className="font-mono text-xs text-[#1B634E]/60">
                   REF / {product.id.toUpperCase()}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="p-2 rounded-full text-[#4A6056] hover:text-[#1F3D33] hover:bg-[#1F3D33]/5 transition-colors cursor-pointer"
+                className="p-2 rounded-full text-[#3E6958] hover:text-[#1B634E] hover:bg-[#1B634E]/5 transition-colors cursor-pointer"
                 aria-label="Close product drawer"
               >
                 <X className="w-5 h-5" />
@@ -83,14 +83,14 @@ export const ProductDrawer: React.FC<ProductDrawerProps> = ({ product, onClose }
 
               {/* Title & Core Formulation */}
               <div>
-                <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#1F3D33] leading-tight">
+                <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#1B634E] leading-tight">
                   {product.name}
                 </h3>
-                <p className="font-mono text-xs sm:text-sm font-semibold text-[#0B996F] mt-1.5">
+                <p className="font-mono text-xs sm:text-sm font-semibold text-[#0D9E71] mt-1.5">
                   {product.composition}
                 </p>
                 {product.subCategory && (
-                  <span className="inline-block mt-2 font-mono text-[10px] uppercase tracking-wider text-[#4A6056] bg-[#DFEAE2] px-2.5 py-0.5 rounded-md">
+                  <span className="inline-block mt-2 font-mono text-[10px] uppercase tracking-wider text-[#3E6958] bg-[#DCEEE4] px-2.5 py-0.5 rounded-md">
                     {product.subCategory}
                   </span>
                 )}
@@ -98,80 +98,80 @@ export const ProductDrawer: React.FC<ProductDrawerProps> = ({ product, onClose }
 
               {/* Description / Therapeutic Intended Use */}
               <div className="pt-2">
-                <h4 className="font-mono text-[11px] uppercase tracking-wider text-[#1F3D33] font-bold mb-1.5">
+                <h4 className="font-mono text-[11px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
                   Therapeutic Scope
                 </h4>
-                <p className="text-sm text-[#4A6056] leading-relaxed font-light">
+                <p className="text-sm text-[#3E6958] leading-relaxed font-light">
                   {product.shortDescription}
                 </p>
               </div>
 
               {/* Technical Specifications Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white border border-[#1F3D33]/10">
-                  <div className="flex items-center gap-2 text-[#0B996F] mb-1">
+                <div className="p-3.5 rounded-xl bg-white border border-[#1B634E]/10">
+                  <div className="flex items-center gap-2 text-[#0D9E71] mb-1">
                     <Pill className="w-4 h-4" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-[#1F3D33]">
+                    <span className="font-mono text-[10px] uppercase font-bold text-[#1B634E]">
                       Active Assay
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[#4A6056] block">
+                  <span className="font-mono text-xs text-[#3E6958] block">
                     {product.composition}
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-[#1F3D33]/10">
-                  <div className="flex items-center gap-2 text-[#0B996F] mb-1">
+                <div className="p-3.5 rounded-xl bg-white border border-[#1B634E]/10">
+                  <div className="flex items-center gap-2 text-[#0D9E71] mb-1">
                     <Package className="w-4 h-4" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-[#1F3D33]">
+                    <span className="font-mono text-[10px] uppercase font-bold text-[#1B634E]">
                       Presentation
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[#4A6056] block">
+                  <span className="font-mono text-xs text-[#3E6958] block">
                     Sterile Hospital Pack
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-[#1F3D33]/10">
-                  <div className="flex items-center gap-2 text-[#0B996F] mb-1">
+                <div className="p-3.5 rounded-xl bg-white border border-[#1B634E]/10">
+                  <div className="flex items-center gap-2 text-[#0D9E71] mb-1">
                     <Thermometer className="w-4 h-4" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-[#1F3D33]">
+                    <span className="font-mono text-[10px] uppercase font-bold text-[#1B634E]">
                       Thermal Control
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[#4A6056] block">
+                  <span className="font-mono text-xs text-[#3E6958] block">
                     Per package insert
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-[#1F3D33]/10">
-                  <div className="flex items-center gap-2 text-[#0B996F] mb-1">
+                <div className="p-3.5 rounded-xl bg-white border border-[#1B634E]/10">
+                  <div className="flex items-center gap-2 text-[#0D9E71] mb-1">
                     <ShieldCheck className="w-4 h-4" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-[#1F3D33]">
+                    <span className="font-mono text-[10px] uppercase font-bold text-[#1B634E]">
                       Assurance
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[#4A6056] block">
+                  <span className="font-mono text-xs text-[#3E6958] block">
                     CoA batch verified
                   </span>
                 </div>
               </div>
 
               {/* Institutional Notice */}
-              <div className="p-4 rounded-xl bg-[#DFEAE2]/60 border border-[#0B996F]/20 text-xs text-[#1F3D33]">
+              <div className="p-4 rounded-xl bg-[#DCEEE4]/60 border border-[#0D9E71]/20 text-xs text-[#1B634E]">
                 <strong>Rx Institutional Drug:</strong> Formulations are supplied exclusively to licensed hospital pharmacies, healthcare institutions, and authorized pharmaceutical distribution networks.
               </div>
             </div>
 
             {/* Drawer Footer CTA */}
-            <div className="p-6 border-t border-[#1F3D33]/10 bg-[#F6F4EE] flex items-center justify-between gap-4">
-              <span className="font-mono text-[11px] text-[#4A6056]">
+            <div className="p-6 border-t border-[#1B634E]/10 bg-[#F6F4EE] flex items-center justify-between gap-4">
+              <span className="font-mono text-[11px] text-[#3E6958]">
                 Batch availability on request
               </span>
               <Link
                 to={`/contact?product=${encodeURIComponent(product.name)}&type=product-related`}
                 onClick={onClose}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1F3D33] hover:bg-[#0B996F] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B634E] hover:bg-[#0D9E71] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 shadow-md"
               >
                 <span>Institutional Enquiry</span>
                 <ArrowRight className="w-4 h-4" />
@@ -183,3 +183,4 @@ export const ProductDrawer: React.FC<ProductDrawerProps> = ({ product, onClose }
     </AnimatePresence>
   );
 };
+

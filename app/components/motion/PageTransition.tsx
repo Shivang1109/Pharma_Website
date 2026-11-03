@@ -20,3 +20,4 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
     </AnimatePresence>
   );
 };
+

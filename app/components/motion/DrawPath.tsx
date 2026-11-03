@@ -15,7 +15,7 @@ interface DrawPathProps {
 export const DrawPath: React.FC<DrawPathProps> = ({
   d,
   className = "",
-  strokeColor = "#0B996F",
+  strokeColor = "#0D9E71",
   strokeWidth = 2,
   triggerId,
 }) => {
@@ -63,3 +63,4 @@ export const DrawPath: React.FC<DrawPathProps> = ({
     </svg>
   );
 };
+

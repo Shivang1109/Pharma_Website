@@ -39,16 +39,6 @@ export const Preloader: React.FC<{ onComplete?: () => void }> = ({ onComplete })
       onUpdate: () => setCount(Math.floor(counter.val)),
     });
 
-    tl.to(
-      "#preloader-logo-stroke",
-      {
-        strokeDashoffset: 0,
-        duration: 1.1,
-        ease: "power2.inOut",
-      },
-      0
-    );
-
     return () => {
       tl.kill();
     };
@@ -59,23 +49,16 @@ export const Preloader: React.FC<{ onComplete?: () => void }> = ({ onComplete })
   return (
     <div
       id="preloader-screen"
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1F3D33] text-[#F6F4EE] select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1B634E] text-[#F6F4EE] select-none"
     >
       <div className="relative flex flex-col items-center">
-        {/* Animated Brand Emblem Stroke */}
-        <div className="w-20 h-20 mb-6">
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <polygon
-              id="preloader-logo-stroke"
-              points="50,10 90,30 90,70 50,90 10,70 10,30"
-              fill="none"
-              stroke="#0B996F"
-              strokeWidth="3"
-              strokeDasharray="300"
-              strokeDashoffset="300"
-            />
-            <circle cx="50" cy="50" r="14" fill="#F6F4EE" opacity="0.9" />
-          </svg>
+        {/* Exact Logo Container with Soft Glow */}
+        <div className="w-20 h-20 rounded-2xl bg-white p-2.5 shadow-2xl flex items-center justify-center mb-5 animate-pulse">
+          <img
+            src="/images/branding/logo-512.png"
+            alt="Zilton Life Care Logo"
+            className="w-full h-full object-contain"
+          />
         </div>
 
         <span className="font-editorial text-2xl tracking-tight text-white mb-2">
@@ -83,7 +66,7 @@ export const Preloader: React.FC<{ onComplete?: () => void }> = ({ onComplete })
         </span>
 
         {/* Counter */}
-        <div className="flex items-center gap-1 font-mono text-xs text-[#0B996F]">
+        <div className="flex items-center gap-1 font-mono text-xs text-[#DCEEE4]">
           <span className="w-8 text-right font-bold">{count}</span>
           <span>%</span>
         </div>

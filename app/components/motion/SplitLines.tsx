@@ -54,7 +54,7 @@ export const SplitLines: React.FC<SplitLinesProps> = ({
                     <React.Fragment key={i}>
                       {part}
                       {i < arr.length - 1 && (
-                        <em className="font-editorial italic font-normal tracking-normal text-[#0B996F]">
+                        <em className="font-editorial italic font-normal tracking-normal text-[#0D9E71]">
                           {italicWord}
                         </em>
                       )}
@@ -71,3 +71,4 @@ export const SplitLines: React.FC<SplitLinesProps> = ({
     </Component>
   );
 };
+

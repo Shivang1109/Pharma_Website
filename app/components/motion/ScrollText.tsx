@@ -34,11 +34,11 @@ export const ScrollText: React.FC<ScrollTextProps> = ({
         const currentActive = Math.floor(self.progress * total);
         spans.forEach((span, idx) => {
           if (idx <= currentActive) {
-            span.classList.add("text-[#1F3D33]");
-            span.classList.remove("text-[#1F3D33]/25");
+            span.classList.add("text-[#1B634E]");
+            span.classList.remove("text-[#1B634E]/25");
           } else {
-            span.classList.remove("text-[#1F3D33]");
-            span.classList.add("text-[#1F3D33]/25");
+            span.classList.remove("text-[#1B634E]");
+            span.classList.add("text-[#1B634E]/25");
           }
         });
       },
@@ -57,7 +57,7 @@ export const ScrollText: React.FC<ScrollTextProps> = ({
       {words.map((word, idx) => (
         <span
           key={idx}
-          className="scroll-word inline-block mr-2.5 transition-colors duration-150 text-[#1F3D33]/25"
+          className="scroll-word inline-block mr-2.5 transition-colors duration-150 text-[#1B634E]/25"
         >
           {word}
         </span>
@@ -65,3 +65,4 @@ export const ScrollText: React.FC<ScrollTextProps> = ({
     </Component>
   );
 };
+

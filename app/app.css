@@ -11,30 +11,30 @@
   --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Palette: Warm Paper & Deep Pharma Green */
+  /* Palette: Warm Paper & Refined Lightened Pharma Green */
   --color-paper:            #F6F4EE;
   --color-paper-soft:       #ECE8DF;
   --color-paper-card:       #FCFAF5;
-  --color-ink:              #1F3D33;
-  --color-ink-muted:        #4A6056;
-  --color-ink-faint:        #84978E;
+  --color-ink:              #1B634E; /* Lightened from dark #1F3D33 to rich, vibrant botanical green */
+  --color-ink-muted:        #3E6958;
+  --color-ink-faint:        #6B9484;
   
-  --color-emerald-accent:   #0B996F;
-  --color-emerald-deep:     #086B4E;
-  --color-sage-soft:        #DFEAE2;
+  --color-emerald-accent:   #0D9E71; /* Luminous, fresh emerald */
+  --color-emerald-deep:     #0A7D58;
+  --color-sage-soft:        #DCEEE4;
   
   --color-amber-accent:     #D97706;
 
-  /* Legacy brand token aliases for backwards compatibility */
-  --color-forest-primary:   #1F3D33;
-  --color-forest-deep:      #162C25;
-  --color-emerald-primary:  #0B996F;
-  --color-emerald-hover:    #086B4E;
+  /* Brand token aliases */
+  --color-forest-primary:   #1B634E;
+  --color-forest-deep:      #165442;
+  --color-emerald-primary:  #0D9E71;
+  --color-emerald-hover:    #0A7D58;
   --color-bg-main:          #F6F4EE;
   --color-surface-white:    #FFFFFF;
   --color-surface-soft:     #FCFAF5;
-  --color-body-text:        #4A6056;
-  --color-border-subtle:    #E3DDD2;
+  --color-body-text:        #3E6958;
+  --color-border-subtle:    #DDE8E1;
 
   /* Container */
   --container-max:          1280px;
@@ -50,13 +50,13 @@
 /* ─── Base Styles ────────────────────────────────────────────── */
 html {
   background-color: #F6F4EE;
-  color: #1F3D33;
+  color: #1B634E;
   scroll-behavior: auto; /* Managed by Lenis smooth scroll */
 }
 
 body {
   background-color: #F6F4EE;
-  color: #4A6056;
+  color: #3E6958;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,7 +66,7 @@ body {
 /* Editorial Serif Headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: #1F3D33;
+  color: #1B634E;
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
@@ -99,7 +99,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Selection & Scrollbar ──────────────────────────────────── */
 ::selection {
-  background-color: #1F3D33;
+  background-color: #1B634E;
   color: #F6F4EE;
 }
 
@@ -113,12 +113,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C8D4CC;
+  background: #B6D5C7;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0B996F;
+  background: #0D9E71;
 }
 
 /* ─── Shimmer & Mask Keyframes ───────────────────────────────── */

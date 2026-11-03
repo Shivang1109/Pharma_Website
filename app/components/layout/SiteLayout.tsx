@@ -16,7 +16,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
     <LenisProvider>
       <Preloader />
       <CustomCursor />
-      <div className="flex min-h-screen flex-col relative bg-[#F6F4EE] text-[#1F3D33] selection:bg-[#1F3D33] selection:text-[#F6F4EE]">
+      <div className="flex min-h-screen flex-col relative bg-[#F6F4EE] text-[#1B634E] selection:bg-[#1B634E] selection:text-[#F6F4EE]">
         <Navbar />
         <main id="main-content" className="flex-1 pt-20" tabIndex={-1}>
           <PageTransition>

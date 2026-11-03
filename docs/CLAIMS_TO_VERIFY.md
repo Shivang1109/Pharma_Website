@@ -30,3 +30,4 @@ This document lists every clinical, operational, and regulatory assertion curren
 
 - **"Active & Verified" Badge:** **REMOVED** from all components. Unsubstantiated seal-style badges have been eliminated to maintain strict regulatory compliance.
 - **Direct-to-Consumer Claims:** **PROHIBITED**. All messaging remains strictly confined to licensed healthcare professionals, hospital procurement bodies, and registered distributors.
+

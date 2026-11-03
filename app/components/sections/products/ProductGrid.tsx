@@ -10,8 +10,8 @@ interface ProductGridProps {
 export const ProductGrid: React.FC<ProductGridProps> = ({ products, onSelectProduct }) => {
   if (products.length === 0) {
     return (
-      <div className="py-20 text-center font-mono text-sm text-[#4A6056] bg-[#FCFAF5] rounded-3xl border border-[#1F3D33]/15">
-        <p className="font-editorial text-xl text-[#1F3D33] mb-2 font-bold">
+      <div className="py-20 text-center font-mono text-sm text-[#3E6958] bg-[#FCFAF5] rounded-3xl border border-[#1B634E]/15">
+        <p className="font-editorial text-xl text-[#1B634E] mb-2 font-bold">
           No formulations matched your query.
         </p>
         <p className="text-xs">
