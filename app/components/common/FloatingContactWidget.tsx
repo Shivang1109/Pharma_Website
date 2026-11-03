@@ -30,7 +30,7 @@ export const FloatingContactWidget: React.FC = () => {
         <button
           type="button"
           onClick={scrollToTop}
-          className="pointer-events-auto p-3 bg-white text-[#173B30] rounded-full shadow-lg border border-[#DCE8E0] hover:bg-[#E8F4EE] hover:text-[#087B59] transition-all duration-200 focus-visible:outline-[#087B59]"
+          className="pointer-events-auto p-3 bg-white text-[#123D32] rounded-full shadow-lg border border-[#E4EBE6] hover:bg-[#DFF1E9] hover:text-[#07845E] transition-all duration-200 focus-visible:outline-[#07845E]"
           aria-label="Scroll back to top"
         >
           <ArrowUp className="w-4 h-4" />
@@ -39,11 +39,11 @@ export const FloatingContactWidget: React.FC = () => {
 
       {/* Expanded Quick Contact Panel */}
       {isOpen && (
-        <div className="pointer-events-auto mb-1 w-72 bg-white rounded-2xl shadow-2xl border border-[#DCE8E0] p-4 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="pointer-events-auto mb-1 w-72 bg-white rounded-2xl shadow-2xl border border-[#E4EBE6] p-4 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="flex items-center justify-between pb-3 border-b border-gray-100">
             <div>
               <p className="text-xs font-bold text-gray-900">Direct Enquiry</p>
-              <p className="text-[11px] text-[#087B59] font-medium">Zilton Life Care Desk</p>
+              <p className="text-[11px] text-[#07845E] font-medium">Zilton Life Care Desk</p>
             </div>
             <button
               type="button"
@@ -61,14 +61,14 @@ export const FloatingContactWidget: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100/80 text-emerald-800 transition-colors text-xs font-semibold"
+              className="flex items-center gap-3 p-2.5 rounded-xl bg-[#DFF1E9]/60 hover:bg-[#DFF1E9] text-[#123D32] transition-colors text-xs font-semibold"
             >
-              <div className="p-1.5 rounded-lg bg-emerald-600 text-white">
+              <div className="p-1.5 rounded-lg bg-[#07845E] text-white">
                 <MessageCircle className="w-4 h-4" />
               </div>
               <div>
                 <span className="block leading-tight">Chat on WhatsApp</span>
-                <span className="text-[10px] text-emerald-700 font-normal">
+                <span className="text-[10px] text-[#07845E] font-medium">
                   +91 9819667211
                 </span>
               </div>
@@ -79,7 +79,7 @@ export const FloatingContactWidget: React.FC = () => {
               href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
               className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-800 transition-colors text-xs font-semibold"
             >
-              <div className="p-1.5 rounded-lg bg-[#087B59] text-white">
+              <div className="p-1.5 rounded-lg bg-[#123D32] text-white">
                 <Phone className="w-4 h-4" />
               </div>
               <div>
@@ -97,7 +97,7 @@ export const FloatingContactWidget: React.FC = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-[#087B59] hover:bg-[#066447] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-200 focus-visible:outline-[#087B59] group"
+        className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-[#07845E] hover:bg-[#05684A] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-200 focus-visible:outline-[#07845E] group"
         aria-label="Open fast business enquiry"
         aria-expanded={isOpen}
       >

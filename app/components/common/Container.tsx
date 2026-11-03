@@ -4,14 +4,17 @@ type ContainerProps = {
 };
 
 /**
- * Site-wide max-width wrapper with consistent horizontal padding.
- * All page sections should use this to stay within the design grid.
+ * Site-wide luxury max-width wrapper with standardized responsive padding:
+ * - Desktop: 64px (lg:px-16)
+ * - Tablet:  32px (sm:px-8)
+ * - Mobile:  20px (px-5)
+ * - Max-width: 1240px
  */
 export function Container({ children, className = "" }: ContainerProps) {
   return (
     <div
       className={[
-        "mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8",
+        "mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-16",
         className,
       ].join(" ")}
     >

@@ -12,7 +12,7 @@ type SiteLayoutProps = {
  */
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col relative">
+    <div className="flex min-h-screen flex-col relative bg-[#FAFCFA] selection:bg-[#DFF1E9] selection:text-[#123D32]">
       <Navbar />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         {children}

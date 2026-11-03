@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-type ButtonProps = {
+export type ButtonProps = {
   children: React.ReactNode;
   /** Internal route — renders a <Link> */
   to?: string;
@@ -15,23 +15,23 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087B59] disabled:opacity-50 disabled:pointer-events-none";
+  "inline-flex items-center justify-center font-semibold tracking-wide transition-all duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#07845E] disabled:opacity-40 disabled:pointer-events-none select-none active:scale-[0.99]";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
-    "bg-[#087B59] text-white hover:bg-[#066447] active:bg-[#055238]",
+    "bg-[#07845E] text-white hover:bg-[#05684A] active:bg-[#04523B] shadow-[0_2px_12px_rgba(7,132,94,0.18)] hover:shadow-[0_4px_16px_rgba(7,132,94,0.28)] hover:-translate-y-0.5",
   secondary:
-    "bg-[#E8F4EE] text-[#087B59] hover:bg-[#d4ecdf] active:bg-[#c0e4cf]",
+    "bg-[#DFF1E9] text-[#123D32] hover:bg-[#cde9dd] active:bg-[#bdd9cc] hover:-translate-y-0.5",
   outline:
-    "border-2 border-[#087B59] text-[#087B59] hover:bg-[#E8F4EE] active:bg-[#d4ecdf]",
+    "border border-[#E4EBE6] text-[#123D32] bg-white hover:border-[#07845E]/60 hover:bg-[#F2F7F4] hover:-translate-y-0.5 shadow-2xs",
   text:
-    "text-[#087B59] hover:underline underline-offset-4",
+    "text-[#07845E] hover:text-[#05684A] underline-offset-4 hover:underline",
 };
 
 const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
-  sm: "px-4 py-2 text-sm rounded-md",
-  md: "px-6 py-3 text-base rounded-lg",
-  lg: "px-8 py-4 text-lg rounded-xl",
+  sm: "px-4 py-2 text-xs font-semibold rounded-lg",
+  md: "px-5 py-2.5 text-sm font-semibold rounded-xl",
+  lg: "px-7 py-3.5 text-base font-semibold rounded-xl",
 };
 
 export function Button({
@@ -78,5 +78,19 @@ export function Button({
       {children}
     </button>
   );
+}
+
+/**
+ * Convenience wrapper for the primary luxury action button
+ */
+export function PrimaryButton(props: Omit<ButtonProps, "variant">) {
+  return <Button {...props} variant="primary" />;
+}
+
+/**
+ * Convenience wrapper for the secondary soft sage action button
+ */
+export function SecondaryButton(props: Omit<ButtonProps, "variant">) {
+  return <Button {...props} variant="secondary" />;
 }
 
