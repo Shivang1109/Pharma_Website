@@ -1,0 +1,53 @@
+/* ─── Google Fonts — must come before @import "tailwindcss" ─── */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+@theme {
+  /* Typography */
+  --font-heading: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    "Inter",   ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colours */
+  --color-emerald-primary: #087B59;
+  --color-emerald-hover:   #066447;
+  --color-mint-soft:       #E8F4EE;
+  --color-forest-deep:     #173B30;
+  --color-body-text:       #46534C;
+  --color-border:          #DCE8E0;
+
+  /* Spacing / layout */
+  --container-max:  1200px;
+  --radius-card:    0.75rem;
+  --radius-btn:     0.5rem;
+  --shadow-card:    0 2px 16px 0 rgb(8 123 89 / 0.08);
+  --shadow-nav:     0 1px 8px 0 rgb(23 59 48 / 0.08);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+html,
+body {
+  @apply bg-white text-[#46534C] antialiased;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  @apply text-[#173B30] leading-tight;
+}
+
+/* ─── Focus ring (accessible) ────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #087B59;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
