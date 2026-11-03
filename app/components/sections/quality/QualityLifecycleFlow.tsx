@@ -38,15 +38,18 @@ export const QualityLifecycleFlow: React.FC = () => {
   ];
 
   return (
-    <div className="py-12 border-t border-gray-100">
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="text-xs uppercase tracking-wider font-semibold text-[#087B59] bg-[#E8F4EE] px-3 py-1 rounded-full">
+    <div className="py-14 border-t border-[#E4EBE6]">
+      <div className="text-center max-w-2xl mx-auto mb-12">
+        <span className="text-xs uppercase tracking-wider font-semibold text-[#123D32] bg-[#DFF1E9] px-3.5 py-1 rounded-full">
           Quality Control Lifecycle
         </span>
-        <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-gray-900">
+        <h2
+          className="mt-4 text-2xl sm:text-3xl font-extrabold text-[#123D32]"
+          style={{ fontFamily: "var(--font-heading)" }}
+        >
           The 4-Stage Quality Assurance Cycle
         </h2>
-        <p className="mt-2 text-sm text-[#46534C]">
+        <p className="mt-2 text-sm text-[#53635C]">
           Documented diligence from source manufacturing audit to healthcare facility receipt.
         </p>
       </div>
@@ -57,32 +60,35 @@ export const QualityLifecycleFlow: React.FC = () => {
           return (
             <div
               key={item.step}
-              className="relative p-6 rounded-2xl bg-white border border-[#DCE8E0] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="luxury-card relative p-6 rounded-2xl bg-white border border-[#E4EBE6] hover:border-[#07845E]/40 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-black text-[#087B59]/30 font-mono">
+                  <span className="text-2xl font-black text-[#DFF1E9] font-mono">
                     {item.step}
                   </span>
-                  <div className="p-2.5 rounded-xl bg-[#E8F4EE] text-[#087B59]">
+                  <div className="p-2.5 rounded-xl bg-[#DFF1E9] text-[#07845E]">
                     <Icon className="w-5 h-5" />
                   </div>
                 </div>
 
-                <h3 className="text-base font-bold text-gray-900 leading-snug">
+                <h3
+                  className="text-base font-bold text-[#123D32] leading-snug"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                   {item.title}
                 </h3>
-                <span className="text-xs font-semibold text-[#087B59] block mt-0.5">
+                <span className="text-xs font-semibold text-[#07845E] block mt-0.5">
                   {item.subtitle}
                 </span>
 
-                <p className="mt-3 text-xs text-[#46534C] leading-relaxed">
+                <p className="mt-3 text-xs text-[#53635C] leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-white border border-[#DCE8E0] flex items-center justify-center text-[#087B59] text-[10px] font-bold">
+                <div className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-white border border-[#E4EBE6] items-center justify-center text-[#07845E] text-[10px] font-bold shadow-xs">
                   →
                 </div>
               )}

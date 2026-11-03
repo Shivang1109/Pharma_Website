@@ -27,7 +27,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
       <div
         role="tablist"
         aria-label="Filter products by therapeutic category"
-        className="inline-flex p-1.5 bg-gray-100/80 rounded-xl border border-gray-200/80 space-x-1"
+        className="inline-flex p-1.5 bg-[#F2F7F4] rounded-2xl border border-[#E4EBE6] space-x-1"
       >
         {options.map((option) => {
           const isActive = selectedCategory === option.id;
@@ -37,17 +37,17 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelectCategory(option.id)}
-              className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[#087B59] focus:ring-offset-1 ${
+              className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-xl transition-all duration-150 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[#07845E] focus:ring-offset-1 ${
                 isActive
-                  ? "bg-[#087B59] text-white shadow-sm font-semibold"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-white/60"
+                  ? "bg-[#123D32] text-white shadow-xs font-semibold"
+                  : "text-[#53635C] hover:text-[#123D32] hover:bg-white"
               }`}
             >
               {option.label}
               {typeof option.count === "number" && (
                 <span
                   className={`ml-2 px-1.5 py-0.5 text-[11px] rounded-full ${
-                    isActive ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"
+                    isActive ? "bg-white/20 text-white" : "bg-[#DFF1E9] text-[#123D32]"
                   }`}
                 >
                   {option.count}

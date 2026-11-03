@@ -1,18 +1,29 @@
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
-import { ArrowRight, ShieldCheck, Handshake, Leaf } from "lucide-react";
+import {
+  ArrowRight,
+  ShieldCheck,
+  Handshake,
+  Leaf,
+  CheckCircle2,
+  Sparkles,
+  Building2,
+  Award,
+  FlaskConical,
+} from "lucide-react";
 import { Button } from "~/components/common/Button";
 import { Container } from "~/components/common/Container";
 import { SectionHeading } from "~/components/common/SectionHeading";
+import { StatisticCard } from "~/components/common/StatisticCard";
 import { COMPANY } from "~/data/company";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Zilton Life Care — Better Healthcare. Healthier Lives." },
+    { title: "Zilton Life Care — Minimal Luxury Healthcare & Clinical Formulations" },
     {
       name: "description",
       content:
-        "Zilton Life Care Private Limited is a pharmaceutical marketing company committed to delivering quality healthcare solutions across Critical Care, Nutrition IV and Nutrition Sachet categories.",
+        "Zilton Life Care Private Limited is a premier pharmaceutical marketing company delivering sterile critical care injectables and clinical nutrition solutions across India.",
     },
   ];
 }
@@ -21,89 +32,82 @@ export function meta({}: Route.MetaArgs) {
 function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-[#E8F4EE] via-white to-white py-16 sm:py-24"
+      className="relative overflow-hidden bg-gradient-to-b from-[#DFF1E9]/40 via-[#FAFCFA] to-[#FAFCFA] pt-16 pb-20 sm:pt-24 sm:pb-28"
       aria-label="Hero"
     >
-      {/* Decorative ambient background accents */}
+      {/* Ambient background blur elements */}
       <div
-        className="pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full bg-[#087B59]/5 blur-2xl"
+        className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-[#07845E]/5 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-[#087B59]/5 blur-xl"
+        className="pointer-events-none absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-[#DFF1E9]/60 blur-2xl"
         aria-hidden="true"
       />
 
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
           {/* Left Column: Headlines & CTA */}
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#E8F4EE] border border-[#DCE8E0] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#087B59] mb-5">
-              <span className="h-2 w-2 rounded-full bg-[#087B59] animate-pulse" />
-              Pharmaceutical Marketing
+          <div className="lg:col-span-7 luxury-fade-up">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#DFF1E9] border border-[#07845E]/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-6">
+              <span className="h-2 w-2 rounded-full bg-[#07845E] animate-pulse" />
+              Corporate Pharmaceutical Marketing
             </div>
 
             <h1
-              className="text-4xl font-extrabold text-[#173B30] sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight"
+              className="text-4xl font-extrabold text-[#123D32] sm:text-5xl lg:text-6xl leading-[1.12] tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Better Healthcare.{" "}
-              <span className="text-[#087B59]">Healthier Lives.</span>
+              <span className="text-[#07845E]">Healthier Lives.</span>
             </h1>
 
-            <p className="mt-5 text-base sm:text-lg text-[#46534C] leading-relaxed max-w-xl">
-              Quality-driven pharmaceutical solutions and trusted healthcare
-              partnerships — delivering sterile critical care injectables and clinical nutrition to hospitals and healthcare providers.
+            <p className="mt-6 text-base sm:text-lg text-[#53635C] leading-relaxed max-w-xl font-normal">
+              A healthcare organisation committed to clinical precision, high-integrity sourcing, and verified pharmaceutical formulations across Critical Care, Clinical Nutrition IV, and Therapeutic Sachets.
             </p>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button to="/products" size="lg" className="shadow-sm hover:shadow-md">
-                Explore Products
+              <Button to="/products" size="lg" className="shadow-sm">
+                Explore Product Portfolio <ArrowRight size={16} className="ml-2" />
               </Button>
               <Button to="/about" size="lg" variant="outline">
-                About Us
+                Corporate Profile
               </Button>
             </div>
 
             {/* Trust Metrics Strip */}
-            <div className="mt-10 pt-8 border-t border-[#DCE8E0] grid grid-cols-3 gap-4">
-              <div>
-                <p className="font-heading text-2xl font-extrabold text-[#173B30] sm:text-3xl">
-                  3
-                </p>
-                <p className="text-xs text-[#46534C] font-medium mt-0.5">
-                  Core Clinical Categories
-                </p>
-              </div>
-              <div>
-                <p className="font-heading text-2xl font-extrabold text-[#087B59] sm:text-3xl">
-                  100%
-                </p>
-                <p className="text-xs text-[#46534C] font-medium mt-0.5">
-                  Audited cGMP Sourcing
-                </p>
-              </div>
-              <div>
-                <p className="font-heading text-2xl font-extrabold text-[#173B30] sm:text-3xl">
-                  GDP
-                </p>
-                <p className="text-xs text-[#46534C] font-medium mt-0.5">
-                  Cold-Chain Logistics
-                </p>
-              </div>
+            <div className="mt-12 pt-8 border-t border-[#E4EBE6] grid grid-cols-3 gap-6">
+              <StatisticCard
+                value="3"
+                label="Core Clinical Portfolios"
+                sublabel="Specialised Formulations"
+              />
+              <StatisticCard
+                value="100%"
+                label="Audited cGMP Partners"
+                sublabel="Verified Quality"
+              />
+              <StatisticCard
+                value="GDP"
+                label="Compliant Logistics"
+                sublabel="Controlled Chain"
+              />
             </div>
           </div>
 
           {/* Right Column: High-Fidelity Medical Graphic */}
-          <div className="lg:col-span-5 flex justify-center">
+          <div className="lg:col-span-5 flex justify-center luxury-fade-in">
             <div className="relative w-full max-w-md lg:max-w-none">
-              <img
-                src="/images/hero/hero-medical-graphic.svg"
-                alt="Zilton Life Care quality pharmaceutical operations"
-                className="w-full h-auto drop-shadow-xl select-none"
-                loading="eager"
-              />
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#07845E]/15 to-[#DFF1E9]/40 blur-xl opacity-60" />
+              <div className="relative rounded-3xl border border-[#E4EBE6] bg-white p-3 shadow-lg">
+                <img
+                  src="/images/hero/hero-medical-graphic.svg"
+                  alt="Zilton Life Care pharmaceutical manufacturing and distribution excellence"
+                  className="w-full h-auto rounded-2xl select-none"
+                  loading="eager"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -115,41 +119,48 @@ function Hero() {
 /* ─── Section: About teaser ─────────────────────────────────── */
 function AboutTeaser() {
   return (
-    <section className="py-16 sm:py-24 bg-white" aria-labelledby="about-teaser-heading">
+    <section className="py-20 sm:py-28 bg-white border-y border-[#E4EBE6]" aria-labelledby="about-teaser-heading">
       <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-[#087B59]">
-              Who We Are
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6 order-2 lg:order-1 flex justify-center">
+            <div className="relative w-full max-w-md">
+              <div className="rounded-3xl border border-[#E4EBE6] bg-[#F2F7F4] p-3 shadow-sm">
+                <img
+                  src="/images/company/company-graphic.svg"
+                  alt="Zilton Life Care corporate partnership and clinical quality assurance"
+                  className="w-full h-auto rounded-2xl select-none"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-6 order-1 lg:order-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DFF1E9] px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-4">
+              <Building2 className="w-3.5 h-3.5 text-[#07845E]" />
+              Corporate Identity
             </span>
             <h2
               id="about-teaser-heading"
-              className="mb-5 text-3xl font-bold text-[#173B30] sm:text-4xl"
+              className="mb-5 text-3xl font-extrabold text-[#123D32] sm:text-4xl tracking-tight leading-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              A Company Built on Trust &amp; Quality
+              A Heritage Built on Quality, Sourcing &amp; Compliance
             </h2>
-            <p className="mb-6 text-base text-[#46534C] leading-relaxed">
-              Zilton Life Care Private Limited is a pharmaceutical marketing
-              company focused on bridging the gap between quality healthcare
-              products and the professionals who rely on them.
+            <p className="mb-5 text-base text-[#53635C] leading-relaxed">
+              Zilton Life Care Private Limited is a dedicated pharmaceutical marketing organisation based in Mumbai. We specialize in bringing audited, premium-grade hospital and clinical formulations to healthcare providers across India.
             </p>
-            <p className="mb-8 text-base text-[#46534C] leading-relaxed">
-              Our mission — <em className="font-medium text-[#173B30]">"{COMPANY.mission}"</em> — guides every
-              partnership and every product category we represent.
+            <p className="mb-8 text-base text-[#53635C] leading-relaxed">
+              Guided by our foundational principle — <em className="font-semibold text-[#123D32]">"{COMPANY.mission}"</em> — we ensure every batch adheres to strict Good Distribution Practices (GDP) and certified cGMP manufacturing protocols.
             </p>
-            <Button to="/about" variant="outline">
-              Learn More About Us <ArrowRight size={16} className="ml-2" />
-            </Button>
-          </div>
-          {/* Company Graphic */}
-          <div className="flex items-center justify-center">
-            <img
-              src="/images/company/company-graphic.svg"
-              alt="Zilton Life Care pharmaceutical partnership and supply network"
-              className="w-full max-w-lg h-auto rounded-2xl shadow-sm border border-[#DCE8E0]"
-              loading="lazy"
-            />
+            <div className="flex flex-wrap items-center gap-4">
+              <Button to="/about" variant="outline">
+                Our Corporate Profile <ArrowRight size={16} className="ml-2" />
+              </Button>
+              <Button to="/quality" variant="outline">
+                Quality Assurance Framework
+              </Button>
+            </div>
           </div>
         </div>
       </Container>
@@ -162,73 +173,97 @@ function ProductCategories() {
   const categories = [
     {
       id: "critical-care-injection",
-      label: "Critical Care Injection",
-      icon: <ShieldCheck size={28} className="text-[#087B59]" />,
+      label: "Critical Care Injections",
+      badge: "Sterile Injectables",
+      icon: <ShieldCheck size={28} className="text-[#07845E]" />,
       description:
-        "Precision-formulated injectable solutions for critical care settings, supporting patient recovery.",
+        "High-potency, sterile lyophilized and liquid injectable formulations engineered for hospital intensive care units, emergency settings, and acute surgical therapy.",
+      highlights: ["Sterile ICU formulations", "Batch-tested purity", "Complete COA documentation"],
     },
     {
       id: "nutrition-iv",
-      label: "Nutrition IV",
-      icon: <Leaf size={28} className="text-[#087B59]" />,
+      label: "Clinical Nutrition IV",
+      badge: "Infusion Solutions",
+      icon: <Leaf size={28} className="text-[#07845E]" />,
       description:
-        "Intravenous nutrition solutions designed to meet the clinical demands of patients requiring parenteral support.",
+        "Balanced parenteral nutrition and amino acid infusions formulated to sustain critically ill, post-operative, and catabolic patients requiring targeted vascular feeding.",
+      highlights: ["Balanced amino-acid profiles", "Targeted osmolarity", "Strict particulate control"],
     },
     {
       id: "nutrition-sachet",
-      label: "Nutrition Sachet",
-      icon: <Handshake size={28} className="text-[#087B59]" />,
+      label: "Nutritional Sachets",
+      badge: "Oral Therapeutics",
+      icon: <Handshake size={28} className="text-[#07845E]" />,
       description:
-        "Convenient sachet-based nutritional supplements formulated for ease of administration and patient compliance.",
+        "High-bioavailability dietary and nutritional supplements packed in hermetically sealed sachets for enhanced shelf stability and precise therapeutic administration.",
+      highlights: ["Hermetically sealed packaging", "Patient-compliant dosing", "Targeted micronutrition"],
     },
   ];
 
   return (
     <section
-      className="py-16 sm:py-20 bg-[#E8F4EE]/40"
+      className="py-20 sm:py-28 bg-[#FAFCFA]"
       aria-labelledby="products-section-heading"
     >
       <Container>
         <SectionHeading
-          eyebrow="Our Product Categories"
-          title="What We Market"
-          description="Three focused categories — each representing our commitment to quality pharmaceutical solutions."
+          eyebrow="Core Portfolios"
+          title="Clinical Formulations"
+          description="Three focused therapeutic divisions delivering certified formulations to hospitals, distributors, and healthcare institutions."
           align="center"
-          className="mb-12"
+          className="mb-14"
         />
-        <ul
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          role="list"
-        >
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => (
-            <li key={cat.id}>
-              <Link
-                to={`/products#${cat.id}`}
-                className="group flex flex-col gap-4 rounded-2xl border border-[#DCE8E0] bg-white p-8 transition-all duration-200 hover:border-[#087B59] hover:shadow-[0_4px_24px_0_rgb(8_123_89/0.12)] h-full"
-                aria-label={`View ${cat.label} products`}
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8F4EE]">
-                  {cat.icon}
+            <div
+              key={cat.id}
+              className="luxury-card flex flex-col justify-between p-8 rounded-2xl bg-white border border-[#E4EBE6] hover:border-[#07845E]/40"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#DFF1E9] text-[#07845E]">
+                    {cat.icon}
+                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#123D32] bg-[#F2F7F4] border border-[#E4EBE6] px-3 py-1 rounded-full">
+                    {cat.badge}
+                  </span>
                 </div>
+
                 <h3
-                  className="text-lg font-bold text-[#173B30] group-hover:text-[#087B59] transition-colors"
+                  className="text-xl font-bold text-[#123D32] mb-3"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {cat.label}
                 </h3>
-                <p className="text-sm text-[#46534C] leading-relaxed flex-1">
+                <p className="text-sm text-[#53635C] leading-relaxed mb-6">
                   {cat.description}
                 </p>
-                <span className="flex items-center gap-1 text-sm font-semibold text-[#087B59]">
-                  View Products <ArrowRight size={14} />
-                </span>
+
+                <div className="space-y-2 mb-8 pt-4 border-t border-[#E4EBE6]/60">
+                  {cat.highlights.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#123D32]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#07845E] shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Link
+                to={`/products#${cat.id}`}
+                className="inline-flex items-center justify-between w-full pt-4 border-t border-[#E4EBE6] text-sm font-semibold text-[#07845E] hover:text-[#123D32] transition-colors group"
+              >
+                <span>View Formulations</span>
+                <ArrowRight size={16} className="transform transition-transform group-hover:translate-x-1" />
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
-        <div className="mt-10 text-center">
-          <Button to="/products" variant="outline">
-            See Full Product Catalogue
+        </div>
+
+        <div className="mt-14 text-center">
+          <Button to="/products" size="lg" className="shadow-xs">
+            Browse Complete Catalogue
           </Button>
         </div>
       </Container>
@@ -236,33 +271,52 @@ function ProductCategories() {
   );
 }
 
-/* ─── Section: Quality teaser ───────────────────────────────── */
+/* ─── Section: Quality teaser banner ────────────────────────── */
 function QualityTeaser() {
   return (
     <section
-      className="py-16 sm:py-20 bg-white"
+      className="py-16 sm:py-24 bg-white"
       aria-labelledby="quality-teaser-heading"
     >
       <Container>
-        <div className="rounded-2xl bg-[#173B30] px-8 py-14 text-center text-white sm:px-14">
-          <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-[#87bfac]">
-            Our Quality Commitment
-          </span>
-          <h2
-            id="quality-teaser-heading"
-            className="mb-5 text-3xl font-bold text-white sm:text-4xl"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Quality at the Core of Everything
-          </h2>
-          <p className="mb-8 mx-auto max-w-xl text-[#a8cfc0] leading-relaxed">
-            Every product we market goes through rigorous selection and
-            quality evaluation. We believe that trust is built through
-            transparency and consistent standards.
-          </p>
-          <Button to="/quality" variant="secondary">
-            Our Quality Story <ArrowRight size={16} className="ml-2" />
-          </Button>
+        <div className="relative overflow-hidden rounded-3xl bg-[#123D32] px-8 py-16 text-center text-white sm:px-16 lg:py-20 shadow-xl">
+          {/* Subtle gradient background glow */}
+          <div
+            className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#07845E]/20 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-[#DFF1E9]/10 blur-2xl"
+            aria-hidden="true"
+          />
+
+          <div className="relative max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFF1E9] mb-5">
+              <Award className="w-4 h-4 text-[#DFF1E9]" />
+              cGMP Sourced &amp; Quality Controlled
+            </span>
+
+            <h2
+              id="quality-teaser-heading"
+              className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl tracking-tight leading-tight mb-6"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Unyielding Commitment to Clinical Standards
+            </h2>
+
+            <p className="mb-10 text-base sm:text-lg text-[#DFF1E9]/85 leading-relaxed font-light">
+              We mandate thorough Certificate of Analysis (COA) verification, cold-chain integrity, and audited batch traceability across every formulation delivered into the healthcare ecosystem.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Button to="/quality" size="lg" variant="secondary">
+                Explore Quality Assurance <ArrowRight size={16} className="ml-2" />
+              </Button>
+              <Button to="/contact" size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:border-white">
+                Request COA Documents
+              </Button>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
@@ -273,95 +327,105 @@ function QualityTeaser() {
 function VisionMissionValues() {
   return (
     <section
-      className="py-16 sm:py-20 bg-[#E8F4EE]/40"
+      className="py-20 sm:py-28 bg-[#F2F7F4] border-y border-[#E4EBE6]"
       aria-labelledby="vmv-heading"
     >
       <Container>
         <SectionHeading
-          eyebrow="Our Foundation"
+          eyebrow="Corporate Purpose"
           title="Vision, Mission &amp; Values"
+          description="The principles that govern our operations, ethical distribution standards, and healthcare industry partnerships."
           align="center"
-          className="mb-12"
+          className="mb-14"
         />
 
-        {/* Vision & Mission */}
-        <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl border border-[#DCE8E0] bg-white p-8">
-            <span className="mb-2 block text-xs font-semibold uppercase tracking-widest text-[#087B59]">
-              Vision
-            </span>
+        {/* Vision & Mission Split Cards */}
+        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="luxury-card rounded-2xl border border-[#E4EBE6] bg-white p-8 sm:p-10">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#07845E] bg-[#DFF1E9] px-3 py-1 rounded-full">
+                Vision
+              </span>
+              <Sparkles className="w-5 h-5 text-[#07845E]" />
+            </div>
             <p
-              className="text-xl font-bold text-[#173B30]"
+              className="text-2xl font-extrabold text-[#123D32] leading-snug"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               "{COMPANY.vision}"
             </p>
+            <p className="mt-4 text-sm text-[#53635C] leading-relaxed">
+              Striving toward an ecosystem where every hospital, patient, and clinician has reliable access to tested therapeutic treatments without compromise.
+            </p>
           </div>
-          <div className="rounded-2xl border border-[#DCE8E0] bg-white p-8">
-            <span className="mb-2 block text-xs font-semibold uppercase tracking-widest text-[#087B59]">
-              Mission
-            </span>
+
+          <div className="luxury-card rounded-2xl border border-[#E4EBE6] bg-white p-8 sm:p-10">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#07845E] bg-[#DFF1E9] px-3 py-1 rounded-full">
+                Mission
+              </span>
+              <FlaskConical className="w-5 h-5 text-[#07845E]" />
+            </div>
             <p
-              className="text-xl font-bold text-[#173B30]"
+              className="text-2xl font-extrabold text-[#123D32] leading-snug"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               "{COMPANY.mission}"
             </p>
+            <p className="mt-4 text-sm text-[#53635C] leading-relaxed">
+              Bridging premier cGMP pharmaceutical manufacturing with institutional demand through rigorous compliance and dependable distribution.
+            </p>
           </div>
         </div>
 
-        {/* Values grid */}
-        <ul
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          role="list"
-        >
-          {COMPANY.values.map((value) => (
-            <li
+        {/* Core Values 6-Grid */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {COMPANY.values.map((value, idx) => (
+            <div
               key={value.label}
-              className="flex items-start gap-4 rounded-xl border border-[#DCE8E0] bg-white p-6"
+              className="luxury-card flex flex-col p-6 rounded-2xl border border-[#E4EBE6] bg-white"
             >
-              <div className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[#087B59]" aria-hidden="true" />
-              <div>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#DFF1E9] text-[#123D32] text-xs font-bold">
+                  0{idx + 1}
+                </span>
                 <h3
-                  className="mb-1 font-bold text-[#173B30]"
+                  className="font-bold text-[#123D32] text-base"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {value.label}
                 </h3>
-                <p className="text-sm text-[#46534C] leading-relaxed">
-                  {value.description}
-                </p>
               </div>
-            </li>
+              <p className="text-sm text-[#53635C] leading-relaxed">
+                {value.description}
+              </p>
+            </div>
           ))}
-        </ul>
+        </div>
       </Container>
     </section>
   );
 }
 
-/* ─── Section: Partnership CTA ──────────────────────────────── */
-function PartnershipCTA() {
+/* ─── Section: Institutional Supply CTA ─────────────────────── */
+function InstitutionalCTA() {
   return (
-    <section
-      className="py-16 sm:py-20 bg-white"
-      aria-labelledby="partnership-heading"
-    >
+    <section className="py-20 sm:py-28 bg-white" aria-labelledby="institutional-heading">
       <Container>
-        <div className="text-center max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto text-center">
           <SectionHeading
-            eyebrow="Partner With Us"
-            title="Grow Together in Healthcare"
-            description="We welcome partnerships with distributors, stockists and healthcare institutions who share our commitment to quality and patient well-being."
+            eyebrow="Commercial Enquiries"
+            title="Institutional Distribution &amp; Supply"
+            description="We welcome collaboration with authorized pharmaceutical stockists, healthcare hospital networks, and state healthcare institutions across India."
             align="center"
             className="mb-8"
           />
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button to="/contact" size="lg">
-              Start a Conversation
+              Initiate Commercial Enquiry
             </Button>
             <Button to="/products" size="lg" variant="outline">
-              View Our Products
+              Review Product Specs
             </Button>
           </div>
         </div>
@@ -370,26 +434,26 @@ function PartnershipCTA() {
   );
 }
 
-/* ─── Section: Contact teaser ───────────────────────────────── */
-function ContactTeaser() {
+/* ─── Section: Contact Bar ──────────────────────────────────── */
+function ContactBar() {
   return (
-    <section className="py-14 bg-[#E8F4EE]" aria-labelledby="contact-teaser-heading">
+    <section className="py-12 bg-[#DFF1E9] border-t border-[#E4EBE6]" aria-labelledby="contact-bar-heading">
       <Container>
         <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
-            <h2
-              id="contact-teaser-heading"
-              className="text-xl font-bold text-[#173B30]"
+            <h3
+              id="contact-bar-heading"
+              className="text-lg font-bold text-[#123D32]"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Have a question or enquiry?
-            </h2>
-            <p className="mt-1 text-sm text-[#46534C]">
-              Reach out — we respond to all business enquiries.
+              Direct Corporate Liaison
+            </h3>
+            <p className="text-sm text-[#53635C] mt-0.5">
+              Connect directly with our regulatory and commercial team in Mumbai.
             </p>
           </div>
           <Button to="/contact" size="md">
-            Contact Us <ArrowRight size={16} className="ml-2" />
+            Contact Support Desk <ArrowRight size={16} className="ml-2" />
           </Button>
         </div>
       </Container>
@@ -406,8 +470,8 @@ export default function HomePage() {
       <ProductCategories />
       <QualityTeaser />
       <VisionMissionValues />
-      <PartnershipCTA />
-      <ContactTeaser />
+      <InstitutionalCTA />
+      <ContactBar />
     </>
   );
 }

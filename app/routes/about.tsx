@@ -1,16 +1,18 @@
 import type { Route } from "./+types/about";
+import { ArrowRight, CheckCircle2, ShieldCheck, Target, HeartHandshake, Award } from "lucide-react";
 import { Container } from "~/components/common/Container";
 import { SectionHeading } from "~/components/common/SectionHeading";
 import { Button } from "~/components/common/Button";
+import { StatisticCard } from "~/components/common/StatisticCard";
 import { COMPANY } from "~/data/company";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "About Us — Zilton Life Care Private Limited" },
+    { title: "About Zilton Life Care — Corporate Governance, Vision & Ethics" },
     {
       name: "description",
       content:
-        "Learn about Zilton Life Care Private Limited — our vision, mission, values and our commitment to quality pharmaceutical marketing.",
+        "Discover Zilton Life Care Private Limited — our corporate vision, healthcare mission, core values, and uncompromising dedication to pharmaceutical quality standards.",
     },
   ];
 }
@@ -18,22 +20,25 @@ export function meta({}: Route.MetaArgs) {
 /* ─── Section: Page hero ─────────────────────────────────────── */
 function PageHero() {
   return (
-    <section className="bg-gradient-to-br from-[#E8F4EE] via-white to-white py-16 sm:py-24" aria-label="About page hero">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#DFF1E9]/40 via-[#FAFCFA] to-[#FAFCFA] py-16 sm:py-24" aria-label="About page hero">
+      <div
+        className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#07845E]/5 blur-3xl"
+        aria-hidden="true"
+      />
       <Container>
-        <div className="max-w-2xl">
-          <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-[#087B59]">
-            About Us
+        <div className="max-w-3xl luxury-fade-up">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DFF1E9] border border-[#07845E]/20 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-5">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#07845E]" />
+            Corporate Identity
           </span>
           <h1
-            className="mb-5 text-4xl font-extrabold text-[#173B30] sm:text-5xl leading-tight"
+            className="mb-6 text-4xl font-extrabold text-[#123D32] sm:text-5xl lg:text-6xl tracking-tight leading-[1.12]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Who We Are
+            Committed to Integrity in Pharmaceutical Healthcare
           </h1>
-          <p className="text-lg text-[#46534C] leading-relaxed">
-            Zilton Life Care Private Limited is a pharmaceutical marketing company
-            committed to connecting quality healthcare products with the
-            professionals and institutions that rely on them.
+          <p className="text-lg text-[#53635C] leading-relaxed">
+            Zilton Life Care Private Limited is a dedicated pharmaceutical marketing organisation based in Mumbai. We bridge certified cGMP drug manufacturing with hospital intensive care units and healthcare providers across India.
           </p>
         </div>
       </Container>
@@ -44,47 +49,56 @@ function PageHero() {
 /* ─── Section: Company introduction ─────────────────────────── */
 function CompanyIntro() {
   return (
-    <section className="py-16 sm:py-20 bg-white" aria-labelledby="company-intro-heading">
+    <section className="py-20 sm:py-28 bg-white border-y border-[#E4EBE6]" aria-labelledby="company-intro-heading">
       <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
           {/* Company Graphic */}
-          <div className="flex items-center justify-center order-2 lg:order-1">
-            <img
-              src="/images/company/company-graphic.svg"
-              alt="Zilton Life Care manufacturing partner and institutional supply network"
-              className="w-full max-w-lg h-auto rounded-2xl shadow-sm border border-[#DCE8E0]"
-              loading="lazy"
-            />
+          <div className="lg:col-span-6 order-2 lg:order-1 flex justify-center">
+            <div className="relative w-full max-w-lg">
+              <div className="rounded-3xl border border-[#E4EBE6] bg-[#F2F7F4] p-3 shadow-md">
+                <img
+                  src="/images/company/company-graphic.svg"
+                  alt="Zilton Life Care institutional supply network and quality evaluation"
+                  className="w-full h-auto rounded-2xl select-none"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
-          <div className="order-1 lg:order-2">
-            <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-[#087B59]">
-              Our Company
+
+          <div className="lg:col-span-6 order-1 lg:order-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DFF1E9] px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#123D32] mb-4">
+              Our Foundations
             </span>
             <h2
               id="company-intro-heading"
-              className="mb-5 text-3xl font-bold text-[#173B30] sm:text-4xl"
+              className="mb-6 text-3xl font-extrabold text-[#123D32] sm:text-4xl tracking-tight leading-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Pharmaceutical Marketing with Purpose
+              Pharmaceutical Marketing Guided by Clinical Precision
             </h2>
-            <p className="mb-4 text-base text-[#46534C] leading-relaxed">
-              Zilton Life Care Private Limited is a pharmaceutical marketing
-              company based in Mumbai, focused on making quality healthcare
-              products accessible to medical professionals and institutions across
-              India.
-            </p>
-            <p className="mb-4 text-base text-[#46534C] leading-relaxed">
-              We market products across three key categories — Critical Care
-              Injection, Nutrition IV, and Nutrition Sachet — each selected with
-              a focus on clinical relevance, quality standards, and genuine
-              healthcare value.
-            </p>
-            <p className="text-base text-[#46534C] leading-relaxed">
-              Our approach is rooted in transparency: we represent our
-              manufacturing partners accurately, communicate product information
-              honestly, and build relationships that prioritise trust over
-              short-term gain.
-            </p>
+            <div className="space-y-4 text-base text-[#53635C] leading-relaxed">
+              <p>
+                Headquartered in Mumbai, Maharashtra, Zilton Life Care Private Limited was founded on the belief that healthcare distribution must be synonymous with uncompromised therapeutic efficacy and ethical transparency.
+              </p>
+              <p>
+                Our operational portfolio focuses strategically on three critical hospital therapeutic segments: <strong>Critical Care Injections</strong>, <strong>Clinical Nutrition IV</strong> infusions, and <strong>Nutritional Therapeutic Sachets</strong>.
+              </p>
+              <p>
+                Every formulation we market is sourced strictly from audited manufacturing facilities compliant with current Good Manufacturing Practices (cGMP) and distributed under strict Good Distribution Practices (GDP) to protect cold-chain and molecular integrity.
+              </p>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-[#E4EBE6] grid grid-cols-2 gap-4">
+              <div>
+                <span className="text-xs uppercase tracking-wider text-[#53635C] font-semibold block">Headquarters</span>
+                <p className="text-sm font-bold text-[#123D32] mt-0.5">Mumbai, Maharashtra, India</p>
+              </div>
+              <div>
+                <span className="text-xs uppercase tracking-wider text-[#53635C] font-semibold block">Operating Status</span>
+                <p className="text-sm font-bold text-[#07845E] mt-0.5">Active &amp; Compliant Marketing</p>
+              </div>
+            </div>
           </div>
         </div>
       </Container>
@@ -95,43 +109,49 @@ function CompanyIntro() {
 /* ─── Section: Vision & Mission ─────────────────────────────── */
 function VisionMission() {
   return (
-    <section className="py-16 sm:py-20 bg-[#E8F4EE]/40" aria-labelledby="vm-heading">
+    <section className="py-20 sm:py-28 bg-[#FAFCFA]" aria-labelledby="vm-heading">
       <Container>
         <SectionHeading
-          eyebrow="Our Direction"
-          title="Vision &amp; Mission"
+          eyebrow="Our Guiding Light"
+          title="Vision &amp; Mission Statements"
           align="center"
-          className="mb-12"
+          className="mb-14"
         />
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-          <div className="rounded-2xl border-l-4 border-[#087B59] bg-white p-8 shadow-sm">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#087B59]">
-              Our Vision
-            </span>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="luxury-card rounded-3xl border border-[#E4EBE6] bg-white p-8 sm:p-12">
+            <div className="flex items-center justify-between mb-6">
+              <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#07845E] bg-[#DFF1E9] px-3.5 py-1 rounded-full">
+                <Target className="w-3.5 h-3.5 text-[#07845E]" />
+                Corporate Vision
+              </span>
+            </div>
             <p
-              className="text-2xl font-bold text-[#173B30] leading-snug"
+              className="text-2xl sm:text-3xl font-extrabold text-[#123D32] leading-snug tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               "{COMPANY.vision}"
             </p>
-            <p className="mt-4 text-sm text-[#46534C] leading-relaxed">
-              We envision a healthcare landscape where access to quality
-              pharmaceutical products is a given — not a privilege.
+            <p className="mt-5 text-sm sm:text-base text-[#53635C] leading-relaxed">
+              We envision an accessible, high-standard healthcare system where clinicians and intensive care specialists have immediate access to high-purity pharmaceutical solutions without supply vulnerabilities.
             </p>
           </div>
-          <div className="rounded-2xl border-l-4 border-[#087B59] bg-white p-8 shadow-sm">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-[#087B59]">
-              Our Mission
-            </span>
+
+          <div className="luxury-card rounded-3xl border border-[#E4EBE6] bg-white p-8 sm:p-12">
+            <div className="flex items-center justify-between mb-6">
+              <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#07845E] bg-[#DFF1E9] px-3.5 py-1 rounded-full">
+                <HeartHandshake className="w-3.5 h-3.5 text-[#07845E]" />
+                Corporate Mission
+              </span>
+            </div>
             <p
-              className="text-2xl font-bold text-[#173B30] leading-snug"
+              className="text-2xl sm:text-3xl font-extrabold text-[#123D32] leading-snug tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               "{COMPANY.mission}"
             </p>
-            <p className="mt-4 text-sm text-[#46534C] leading-relaxed">
-              Every partnership we form and every product we represent is guided
-              by this commitment to quality, integrity and meaningful impact.
+            <p className="mt-5 text-sm sm:text-base text-[#53635C] leading-relaxed">
+              Every partnership we forge, batch we approve, and distribution channel we support is governed by an absolute dedication to clinical quality and patient outcomes.
             </p>
           </div>
         </div>
@@ -143,44 +163,90 @@ function VisionMission() {
 /* ─── Section: Core Values ───────────────────────────────────── */
 function CoreValues() {
   return (
-    <section className="py-16 sm:py-20 bg-white" aria-labelledby="values-heading">
+    <section className="py-20 sm:py-28 bg-[#F2F7F4] border-y border-[#E4EBE6]" aria-labelledby="values-heading">
       <Container>
         <SectionHeading
-          eyebrow="What We Stand For"
-          title="Our Core Values"
-          description="These values shape how we work, the partnerships we build, and the standards we hold ourselves to every day."
+          eyebrow="Ethical Governance"
+          title="Our Six Pillars of Operation"
+          description="These foundational principles guide our team, govern commercial partnerships, and ensure compliance at every touchpoint."
           align="center"
-          className="mb-12"
+          className="mb-14"
         />
-        <ul
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          role="list"
-        >
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {COMPANY.values.map((value, i) => (
-            <li
+            <div
               key={value.label}
-              className="group rounded-2xl border border-[#DCE8E0] bg-white p-7 transition-all hover:border-[#087B59] hover:shadow-[0_4px_24px_0_rgb(8_123_89/0.10)]"
+              className="luxury-card flex flex-col justify-between rounded-2xl border border-[#E4EBE6] bg-white p-8"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F4EE]">
-                <span
-                  className="text-sm font-bold text-[#087B59]"
-                  aria-hidden="true"
+              <div>
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[#DFF1E9]">
+                  <span
+                    className="text-sm font-extrabold text-[#123D32]"
+                    aria-hidden="true"
+                  >
+                    0{i + 1}
+                  </span>
+                </div>
+                <h3
+                  className="mb-2 text-xl font-bold text-[#123D32]"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                  {value.label}
+                </h3>
+                <p className="text-sm text-[#53635C] leading-relaxed">
+                  {value.description}
+                </p>
               </div>
-              <h3
-                className="mb-2 text-lg font-bold text-[#173B30] group-hover:text-[#087B59] transition-colors"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                {value.label}
-              </h3>
-              <p className="text-sm text-[#46534C] leading-relaxed">
-                {value.description}
-              </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ─── Section: Compliance & Quality Pillars ───────────────────── */
+function ComplianceHighlights() {
+  return (
+    <section className="py-20 sm:py-28 bg-white" aria-labelledby="compliance-heading">
+      <Container>
+        <div className="max-w-4xl mx-auto">
+          <SectionHeading
+            eyebrow="Compliance &amp; Governance"
+            title="Institutional Trust &amp; Verification"
+            align="center"
+            className="mb-12"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+            <StatisticCard
+              value="cGMP"
+              label="Manufacturing Mandate"
+              sublabel="Certified Facilities Only"
+            />
+            <StatisticCard
+              value="COA"
+              label="Standard Documentation"
+              sublabel="Batch Purity Certified"
+            />
+            <StatisticCard
+              value="GDP"
+              label="Distribution Rigor"
+              sublabel="Controlled Transportation"
+            />
+          </div>
+
+          <div className="rounded-2xl border border-[#E4EBE6] bg-[#FAFCFA] p-8 space-y-4">
+            <h4 className="text-base font-bold text-[#123D32] flex items-center gap-2">
+              <Award className="w-5 h-5 text-[#07845E]" />
+              Regulatory Compliance Commitment
+            </h4>
+            <p className="text-sm text-[#53635C] leading-relaxed">
+              Zilton Life Care adheres strictly to the regulatory guidelines promulgated by national and state drug control authorities. We maintain full audit trails, licensed storage conditions, and strict adherence to Schedule M manufacturing partner requirements.
+            </p>
+          </div>
+        </div>
       </Container>
     </section>
   );
@@ -189,26 +255,28 @@ function CoreValues() {
 /* ─── Section: CTA ───────────────────────────────────────────── */
 function AboutCTA() {
   return (
-    <section className="py-14 bg-[#173B30]" aria-labelledby="about-cta-heading">
+    <section className="py-20 bg-[#123D32] text-white" aria-labelledby="about-cta-heading">
       <Container>
-        <div className="flex flex-col items-center gap-6 text-center">
+        <div className="max-w-2xl mx-auto flex flex-col items-center gap-6 text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#DFF1E9] bg-white/10 px-4 py-1.5 rounded-full">
+            Commercial Collaboration
+          </span>
           <h2
             id="about-cta-heading"
-            className="text-2xl font-bold text-white sm:text-3xl"
+            className="text-3xl font-extrabold text-white sm:text-4xl tracking-tight leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Interested in working with us?
+            Partner With Zilton Life Care
           </h2>
-          <p className="max-w-xl text-[#a8cfc0] leading-relaxed">
-            We are open to partnerships with distributors, stockists and
-            healthcare institutions that share our values.
+          <p className="text-base text-[#DFF1E9]/80 leading-relaxed font-light">
+            We actively seek long-term relationships with regional pharmaceutical distributors, institutional stockists, and healthcare hospital chains who share our ethos of clinical excellence.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center mt-2">
             <Button to="/contact" size="lg">
-              Get in Touch
+              Contact Commercial Team <ArrowRight size={16} className="ml-2" />
             </Button>
             <Button to="/products" size="lg" variant="secondary">
-              View Our Products
+              Review Product Formulations
             </Button>
           </div>
         </div>
@@ -225,8 +293,8 @@ export default function AboutPage() {
       <CompanyIntro />
       <VisionMission />
       <CoreValues />
+      <ComplianceHighlights />
       <AboutCTA />
     </>
   );
 }
-

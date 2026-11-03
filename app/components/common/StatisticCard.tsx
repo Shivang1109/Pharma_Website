@@ -4,6 +4,7 @@ export interface StatisticCardProps {
   value: string;
   label: string;
   subtext?: string;
+  sublabel?: string;
   badge?: string;
   highlightValue?: boolean;
   className?: string;
@@ -17,10 +18,13 @@ export const StatisticCard: React.FC<StatisticCardProps> = ({
   value,
   label,
   subtext,
+  sublabel,
   badge,
   highlightValue = false,
   className = "",
 }) => {
+  const displaySubtext = subtext || sublabel;
+
   return (
     <div
       className={[
@@ -49,9 +53,9 @@ export const StatisticCard: React.FC<StatisticCardProps> = ({
         </h3>
       </div>
 
-      {subtext && (
-        <p className="mt-2 text-xs text-[#53635C] leading-relaxed pt-3 border-t border-gray-100">
-          {subtext}
+      {displaySubtext && (
+        <p className="mt-2 text-xs text-[#53635C] leading-relaxed pt-3 border-t border-[#E4EBE6]">
+          {displaySubtext}
         </p>
       )}
     </div>

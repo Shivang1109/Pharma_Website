@@ -30,15 +30,18 @@ export const QualityPillars: React.FC = () => {
   ];
 
   return (
-    <div className="py-12 border-t border-gray-100">
+    <div className="py-14 border-t border-[#E4EBE6]">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <span className="text-xs uppercase tracking-wider font-semibold text-[#087B59] bg-[#E8F4EE] px-3 py-1 rounded-full">
+        <span className="text-xs uppercase tracking-wider font-semibold text-[#123D32] bg-[#DFF1E9] px-3.5 py-1 rounded-full">
           Three Core Pillars
         </span>
-        <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-gray-900">
+        <h2
+          className="mt-4 text-2xl sm:text-3xl font-extrabold text-[#123D32]"
+          style={{ fontFamily: "var(--font-heading)" }}
+        >
           The Pillars of Our Quality Framework
         </h2>
-        <p className="mt-2 text-sm sm:text-base text-[#46534C]">
+        <p className="mt-2 text-sm sm:text-base text-[#53635C]">
           Systematic checks deployed at every milestone from facility inspection to healthcare facility receipt.
         </p>
       </div>
@@ -49,30 +52,33 @@ export const QualityPillars: React.FC = () => {
           return (
             <div
               key={pillar.number}
-              className="relative p-8 rounded-3xl bg-white border border-[#DCE8E0] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+              className="luxury-card relative p-8 rounded-3xl bg-white border border-[#E4EBE6] hover:border-[#07845E]/40 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-[#E8F4EE] text-[#087B59] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-[#DFF1E9] text-[#07845E] flex items-center justify-center">
                     <Icon className="w-6 h-6 stroke-[1.75]" />
                   </div>
-                  <span className="text-2xl font-black text-gray-200">
+                  <span className="text-2xl font-black text-[#DFF1E9]">
                     {pillar.number}
                   </span>
                 </div>
 
-                <span className="text-xs font-semibold text-[#087B59] uppercase tracking-wide">
+                <span className="text-xs font-semibold text-[#07845E] uppercase tracking-wide">
                   {pillar.tagline}
                 </span>
-                <h3 className="mt-1 text-lg font-bold text-gray-900">
+                <h3
+                  className="mt-1 text-lg font-bold text-[#123D32]"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                   {pillar.title}
                 </h3>
-                <p className="mt-3 text-sm text-[#46534C] leading-relaxed">
+                <p className="mt-3 text-sm text-[#53635C] leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-gray-100 text-xs font-medium text-gray-500">
+              <div className="mt-6 pt-4 border-t border-[#E4EBE6] text-xs font-medium text-[#53635C]">
                 Continuous compliance oversight
               </div>
             </div>
@@ -82,4 +88,3 @@ export const QualityPillars: React.FC = () => {
     </div>
   );
 };
-
