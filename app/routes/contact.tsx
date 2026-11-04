@@ -3,40 +3,35 @@ import { useSearchParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  contactFormSchema,
-  type ContactFormData,
-  ENQUIRY_TYPES,
-} from "~/schemas/contact.schema";
-import { submitContactForm, type ContactSubmissionResponse } from "~/services/contact.service";
-import { ImageSlot } from "~/components/ui/ImageSlot";
-import { COMPANY } from "~/data/company";
-import { generateRouteMeta } from "~/utils/seo";
-import { getWhatsAppLink } from "~/utils/whatsapp";
-import {
-  buildCorporateInquiryGmail,
-  buildCorporateInquiryWhatsApp,
-} from "~/utils/inquiry";
-import {
-  MapPin,
   Phone,
   Mail,
+  MapPin,
   Clock,
-  ArrowRight,
-  CheckCircle2,
+  Send,
   Loader2,
-  AlertCircle,
+  CheckCircle2,
   Tag,
   X,
   ExternalLink,
-  Send,
-  RotateCcw,
+  MessageSquare,
 } from "lucide-react";
+import { COMPANY } from "~/data/company";
+import {
+  contactFormSchema,
+  ENQUIRY_TYPES,
+  type ContactFormData,
+} from "~/schemas/contact.schema";
+import { submitContactForm } from "~/services/contact.service";
+import { getWhatsAppLink } from "~/utils/whatsapp";
+import { buildCorporateInquiryWhatsApp } from "~/utils/inquiry";
+import { generateRouteMeta } from "~/utils/seo";
+import { IMAGES } from "~/data/images";
 
 export function meta() {
   return generateRouteMeta({
-    title: "Contact Corporate & Procurement Desk",
+    title: "Contact Zilton Life Care | Corporate Enquiries",
     description:
-      "Connect with ZILTON LIFE CARE PRIVATE LIMITED for institutional supply, commercial hospital procurement, batch documentation, and distribution partnerships.",
+      "Contact Zilton Life Care Private Limited in Bandra West, Mumbai for pharmaceutical procurement, hospital supply enquiries, and batch documentation.",
     canonicalPath: "/contact",
   });
 }
@@ -44,15 +39,13 @@ export function meta() {
 export default function ContactPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const productParam = searchParams.get("product");
-  const [dispatchNotice, setDispatchNotice] = useState<{
-    type: "email" | "whatsapp";
-    title: string;
-    detail: string;
-    actionRequired: string;
-    url: string;
-  } | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const typeParam = searchParams.get("type");
+
   const [honeypot, setHoneypot] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [submittedSuccess, setSubmittedSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState<ContactFormData | null>(null);
 
   const {
     register,
@@ -61,33 +54,33 @@ export default function ContactPage() {
     reset,
     formState: { errors },
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(contactFormSchema) as any,
     defaultValues: {
       fullName: "",
       organization: "",
       email: "",
       phone: "",
-      enquiryType: productParam ? "product-related" : "general",
-      productName: productParam || "",
-      subject: productParam ? `Institutional Enquiry: ${productParam}` : "",
-      message: productParam
-        ? `We request commercial terms, batch availability, and institutional pricing for ${productParam}.`
-        : "",
-      consent: true,
+      enquiryType: "product-related",
+      productName: "",
+      subject: "",
+      message: "",
+      consent: false as unknown as true,
     },
   });
 
   useEffect(() => {
     if (productParam) {
-      setValue("enquiryType", "product-related");
       setValue("productName", productParam);
-      setValue("subject", `Institutional Enquiry: ${productParam}`);
+      setValue("subject", `Inquiry: Commercial Supply of ${productParam}`);
       setValue(
         "message",
-        `We request commercial terms, batch availability, and institutional pricing for ${productParam}.`
+        `We would like to enquire regarding commercial availability, batch supply, and institutional pricing terms for ${productParam}.`
       );
+    } else if (typeParam === "quality-docs") {
+      setValue("enquiryType", "quality-docs");
+      setValue("subject", "Request for Batch Certificate of Analysis / Dossier");
     }
-  }, [productParam, setValue]);
+  }, [productParam, typeParam, setValue]);
 
   const clearProduct = () => {
     const next = new URLSearchParams(searchParams);
@@ -98,124 +91,128 @@ export default function ContactPage() {
     setValue("message", "");
   };
 
-  const handleEmailSubmit = (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     if (honeypot) return;
     setIsSubmitting(true);
+    setServerError(null);
 
     try {
-      const gmailUrl = buildCorporateInquiryGmail(data);
-      setDispatchNotice({
-        type: "email",
-        title: "Gmail Web Compose Opened",
-        detail: `All submitted inquiry fields have been pre-filled for ${COMPANY.inquiryEmail}.`,
-        actionRequired: "Please review the prefilled draft in the opened Gmail tab and click 'Send' to complete delivery. (If prompted, please sign in to your Google Account).",
-        url: gmailUrl,
-      });
-
-      if (typeof window !== "undefined") {
-        window.open(gmailUrl, "_blank", "noopener,noreferrer");
+      const res = await submitContactForm({ ...data, honeypot });
+      if (res.success) {
+        setSubmittedSuccess(true);
+        setSubmittedData(data);
+        reset();
+      } else {
+        setServerError(res.message || "Failed to dispatch enquiry. Please try again.");
       }
+    } catch {
+      setServerError("Network error. Please connect directly via phone or WhatsApp.");
     } finally {
-      setTimeout(() => setIsSubmitting(false), 400);
+      setIsSubmitting(false);
     }
   };
 
-  const handleWhatsAppSubmit = (data: ContactFormData) => {
-    if (honeypot) return;
-    setIsSubmitting(true);
-
-    try {
-      const waUrl = buildCorporateInquiryWhatsApp(data);
-      setDispatchNotice({
-        type: "whatsapp",
-        title: "WhatsApp Window Opened",
-        detail: `All submitted inquiry fields have been pre-filled for our desk at +${COMPANY.whatsapp}.`,
-        actionRequired: "Please review the pre-filled message in WhatsApp and tap Send to complete delivery.",
-        url: waUrl,
-      });
-
-      if (typeof window !== "undefined") {
-        window.open(waUrl, "_blank", "noopener,noreferrer");
-      }
-    } finally {
-      setTimeout(() => setIsSubmitting(false), 400);
+  const onWhatsAppSubmit = (data: ContactFormData) => {
+    const waUrl = buildCorporateInquiryWhatsApp(data);
+    setSubmittedSuccess(true);
+    setSubmittedData(data);
+    if (typeof window !== "undefined") {
+      window.open(waUrl, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const getWhatsAppFollowup = () => {
+    if (!submittedData) return "";
+    const msg = `Hello Zilton Life Care Team,\n\nI have submitted an online enquiry:\nName: ${submittedData.fullName}\nInstitution: ${submittedData.organization || "Not Specified"}\nSubject: ${submittedData.subject}\n\nPlease confirm receipt.\n\nThank you.`;
+    return getWhatsAppLink(msg);
   };
 
   return (
-    <div className="py-12 sm:py-20">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Editorial Heading */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-3">
-            01 / Executive Communications
-          </span>
-          <h1 className="text-fluid-hero font-editorial font-bold text-[#1B634E] tracking-tight">
-            Institutional Dialogue Desk
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#3E6958] font-light leading-relaxed">
-            Direct your commercial inquiries, hospital tender schedules, or regulatory batch documentation requests to our Mumbai corporate office.
-          </p>
-        </div>
+    <div className="w-full">
+      {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[36vh] max-h-[44vh] flex flex-col justify-end md:justify-center">
+        {IMAGES.contactOffice && (
+          <img
+            src={IMAGES.contactOffice}
+            alt="Zilton Life Care corporate office in Mumbai"
+            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            loading="eager"
+            decoding="sync"
+          />
+        )}
 
-        {/* ─── SPLIT LAYOUT ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left Column: Lightened Vibrant Green Corporate Panel with Map ImageSlot */}
-          <div className="lg:col-span-5 bg-[#1B634E] text-[#F6F4EE] p-8 sm:p-10 rounded-3xl border border-[#1B634E] shadow-xl space-y-6 select-none">
+        {/* Directional Green Scrim */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#123D32]/95 via-[#165442]/85 to-transparent/30"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="max-w-2xl text-left">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DCEEE4] text-xs font-medium mb-3 border border-white/10 shadow-xs">
+              Corporate Office &amp; Supply Desk
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-editorial font-bold text-white tracking-tight leading-none">
+              Send an enquiry
+            </h1>
+            <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed max-w-xl font-light">
+              Direct your commercial inquiries, hospital supply schedules, or regulatory batch documentation requests to our Mumbai corporate office.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CONTACT BODY ───────────────────────────────────────── */}
+      <div className="py-12 sm:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* ─── SPLIT LAYOUT ──────────────────────────────────────── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Left Column: Corporate Panel with High-Contrast Text */}
+          <div className="lg:col-span-5 bg-[#1B634E] text-[#FAFCFA] p-6 sm:p-10 rounded-2xl shadow-xl space-y-6 select-none">
             {/* Registered Office Address Card */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6 transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#DCEEE4] font-bold">
-                  Registered Office
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-[#DCEEE4]/80">
-                  Official Entity
-                </span>
-              </div>
+            <div className="rounded-xl bg-white/10 border border-white/15 p-5 sm:p-6 transition-all duration-200">
+              <span className="text-xs font-semibold text-[#DCEEE4] uppercase tracking-wider block mb-2">
+                Registered Corporate Office
+              </span>
               <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-white leading-tight">
                 {COMPANY.name}
               </h2>
 
-              {/* Clickable Address Block with Location Icon & Hover Interaction */}
               <a
                 href={COMPANY.address.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3.5 block group/addr rounded-xl p-3 -mx-3 transition-colors duration-200 hover:bg-white/10"
-                title="Open Registered Office location in Google Maps (opens in new tab)"
+                className="mt-4 block group rounded-xl p-3 -mx-3 hover:bg-white/10 transition-colors duration-200"
+                title="Open location on Google Maps"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-white/10 text-[#DCEEE4] group-hover/addr:bg-[#07845E] group-hover/addr:text-white transition-colors duration-200 shrink-0 mt-0.5 border border-white/10">
+                  <div className="p-2 rounded-lg bg-white/10 text-[#DCEEE4] group-hover:bg-[#0D9E71] group-hover:text-white transition-colors duration-200 shrink-0 mt-0.5">
                     <MapPin className="w-4 h-4" />
                   </div>
-                  <div>
-                    <address className="not-italic text-xs sm:text-sm text-white/85 font-light leading-relaxed group-hover/addr:text-white transition-colors">
-                      {COMPANY.address.line1},<br />
-                      {COMPANY.address.line2},<br />
-                      {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}, {COMPANY.address.country}.
-                    </address>
-                  </div>
+                  <address className="not-italic text-xs sm:text-sm text-white/90 font-light leading-relaxed group-hover:text-white transition-colors">
+                    {COMPANY.address.line1},<br />
+                    {COMPANY.address.line2},<br />
+                    {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}, {COMPANY.address.country}.
+                  </address>
                 </div>
               </a>
 
-              {/* Clearly visible "View on Google Maps" Button */}
-              <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between">
+              <div className="mt-3 pt-3 border-t border-white/10">
                 <a
                   href={COMPANY.address.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-[#07845E] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-200 border border-white/15 hover:border-transparent group shadow-xs"
-                  aria-label="View Registered Office on Google Maps (opens in new tab)"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#DCEEE4] hover:text-white transition-colors"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#DCEEE4] group-hover:text-white transition-colors" />
+                  <MapPin className="w-3.5 h-3.5" />
                   <span>View on Google Maps</span>
-                  <ExternalLink className="w-3 h-3 text-[#DCEEE4] group-hover:text-white transition-colors ml-0.5" />
+                  <ExternalLink className="w-3 h-3 ml-0.5" />
                 </a>
               </div>
             </div>
 
             {/* Direct Lines */}
-            <div className="space-y-4 pt-2 font-mono text-xs text-white/95">
+            <div className="space-y-4 pt-1 text-xs text-white/95">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-[#DCEEE4] shrink-0" />
                 <a
@@ -230,7 +227,7 @@ export default function ContactPage() {
                 <Mail className="w-4 h-4 text-[#DCEEE4] shrink-0" />
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="text-white/85 hover:text-white transition-colors font-medium"
+                  className="text-white/90 hover:text-white transition-colors font-medium"
                 >
                   {COMPANY.email}
                 </a>
@@ -240,405 +237,319 @@ export default function ContactPage() {
                 <Clock className="w-4 h-4 text-[#DCEEE4] shrink-0 mt-0.5" />
                 <div>
                   <span className="block font-semibold">Monday – Saturday: 09:30 – 18:30 IST</span>
-                  <span className="text-[10px] text-white/70">Closed on Sundays &amp; National Holidays</span>
+                  <span className="text-[11px] text-white/75">Closed on Sundays &amp; National Holidays</span>
                 </div>
               </div>
 
-              {/* WhatsApp Quick Connect Block */}
-              <div className="flex items-start gap-3 pt-2 border-t border-white/15">
-                <div className="p-2 rounded-xl bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] shrink-0 mt-0.5">
-                  <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4" aria-hidden="true">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
-                  </svg>
+              {/* WhatsApp Quick Connect */}
+              <div className="flex items-start gap-3 pt-3 border-t border-white/15">
+                <div className="p-2 rounded-lg bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] shrink-0 mt-0.5">
+                  <MessageSquare className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="block text-white/70 text-[10px] uppercase tracking-wider">WhatsApp Business Desk</span>
+                  <span className="block text-white/80 text-[11px] font-medium">WhatsApp Business Desk</span>
                   <a
-                    href={getWhatsAppLink("Hello Zilton Life Care Team,\n\nI would like to get in touch regarding your pharmaceutical products and services.\n\nPlease assist me further.\n\nThank you.")}
+                    href={getWhatsAppLink("Hello Zilton Life Care Team,\n\nI would like to get in touch regarding your pharmaceutical products.\n\nThank you.")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#25D366] transition-colors font-bold text-sm tracking-wide block mt-0.5 text-white"
+                    className="hover:text-[#25D366] transition-colors font-bold text-sm block mt-0.5 text-white"
                   >
                     +91 9819667211
-                  </a>
-                  <a
-                    href={getWhatsAppLink("Hello Zilton Life Care Team,\n\nI would like to get in touch regarding your pharmaceutical products and services.\n\nPlease assist me further.\n\nThank you.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-mono text-[11px] uppercase tracking-wider font-semibold transition-colors duration-200"
-                  >
-                    <span>Chat with Us</span>
-                    <ArrowRight className="w-3 h-3" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Registered Office Google Maps Location Preview */}
+            {/* Google Maps Embed */}
             <div className="pt-2">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-[#DCEEE4] block mb-2 flex items-center justify-between">
-                <span>REGISTERED OFFICE LOCATION MAP</span>
-                <span className="text-[9px] text-[#DCEEE4]/70 font-mono">BANDRA WEST · MUMBAI</span>
-              </span>
-
-              <a
-                href={COMPANY.address.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/map relative block w-full aspect-[16/9] rounded-2xl overflow-hidden border border-white/20 bg-[#123D32] shadow-md transition-all duration-300 hover:border-white/40 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#0D9E71]"
-                aria-label="Open registered office location in Google Maps (opens in a new tab)"
-                title="Open 67 B, Gopal Mansion, Bandra West on Google Maps"
-              >
-                {/* Embedded Live Google Maps with Exact Location Query & Pin */}
+              <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-white/20 bg-[#165442] shadow-sm">
                 <iframe
                   title="Google Maps Location: 67 B, Gopal Mansion, Bandra West, Mumbai"
-                  src="https://maps.google.com/maps?q=Laxmi+Housing+%26+Finance%2C+67+B%2C+Gopal+Mansion%2C+Gurunanak+Road%2C+Bandra+West%2C+Mumbai+400050%2C+Maharashtra%2C+India&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                  className="absolute inset-0 w-full h-full border-0 pointer-events-none transition-transform duration-500 ease-out group-hover/map:scale-[1.03]"
+                  src="https://maps.google.com/maps?q=Laxmi+Housing+%26+Finance%2C+67+B%2C+Gopal+Mansion%2C+Gurunanak+Road%2C+Bandra+West%2C+Mumbai+400050%2C+Maharashtra%2C+India&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  className="absolute inset-0 w-full h-full border-0 pointer-events-none"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   aria-hidden="true"
                 />
-
-                {/* Subtle Ambient Vignette Gradient */}
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 transition-opacity duration-300 group-hover/map:from-black/75"
-                  aria-hidden="true"
-                />
-
-                {/* Top-Right: Subtle "View on Google Maps" Overlay Badge */}
-                <div className="absolute top-3 right-3 z-10">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#123D32]/90 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] uppercase tracking-wider font-semibold shadow-sm transition-all duration-200 group-hover/map:bg-[#07845E] group-hover/map:border-transparent">
-                    <MapPin className="w-3 h-3 text-[#DFF1E9]" />
-                    <span>View on Google Maps</span>
-                    <ExternalLink className="w-2.5 h-2.5 text-[#DFF1E9] ml-0.5" />
-                  </div>
-                </div>
-
-                {/* Bottom-Left: Location Label with Pin */}
-                <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/65 backdrop-blur-md border border-white/15 text-white shadow-sm">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0D9E71] opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]" />
-                    </span>
-                    <span className="font-mono text-[11px] font-medium text-white/95 truncate">
-                      67 B, Gopal Mansion, Bandra West, Mumbai
-                    </span>
-                  </div>
-                </div>
-              </a>
-
-              <figcaption className="mt-2 font-mono text-[11px] text-[#DCEEE4]/80 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
-                Interactive map preview · Click to navigate via Google Maps
-              </figcaption>
+              </div>
             </div>
 
             {/* Statutory Disclaimer */}
             <div className="p-4 rounded-xl bg-white/10 border border-white/15 text-xs text-white/85 font-light leading-relaxed">
-              <strong>Statutory Notice:</strong> This contact desk does not provide patient consultations or emergency services. For medical emergencies, consult your local healthcare facility immediately.
+              <strong>Statutory Notice:</strong> This contact desk serves licensed healthcare professionals and institutional procurement only. We do not provide consumer medical consultations.
             </div>
           </div>
 
-          {/* Right Column: Enquiry Form with Direct Email + WhatsApp Integration */}
-          <div className="lg:col-span-7 bg-[#FCFAF5] p-8 sm:p-12 rounded-3xl border border-[#1B634E]/15 shadow-sm">
+          {/* Right Column: Institutional Enquiry Form */}
+          <div className="lg:col-span-7 bg-[#FFFFFF] p-6 sm:p-10 rounded-2xl border border-[#1B634E]/15 shadow-sm">
             <div className="mb-6 pb-4 border-b border-[#1B634E]/10">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#0D9E71] font-bold block mb-1">
-                Direct Corporate Dispatch
+              <span className="text-xs font-semibold text-[#0D9E71] bg-[#DCEEE4]/80 px-3 py-1 rounded-full inline-block mb-1">
+                Direct Submission
               </span>
               <h3 className="font-editorial text-2xl font-bold text-[#1B634E]">
-                Corporate Inquiry Formulation
+                Corporate Enquiry Form
               </h3>
               <p className="text-xs text-[#3E6958] font-light mt-1">
-                Submissions open directly in Gmail Web Compose or official WhatsApp.
+                Your message is dispatched directly to our Mumbai corporate desk.
               </p>
             </div>
 
-            {/* Direct Dispatch Feedback Banner */}
-            {dispatchNotice && (
-              <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-[#DCEEE4] border border-[#0D9E71]/40 text-[#1B634E] space-y-2.5 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
-                    {dispatchNotice.type === "email" ? (
-                      <Mail className="w-4 h-4 text-[#0D9E71]" />
-                    ) : (
-                      <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4 text-[#25D366]" aria-hidden="true">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
-                      </svg>
-                    )}
-                    <span>{dispatchNotice.title}</span>
+            {/* Submission Success State */}
+            {submittedSuccess ? (
+              <div className="p-6 sm:p-8 rounded-2xl bg-[#DCEEE4]/60 border border-[#0D9E71]/40 text-[#1B634E] space-y-4 animate-in fade-in duration-300">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-8 h-8 text-[#0D9E71]" />
+                  <div>
+                    <h4 className="font-editorial text-xl font-bold text-[#1B634E]">
+                      Enquiry Dispatched Successfully
+                    </h4>
+                    <p className="text-xs text-[#3E6958]">
+                      Logged with official recipient: <strong>{COMPANY.email}</strong>
+                    </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setDispatchNotice(null)}
-                    className="text-[#3E6958] hover:text-[#1B634E] p-1 cursor-pointer"
-                    aria-label="Dismiss notice"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#1B634E] leading-relaxed">
-                  {dispatchNotice.detail}
+                <p className="text-sm text-[#3E6958] leading-relaxed">
+                  Thank you for contacting Zilton Life Care. Our commercial team will review your specifications and respond promptly within standard business hours.
                 </p>
 
-                <div className="p-3 rounded-xl bg-white/80 border border-[#0D9E71]/20 text-xs text-[#123D32] leading-relaxed">
-                  <strong>Action Required:</strong> {dispatchNotice.actionRequired}
-                </div>
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <a
+                    href={getWhatsAppFollowup()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white text-xs font-semibold transition-colors shadow-sm"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Also notify via WhatsApp</span>
+                  </a>
 
-                <div className="pt-1 flex flex-wrap items-center gap-3">
-                  {dispatchNotice.type === "email" ? (
-                    <>
-                      <a
-                        href={dispatchNotice.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#1B634E] hover:text-[#0D9E71] underline"
-                      >
-                        <span>Re-open Gmail Web Compose</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                      <span className="text-[#3E6958]/30">·</span>
-                      <button
-                        type="button"
-                        onClick={handleSubmit(handleWhatsAppSubmit)}
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#0D9E71] hover:text-[#1B634E] cursor-pointer"
-                      >
-                        <span>Also Send via WhatsApp</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <a
-                        href={dispatchNotice.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#0D9E71] hover:text-[#1B634E] underline"
-                      >
-                        <span>Re-open WhatsApp</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                      <span className="text-[#3E6958]/30">·</span>
-                      <button
-                        type="button"
-                        onClick={handleSubmit(handleEmailSubmit)}
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#1B634E] hover:text-[#0D9E71] cursor-pointer"
-                      >
-                        <span>Also Send via Email</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit(handleEmailSubmit)} className="space-y-6">
-              {/* Honeypot Spam Trap (hidden from humans) */}
-              <input
-                type="text"
-                name="b_url"
-                value={honeypot}
-                onChange={(e) => setHoneypot(e.target.value)}
-                className="hidden"
-                tabIndex={-1}
-                autoComplete="off"
-              />
-
-              {/* Pre-filled Product Tag Badge */}
-              {productParam && (
-                <div className="p-3 rounded-xl bg-[#DCEEE4] border border-[#0D9E71]/30 flex items-center justify-between gap-2 text-xs font-mono text-[#1B634E]">
-                  <div className="flex items-center gap-2">
-                    <Tag className="w-3.5 h-3.5 text-[#0D9E71]" />
-                    <span>Referenced Formulation: <strong>{productParam}</strong></span>
-                  </div>
                   <button
                     type="button"
-                    onClick={clearProduct}
-                    className="text-[#3E6958] hover:text-[#1B634E] p-1 cursor-pointer"
-                    aria-label="Clear referenced product"
+                    onClick={() => {
+                      setSubmittedSuccess(false);
+                      setSubmittedData(null);
+                    }}
+                    className="px-5 py-2.5 rounded-full bg-white hover:bg-[#F3F6F4] text-[#1B634E] border border-[#1B634E]/20 text-xs font-semibold transition-colors"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    Submit Another Enquiry
                   </button>
                 </div>
-              )}
-
-              {/* Full Name & Organization */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                    Representative Name *
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Dr. Rajesh Sharma"
-                    {...register("fullName")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                  />
-                  {errors.fullName && (
-                    <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.fullName.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                    Institution / Hospital
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="City Healthcare Consortium"
-                    {...register("organization")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                  />
-                  {errors.organization && (
-                    <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.organization.message}</p>
-                  )}
-                </div>
               </div>
-
-              {/* Email & Phone */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                    Official Email *
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="procurement@hospital.org"
-                    {...register("email")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                  />
-                  {errors.email && (
-                    <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.email.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                    Telephone *
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+91 9819667211"
-                    {...register("phone")}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                  />
-                  {errors.phone && (
-                    <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.phone.message}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Enquiry Type Selector */}
-              <div>
-                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                  Enquiry Classification *
-                </label>
-                <select
-                  {...register("enquiryType")}
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                >
-                  {ENQUIRY_TYPES.map((type) => (
-                    <option key={type.value} value={type.value}>
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
-                {errors.enquiryType && (
-                  <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.enquiryType.message}</p>
-                )}
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                  Subject Line *
-                </label>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                {/* Honeypot Spam Trap */}
                 <input
                   type="text"
-                  placeholder="Institutional tender pricing schedule..."
-                  {...register("subject")}
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
+                  name="b_url"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
                 />
-                {errors.subject && (
-                  <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.subject.message}</p>
-                )}
-              </div>
 
-              {/* Message */}
-              <div>
-                <label className="block font-mono text-[10px] uppercase tracking-wider text-[#1B634E] font-bold mb-1.5">
-                  Detailed Message &amp; Required Volumes *
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Provide details regarding delivery timeframe, destination city, and projected batch requirement..."
-                  {...register("message")}
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-[#1B634E]/15 text-xs font-mono text-[#1B634E] focus:outline-none focus:ring-1 focus:ring-[#0D9E71]"
-                />
-                {errors.message && (
-                  <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.message.message}</p>
+                {/* Pre-filled Product Tag Badge */}
+                {productParam && (
+                  <div className="p-3 rounded-xl bg-[#DCEEE4] border border-[#0D9E71]/30 flex items-center justify-between gap-2 text-xs text-[#1B634E]">
+                    <div className="flex items-center gap-2">
+                      <Tag className="w-3.5 h-3.5 text-[#0D9E71]" />
+                      <span>Referenced Formulation: <strong>{productParam}</strong></span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={clearProduct}
+                      className="text-[#3E6958] hover:text-[#1B634E] p-1 cursor-pointer"
+                      aria-label="Clear referenced product"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 )}
-              </div>
 
-              {/* Consent */}
-              <div className="pt-1">
-                <label className="flex items-start gap-2.5 cursor-pointer">
+                {serverError && (
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700">
+                    {serverError}
+                  </div>
+                )}
+
+                {/* Full Name & Organization */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                      Representative Name *
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Dr. Rajesh Sharma"
+                      {...register("fullName")}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                    />
+                    {errors.fullName && (
+                      <p className="text-[11px] text-red-600 mt-1">{errors.fullName.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                      Institution / Hospital
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Hospital or Distribution Entity"
+                      {...register("organization")}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                    />
+                    {errors.organization && (
+                      <p className="text-[11px] text-red-600 mt-1">{errors.organization.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Email & Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                      Official Email *
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="procurement@hospital.org"
+                      {...register("email")}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                    />
+                    {errors.email && (
+                      <p className="text-[11px] text-red-600 mt-1">{errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                      Telephone *
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="+91 9819667211"
+                      {...register("phone")}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                    />
+                    {errors.phone && (
+                      <p className="text-[11px] text-red-600 mt-1">{errors.phone.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Enquiry Type Selector */}
+                <div>
+                  <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                    Enquiry Classification *
+                  </label>
+                  <select
+                    {...register("enquiryType")}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                  >
+                    {ENQUIRY_TYPES.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.enquiryType && (
+                    <p className="text-[11px] text-red-600 mt-1">{errors.enquiryType.message}</p>
+                  )}
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                    Subject Line *
+                  </label>
                   <input
-                    type="checkbox"
-                    {...register("consent")}
-                    className="mt-0.5 rounded border-[#1B634E]/20 text-[#0D9E71] focus:ring-[#0D9E71]"
+                    type="text"
+                    placeholder="Hospital procurement schedule..."
+                    {...register("subject")}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
                   />
-                  <span className="text-xs text-[#3E6958] leading-relaxed">
-                    I certify that this inquiry represents an institutional, clinical, or commercial request.
-                  </span>
-                </label>
-                {errors.consent && (
-                  <p className="text-[11px] text-red-600 mt-1 font-mono">{errors.consent.message}</p>
-                )}
-              </div>
-
-              {/* Submit Actions: Direct Email + WhatsApp Integration */}
-              <div className="pt-2 space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {/* Email Submission (Primary) */}
-                  <button
-                    type="button"
-                    onClick={handleSubmit(handleEmailSubmit)}
-                    disabled={isSubmitting}
-                    className="w-full py-4 px-5 rounded-xl bg-[#1B634E] hover:bg-[#0D9E71] text-[#F6F4EE] font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shadow-md hover:shadow-lg"
-                  >
-                    <Mail className="w-4 h-4 text-[#DCEEE4]" />
-                    <span>Submit via Email</span>
-                  </button>
-
-                  {/* WhatsApp Submission (Alternative) */}
-                  <button
-                    type="button"
-                    onClick={handleSubmit(handleWhatsAppSubmit)}
-                    disabled={isSubmitting}
-                    className="w-full py-4 px-5 rounded-xl bg-[#25D366] hover:bg-[#128C7E] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shadow-md hover:shadow-lg"
-                  >
-                    <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4" aria-hidden="true">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
-                    </svg>
-                    <span>Submit via WhatsApp</span>
-                  </button>
+                  {errors.subject && (
+                    <p className="text-[11px] text-red-600 mt-1">{errors.subject.message}</p>
+                  )}
                 </div>
 
-                <div className="pt-1 flex flex-wrap items-center justify-between text-[11px] font-mono text-[#3E6958] gap-2">
-                  <span>Recipient: <strong className="text-[#1B634E]">{COMPANY.inquiryEmail}</strong></span>
-                  <span>WhatsApp: <strong className="text-[#1B634E]">+{COMPANY.whatsapp}</strong></span>
+                {/* Message */}
+                <div>
+                  <label className="block text-xs font-semibold text-[#1B634E] mb-1">
+                    Detailed Message &amp; Required Volumes *
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Specify delivery destination, timeline, and projected batch requirement..."
+                    {...register("message")}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFCFA] border border-[#1B634E]/15 text-xs text-[#1B634E] focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30"
+                  />
+                  {errors.message && (
+                    <p className="text-[11px] text-red-600 mt-1">{errors.message.message}</p>
+                  )}
                 </div>
 
-                <p className="text-[11px] text-[#3E6958]/80 text-center leading-relaxed">
-                  Note: Clicking opens Gmail Web Compose or WhatsApp in a new tab with your inquiry pre-filled. You will review and press <strong>Send</strong> to complete transmission.
-                </p>
-              </div>
-            </form>
+                {/* Consent */}
+                <div className="pt-1">
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      {...register("consent")}
+                      className="mt-0.5 rounded border-[#1B634E]/20 text-[#0D9E71] focus:ring-[#0D9E71]"
+                    />
+                    <span className="text-xs text-[#3E6958] leading-relaxed">
+                      I certify that this inquiry represents an institutional, clinical, or commercial request.
+                    </span>
+                  </label>
+                  {errors.consent && (
+                    <p className="text-[11px] text-red-600 mt-1">{errors.consent.message}</p>
+                  )}
+                </div>
+
+                {/* Submit Actions */}
+                <div className="pt-3 flex flex-col sm:flex-row items-center gap-3">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full sm:flex-1 py-3.5 px-6 rounded-full bg-[#1B634E] hover:bg-[#0D9E71] text-[#FAFCFA] text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shadow-md"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Dispatching...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Send Enquiry</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleSubmit(onWhatsAppSubmit, () => {
+                        window.open(
+                          getWhatsAppLink("Hello Zilton Life Care Team,\n\nI would like to enquire about your pharmaceutical formulations.\n\nThank you."),
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      })();
+                    }}
+                    className="w-full sm:w-auto py-3.5 px-6 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>WhatsApp</span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

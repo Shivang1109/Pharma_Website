@@ -1,5 +1,5 @@
-import { COMPANY } from "~/data/company";
-import { ENQUIRY_TYPES, type ContactFormData } from "~/schemas/contact.schema";
+import { COMPANY } from "../data/company";
+import { ENQUIRY_TYPES, type ContactFormData } from "../schemas/contact.schema";
 
 /**
  * Returns human-readable label for enquiry classification
@@ -39,31 +39,21 @@ export function formatInquiryBodyText(data: ContactFormData): string {
 }
 
 /**
- * Generates the Gmail Web Compose URL for the Corporate Inquiry form.
- * Uses centralized temporary testing email from COMPANY.inquiryEmail.
- * Directly opens in a browser tab without triggering OS desktop mail clients (e.g. Apple Mail / Outlook).
+ * Generates an official mailto URL for direct email client submission to info@ziltonlifecare.com
  */
-export function buildCorporateInquiryGmail(data: ContactFormData): string {
-  const recipient = COMPANY.inquiryEmail;
-  const subject = "New Corporate Inquiry – ZILTON LIFE CARE";
+export function buildCorporateInquiryMailto(data: ContactFormData): string {
+  const recipient = COMPANY.email; // info@ziltonlifecare.com
+  const subject = `Corporate Enquiry: ${data.subject || "Zilton Life Care Formulations"}`;
   const body = formatInquiryBodyText(data);
 
-  const params = new URLSearchParams({
-    view: "cm",
-    fs: "1",
-    to: recipient,
-    su: subject,
-    body: body,
-  });
-
-  return `https://mail.google.com/mail/?${params.toString()}`;
+  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 /**
- * @deprecated Use buildCorporateInquiryGmail instead to prevent unwanted desktop mail popups.
+ * Backward-compatible alias for corporate email compose
  */
-export function buildCorporateInquiryMailto(data: ContactFormData): string {
-  return buildCorporateInquiryGmail(data);
+export function buildCorporateInquiryGmail(data: ContactFormData): string {
+  return buildCorporateInquiryMailto(data);
 }
 
 /**

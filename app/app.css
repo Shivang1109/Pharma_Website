@@ -1,25 +1,25 @@
-/* ─── Google Fonts — Clinical Editorial Typography ─────────── */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap");
+/* ─── Google Fonts — One Editorial Serif + One Clean Sans (Mono Removed) ─ */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Inter:wght@300;400;500;600;700&display=swap");
 
 @import "tailwindcss";
 
 /* ─── Clinical Editorial Design System Tokens ───────────────── */
 @theme {
-  /* Typography */
-  --font-display: "Fraunces", "Manrope", Georgia, serif;
-  --font-heading: "Fraunces", "Manrope", Georgia, serif;
-  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  /* Typography: One Serif (Fraunces) + One Sans (Inter) — Monospace Removed */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-sans:    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Palette: Warm Paper & Refined Lightened Pharma Green */
-  --color-paper:            #F6F4EE;
-  --color-paper-soft:       #ECE8DF;
-  --color-paper-card:       #FCFAF5;
-  --color-ink:              #1B634E; /* Lightened from dark #1F3D33 to rich, vibrant botanical green */
+  --color-paper:            #FAFCFA;
+  --color-paper-soft:       #F3F6F4;
+  --color-paper-card:       #FFFFFF;
+  --color-ink:              #1B634E; /* Refined botanical green */
   --color-ink-muted:        #3E6958;
   --color-ink-faint:        #6B9484;
   
-  --color-emerald-accent:   #0D9E71; /* Luminous, fresh emerald */
+  --color-emerald-accent:   #0D9E71; /* Luminous emerald */
   --color-emerald-deep:     #0A7D58;
   --color-sage-soft:        #DCEEE4;
   
@@ -30,16 +30,16 @@
   --color-forest-deep:      #165442;
   --color-emerald-primary:  #0D9E71;
   --color-emerald-hover:    #0A7D58;
-  --color-bg-main:          #F6F4EE;
+  --color-bg-main:          #FAFCFA;
   --color-surface-white:    #FFFFFF;
-  --color-surface-soft:     #FCFAF5;
+  --color-surface-soft:     #F3F6F4;
   --color-body-text:        #3E6958;
-  --color-border-subtle:    #DDE8E1;
+  --color-border-subtle:    #E2ECE6;
 
   /* Container */
   --container-max:          1280px;
 
-  /* Radii: Mixed Sharp & Refined */
+  /* Radii: Subtle & Refined */
   --radius-sharp:           0.125rem;
   --radius-editorial-sm:    0.375rem;
   --radius-editorial-md:    0.75rem;
@@ -47,54 +47,110 @@
   --radius-editorial-xl:    2rem;
 }
 
-/* ─── Base Styles ────────────────────────────────────────────── */
-html {
-  background-color: #F6F4EE;
-  color: #1B634E;
-  scroll-behavior: auto; /* Managed by Lenis smooth scroll */
-}
+/* ─── Base Styles with Correct Cascade Layers ────────────────── */
+@layer base {
+  html {
+    background-color: #FAFCFA;
+    color: #1B634E;
+    scroll-behavior: auto; /* Managed by Lenis */
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
 
-body {
-  background-color: #F6F4EE;
-  color: #3E6958;
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
+  body {
+    background-color: #FAFCFA;
+    color: #3E6958;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
 
-/* Editorial Serif Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: #1B634E;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  /* Headings: Inherit color so text-white or custom classes always win over defaults */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: inherit;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  /* Default heading color on light pages */
+  main h1, main h2, main h3, main h4, main h5, main h6 {
+    color: #1B634E;
+  }
+
+  /* Headings on dark green panels explicitly stay crisp white */
+  .text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6,
+  .text-\[\#F6F4EE\] h1, .text-\[\#F6F4EE\] h2, .text-\[\#F6F4EE\] h3, .text-\[\#F6F4EE\] h4,
+  [class*="bg-[#1B634E]"] h1, [class*="bg-[#1B634E]"] h2, [class*="bg-[#1B634E]"] h3, [class*="bg-[#1B634E]"] h4,
+  [class*="bg-[#165442]"] h1, [class*="bg-[#165442]"] h2, [class*="bg-[#165442]"] h3, [class*="bg-[#165442]"] h4,
+  footer h1, footer h2, footer h3, footer h4 {
+    color: #FFFFFF;
+  }
+
+  /* Accessible Focus Rings (:focus-visible only, eliminate blue bounding box) */
+  :focus {
+    outline: none;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0D9E71 !important;
+    outline-offset: 2px !important;
+    border-radius: 6px;
+  }
+
+  main:focus, main:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Specific navigation focus ring — visible strictly on keyboard tabbing, rounded */
+  nav a:focus:not(:focus-visible),
+  nav button:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  nav a:focus-visible,
+  nav button:focus-visible {
+    outline: 2px solid #0D9E71 !important;
+    outline-offset: 3px !important;
+    border-radius: 8px !important;
+  }
 }
 
 .font-editorial {
   font-family: var(--font-display);
 }
 
-.font-mono-meta {
-  font-family: var(--font-mono);
-}
-
-/* ─── Editorial Fluid Typography ─────────────────────────────── */
+/* ─── Editorial Fluid Typography (Targets: h1 <= 4.6rem, h2 ~2-3rem) ─ */
 .text-fluid-hero {
-  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .text-fluid-h2 {
-  font-size: clamp(1.85rem, 3.5vw + 0.5rem, 3.25rem);
-  line-height: 1.12;
+  font-size: clamp(1.75rem, 3vw + 0.25rem, 2.75rem);
+  line-height: 1.15;
   letter-spacing: -0.025em;
 }
 
 .text-fluid-h3 {
-  font-size: clamp(1.35rem, 2vw + 0.5rem, 2rem);
-  line-height: 1.2;
+  font-size: clamp(1.25rem, 1.8vw + 0.25rem, 1.85rem);
+  line-height: 1.25;
+}
+
+/* ─── Section Spacing Standards (clamp 56px to 104px, no gaps > 120px) ─ */
+.section-padding {
+  padding-top: clamp(56px, 7vw, 104px);
+  padding-bottom: clamp(56px, 7vw, 104px);
 }
 
 /* ─── Selection & Scrollbar ──────────────────────────────────── */

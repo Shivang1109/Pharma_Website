@@ -22,7 +22,7 @@ export const COMPANY = {
 
   phone:        "+91 9819667211",
   email:        "info@ziltonlifecare.com",
-  // Centralized Corporate Inquiry testing recipient — easily replace with official email later:
+  // Centralized test email recipient configuration (active until official company credentials are provided):
   inquiryEmail: "r2661048@gmail.com",
   whatsapp:     "919819667211",
 

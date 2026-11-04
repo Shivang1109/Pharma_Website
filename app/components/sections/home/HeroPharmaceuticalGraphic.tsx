@@ -116,7 +116,7 @@ export const HeroPharmaceuticalGraphic: React.FC = () => {
             cGMP Audited
           </span>
           <span className="block text-[9px] text-[#07845E] font-medium">
-            100% CoA Certified
+            Batch CoA Documented
           </span>
         </div>
       </div>

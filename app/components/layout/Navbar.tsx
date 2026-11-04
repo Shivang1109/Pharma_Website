@@ -41,7 +41,7 @@ export const Navbar: React.FC = () => {
         hidden ? "-translate-y-full" : "translate-y-0"
       } ${
         scrolled
-          ? "bg-[#F6F4EE]/92 backdrop-blur-md border-b border-[#1B634E]/12 py-3 shadow-xs"
+          ? "bg-[#FAFCFA]/92 backdrop-blur-md border-b border-[#1B634E]/12 py-3 shadow-xs"
           : "bg-transparent py-4 sm:py-5"
       }`}
     >
@@ -50,7 +50,7 @@ export const Navbar: React.FC = () => {
           {/* Logo & Clinical Wordmark — Using EXACT client logo */}
           <Link
             to="/"
-            className="flex items-center gap-3.5 group focus-visible:outline-[#0D9E71]"
+            className="flex items-center gap-3.5 group rounded-xl outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] focus-visible:ring-offset-2"
             aria-label={`${COMPANY.name} — Homepage`}
           >
             <div className="w-11 h-11 rounded-xl bg-white p-1 border border-[#1B634E]/15 shadow-xs flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[#0D9E71]/40 transition-all">
@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
               <span className="font-editorial text-xl tracking-tight font-bold text-[#1B634E] group-hover:text-[#0D9E71] transition-colors">
                 Zilton
               </span>
-              <span className="font-mono text-[9.5px] tracking-widest uppercase text-[#0D9E71] font-semibold mt-0.5">
+              <span className="text-[9.5px] tracking-widest uppercase text-[#0D9E71] font-semibold mt-0.5">
                 Life Care
               </span>
             </div>
@@ -79,8 +79,8 @@ export const Navbar: React.FC = () => {
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `text-xs font-mono uppercase tracking-wider font-semibold transition-colors py-2 ${
-                      isActive ? "text-[#1B634E]" : "text-[#3E6958] hover:text-[#0D9E71]"
+                    `text-sm font-medium transition-colors py-1.5 px-1 rounded-md outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] ${
+                      isActive ? "text-[#1B634E] font-semibold" : "text-[#3E6958] hover:text-[#0D9E71]"
                     }`
                   }
                 >
@@ -102,10 +102,9 @@ export const Navbar: React.FC = () => {
             <Magnetic strength={0.3}>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-1.5 px-4.5 py-2.5 rounded-full bg-[#1B634E] hover:bg-[#0D9E71] text-[#F6F4EE] text-xs font-mono uppercase tracking-wider font-semibold shadow-xs transition-colors duration-200"
+                className="inline-flex items-center px-4.5 py-2.5 rounded-full bg-[#1B634E] hover:bg-[#0D9E71] text-[#FAFCFA] text-xs uppercase tracking-wider font-semibold shadow-xs transition-colors duration-200 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] focus-visible:ring-offset-2"
               >
-                <span>Institutional Desk</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span>Contact us</span>
               </Link>
             </Magnetic>
           </div>
@@ -124,7 +123,7 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Navigation Drawer */}
         {menuOpen && (
-          <div className="md:hidden mt-4 pt-4 pb-6 border-t border-[#1B634E]/10 bg-[#F6F4EE] animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden mt-4 pt-4 pb-6 border-t border-[#1B634E]/10 bg-[#FAFCFA] animate-in fade-in slide-in-from-top-2 duration-200">
             <ul className="space-y-3 px-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
@@ -132,9 +131,9 @@ export const Navbar: React.FC = () => {
                     to={item.to}
                     end={item.to === "/"}
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-lg text-sm font-mono tracking-wider uppercase font-semibold ${
+                      `block px-3 py-2 rounded-lg text-sm font-medium ${
                         isActive
-                          ? "bg-[#1B634E] text-[#F6F4EE]"
+                          ? "bg-[#1B634E] text-[#FAFCFA] font-semibold"
                           : "text-[#3E6958] hover:bg-[#1B634E]/5 text-[#1B634E]"
                       }`
                     }
@@ -147,10 +146,9 @@ export const Navbar: React.FC = () => {
             <div className="mt-4 pt-3 border-t border-[#1B634E]/10 px-2">
               <Link
                 to="/contact"
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1B634E] text-[#F6F4EE] text-xs font-mono uppercase tracking-wider font-semibold"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1B634E] text-[#FAFCFA] text-xs uppercase tracking-wider font-semibold"
               >
-                <span>Institutional Enquiry</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <span>Contact us</span>
               </Link>
             </div>
           </div>

@@ -38,7 +38,7 @@ export const CorporateNetworkGraphic: React.FC = () => {
                   Audited cGMP Manufacturing
                 </span>
                 <span className="text-[11px] text-[#53635C] block">
-                  Validated sterile cleanroom lines &amp; 100% CoA testing
+                  Sterile cleanroom lines &amp; batch CoA testing
                 </span>
               </div>
             </div>

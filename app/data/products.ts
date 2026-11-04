@@ -1,4 +1,5 @@
 import type { CategoryInfo, Product, ProductCategory } from "~/types/product";
+import { IMAGES } from "./images";
 
 /**
  * Verified Product Categories for ZILTON LIFE CARE PRIVATE LIMITED
@@ -30,7 +31,7 @@ export const PRODUCT_CATEGORIES: CategoryInfo[] = [
 /**
  * Official Product Catalogue for ZILTON LIFE CARE PRIVATE LIMITED
  * Based directly on approved client portfolio.
- * Note: Product images kept blank pending official client release.
+ * Curated high-resolution pharmaceutical packshot imagery mapped via central image registry.
  */
 export const PRODUCTS: Product[] = [
   // ─── CRITICAL CARE: IV ANTIBIOTICS RANGE ───────────────────
@@ -40,7 +41,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Meropenem 1gm Injection",
-    image: "",
+    image: IMAGES.products["merozil-1gm"] || "",
     shortDescription:
       "Parenteral carbapenem antibiotic indicated for severe hospital-acquired pneumonia, complicated intra-abdominal, and systemic bacterial infections.",
     published: true,
@@ -51,7 +52,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Meropenem 500mg Injection",
-    image: "",
+    image: IMAGES.products["merozil-500mg"] || "",
     shortDescription:
       "Broad-spectrum carbapenem injectable formulation designed for acute bacterial infections and targeted dosage titration in hospital care.",
     published: true,
@@ -62,7 +63,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Piperacillin 4gm + Tazobactam 500mg Injection",
-    image: "",
+    image: IMAGES.products["ziltaz-4-5gm"] || "",
     shortDescription:
       "Synergistic broad-spectrum antipseudomonal penicillin with beta-lactamase inhibitor for complicated nosocomial respiratory and intra-abdominal conditions.",
     published: true,
@@ -73,7 +74,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Polymyxin B 5,00,000 IU Injection",
-    image: "",
+    image: IMAGES.products["polyzil-5lac"] || "",
     shortDescription:
       "Targeted polypeptide bactericidal antibiotic indicated for multidrug-resistant (MDR) Gram-negative pathogens in intensive care environments.",
     published: true,
@@ -84,7 +85,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Polymyxin B 7,50,000 IU Injection",
-    image: "",
+    image: IMAGES.products["polyzil-7-5lac"] || "",
     shortDescription:
       "Higher-strength Polymyxin B formulation indicated for acute resistance profiles and critically ill ICU patient interventions.",
     published: true,
@@ -95,7 +96,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Fosfomycin 4gm IV Infusion",
-    image: "",
+    image: IMAGES.products["fosfozil-4gm"] || "",
     shortDescription:
       "Sterile broad-spectrum bactericidal infusion active against complicated Gram-positive and Gram-negative resistant strains.",
     published: true,
@@ -106,7 +107,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "IV Antibiotics Range",
     composition: "Tigecycline 50mg Injection",
-    image: "",
+    image: IMAGES.products["tigezil-50mg"] || "",
     shortDescription:
       "First-in-class glycylcycline antibiotic indicated for complicated skin and skin-structure infections (cSSSI) and intra-abdominal infections.",
     published: true,
@@ -119,7 +120,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "Haematinics & Anti-anaemic",
     composition: "Ferric Carboxymaltose 500mg Inj (50mg/ml)",
-    image: "",
+    image: IMAGES.products["zilfcm-500mg"] || "",
     shortDescription:
       "Colloidal iron complex for high-dose intravenous replenishment of elemental iron in clinical and hospital-managed iron-deficiency anaemia.",
     published: true,
@@ -132,7 +133,7 @@ export const PRODUCTS: Product[] = [
     category: "critical-care-injection",
     subCategory: "Antifungal Range",
     composition: "Micafungin 50mg Injection",
-    image: "",
+    image: IMAGES.products["micasure-50mg"] || "",
     shortDescription:
       "Echinocandin antifungal agent for the treatment of invasive candidiasis, candidemia, and antifungal prophylaxis in surgical patients.",
     published: true,
@@ -145,7 +146,7 @@ export const PRODUCTS: Product[] = [
     category: "nutrition-iv",
     subCategory: "Clinical Nutrition IV",
     composition: "Zinc Chloride 10mg / 10ml IV (Each 1ml contains 1mg Zinc Chloride IV)",
-    image: "",
+    image: IMAGES.products["zinctrace-iv"] || "",
     shortDescription:
       "Essential intravenous trace element supplement formulated as an additive for Total Parenteral Nutrition (TPN) and correction of clinical zinc deficiency.",
     published: true,
@@ -158,7 +159,7 @@ export const PRODUCTS: Product[] = [
     category: "nutrition-sachet",
     subCategory: "Therapeutic Nutrition Sachet",
     composition: "Beta-hydroxy-beta-methylbutyrate 3gm",
-    image: "",
+    image: IMAGES.products["hmb-zil-3gm"] || "",
     shortDescription:
       "Advanced oral metabolic nutrition sachet designed to support muscle protein synthesis, minimize catabolic muscle wasting, and accelerate clinical recovery.",
     published: true,
@@ -169,7 +170,7 @@ export const PRODUCTS: Product[] = [
     category: "nutrition-sachet",
     subCategory: "Therapeutic Nutrition Sachet",
     composition: "L-Glutamine combined with Antioxidants",
-    image: "",
+    image: IMAGES.products["glutashape-sachet"] || "",
     shortDescription:
       "Targeted oral nutrition formula combining immunonutrient L-Glutamine with powerful antioxidants to maintain gut barrier function and systemic immunity.",
     published: true,

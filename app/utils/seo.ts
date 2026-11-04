@@ -37,8 +37,11 @@ export function generateRouteMeta({
   canonicalPath = "",
   ogType = "website",
 }: MetaTagProps) {
-  const fullTitle = `${title} | ${SITE_CONFIG.shortName}`;
+  const fullTitle = title.toLowerCase().includes("zilton")
+    ? title
+    : `${title} | ${SITE_CONFIG.shortName}`;
   const canonicalUrl = `${SITE_CONFIG.domain}${canonicalPath}`;
+  const ogImageUrl = `${SITE_CONFIG.domain}/images/branding/logo-512.png`;
 
   return [
     { title: fullTitle },
@@ -51,11 +54,13 @@ export function generateRouteMeta({
     { property: "og:description", content: description },
     { property: "og:type", content: ogType },
     { property: "og:url", content: canonicalUrl },
+    { property: "og:image", content: ogImageUrl },
 
     // Twitter Cards
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: fullTitle },
     { name: "twitter:description", content: description },
+    { name: "twitter:image", content: ogImageUrl },
 
     // Canonical link tag indicator
     { tagName: "link", rel: "canonical", href: canonicalUrl },
@@ -69,26 +74,44 @@ export function generateRouteMeta({
 export function getOrganizationStructuredData() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_CONFIG.name,
-    legalName: SITE_CONFIG.name,
-    url: SITE_CONFIG.domain,
-    telephone: SITE_CONFIG.phone,
-    slogan: SITE_CONFIG.vision,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE_CONFIG.address.street,
-      addressLocality: SITE_CONFIG.address.city,
-      postalCode: SITE_CONFIG.address.postalCode,
-      addressRegion: SITE_CONFIG.address.state,
-      addressCountry: "IN",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: SITE_CONFIG.phone,
-      contactType: "Customer Support & Business Development",
-      availableLanguage: ["English", "Hindi"],
-    },
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_CONFIG.domain}/#organization`,
+        name: SITE_CONFIG.name,
+        legalName: SITE_CONFIG.name,
+        url: SITE_CONFIG.domain,
+        telephone: SITE_CONFIG.phone,
+        email: "info@ziltonlifecare.com",
+        slogan: SITE_CONFIG.vision,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: SITE_CONFIG.address.street,
+          addressLocality: SITE_CONFIG.address.city,
+          postalCode: SITE_CONFIG.address.postalCode,
+          addressRegion: SITE_CONFIG.address.state,
+          addressCountry: "IN",
+        },
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            telephone: SITE_CONFIG.phone,
+            contactType: "Customer Support & Hospital Supply",
+            availableLanguage: ["English", "Hindi"],
+            areaServed: "IN",
+          },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_CONFIG.domain}/#website`,
+        url: SITE_CONFIG.domain,
+        name: SITE_CONFIG.shortName,
+        description: SITE_CONFIG.defaultDescription,
+        publisher: { "@id": `${SITE_CONFIG.domain}/#organization` },
+        inLanguage: "en-IN",
+      },
+    ],
   };
 }
 

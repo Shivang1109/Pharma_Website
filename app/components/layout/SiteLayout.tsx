@@ -15,7 +15,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <LenisProvider>
       <CustomCursor />
-      <div className="flex min-h-screen flex-col relative bg-[#F6F4EE] text-[#1B634E] selection:bg-[#1B634E] selection:text-[#F6F4EE]">
+      <div className="flex min-h-screen flex-col relative bg-[#FAFCFA] text-[#1B634E] selection:bg-[#1B634E] selection:text-[#FAFCFA]">
         <Navbar />
         <main id="main-content" className="flex-1 pt-20" tabIndex={-1}>
           <PageTransition>
@@ -23,7 +23,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
           </PageTransition>
         </main>
         <Footer />
-        <FloatingContactWidget />
+        {/* Single consolidated floating button for instant verified enquiry */}
         <FloatingWhatsAppButton />
       </div>
     </LenisProvider>

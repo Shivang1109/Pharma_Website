@@ -10,35 +10,35 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#1B634E] text-[#F6F4EE] pt-16 sm:pt-24 pb-12 overflow-hidden border-t border-[#1B634E]">
+    <footer className="bg-[#1B634E] text-[#FAFCFA] pt-14 sm:pt-20 pb-12 overflow-hidden border-t border-[#1B634E]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Clinical Statement */}
-        <div className="pb-12 border-b border-white/15 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+        {/* Top Tagline & Back-To-Top */}
+        <div className="pb-10 border-b border-white/15 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="font-mono text-[10px] tracking-widest uppercase text-[#DCEEE4] font-semibold block mb-2">
-              Pharmaceutical Marketing Enterprise
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#DCEEE4] block mb-2">
+              Pharmaceutical Marketing · Mumbai
             </span>
             <p className="font-editorial text-2xl sm:text-3xl text-white tracking-tight leading-snug">
-              Specialized parenteral critical care and clinical nutrition solutions across India.
+              {COMPANY.tagline}
             </p>
           </div>
           <button
             type="button"
             onClick={scrollToTop}
-            className="flex items-center gap-2 font-mono text-xs text-[#DCEEE4] hover:text-white transition-colors cursor-pointer group"
+            className="flex items-center gap-2 text-xs font-semibold text-[#DCEEE4] hover:text-white transition-colors cursor-pointer group"
             aria-label="Scroll back to top"
           >
-            <span>BACK TO TOP</span>
+            <span>Back to top</span>
             <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
 
         {/* 4-Column Grid */}
-        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/15">
-          {/* Col 1: Registered Entity & EXACT Logo */}
+        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/15">
+          {/* Col 1: Registered Entity & Logo */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center shrink-0">
                 <img
                   src="/images/branding/logo-512.png"
                   alt="Zilton Life Care Logo"
@@ -50,31 +50,31 @@ export const Footer: React.FC = () => {
                 <span className="font-editorial text-lg font-bold text-white">
                   Zilton Life Care
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#DCEEE4]">
+                <span className="text-xs text-[#DCEEE4]">
                   Private Limited
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-white/80 leading-relaxed font-light">
-              Dedicated to acute care hospital supplies, advanced IV antibiotics, and specialized nutrition therapy.
+            <p className="text-xs text-white/85 leading-relaxed font-light">
+              Dedicated to acute care hospital formulations, critical IV parenterals, and specialized clinical nutrition therapy.
             </p>
           </div>
 
           {/* Col 2: Navigation */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#DCEEE4] font-semibold mb-4">
-              Index
+            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
+              Navigation
             </h4>
-            <ul className="space-y-2.5 font-mono text-xs text-white/90">
+            <ul className="space-y-2.5 text-xs text-white/90">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <Link
                     to={item.to}
                     className="hover:text-white transition-colors flex items-center gap-2"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#DCEEE4]" />
-                    {item.label}
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                    <span>{item.label}</span>
                   </Link>
                 </li>
               ))}
@@ -83,46 +83,22 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Communications */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#DCEEE4] font-semibold mb-4">
-              Communications
+            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
+              Registered Office
             </h4>
-            <div className="space-y-3.5 text-xs text-white/90">
-              <div className="flex items-start gap-2.5 group">
-                <MapPin className="w-4 h-4 text-[#DCEEE4] group-hover:text-white shrink-0 mt-0.5 transition-colors" />
-                <div className="space-y-1.5">
-                  <span className="block font-mono text-[10px] uppercase tracking-wider text-[#DCEEE4]/80">
-                    Registered Office
-                  </span>
-                  <a
-                    href={COMPANY.address.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white transition-colors block group/addr"
-                    title="View Registered Office on Google Maps (opens in new tab)"
-                  >
-                    <address className="not-italic leading-relaxed text-white/85 group-hover/addr:text-white transition-colors">
-                      {COMPANY.address.line1},<br />
-                      {COMPANY.address.line2},<br />
-                      {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}, {COMPANY.address.country}.
-                    </address>
-                  </a>
-                  <a
-                    href={COMPANY.address.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#DCEEE4] hover:text-white font-medium underline underline-offset-2 transition-colors"
-                    aria-label="View Registered Office on Google Maps (opens in new tab)"
-                  >
-                    <span>View on Google Maps</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
+            <div className="space-y-3 text-xs text-white/90">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#DCEEE4] shrink-0 mt-0.5" />
+                <address className="not-italic leading-relaxed text-white/85">
+                  {COMPANY.address.line1},<br />
+                  {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}.
+                </address>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#DCEEE4] shrink-0" />
                 <a
                   href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}
-                  className="hover:text-white font-mono transition-colors"
+                  className="hover:text-white transition-colors font-medium"
                 >
                   {COMPANY.phone}
                 </a>
@@ -131,7 +107,7 @@ export const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 text-[#DCEEE4] shrink-0" />
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="font-mono text-white/80 hover:text-white transition-colors"
+                  className="text-white/85 hover:text-white transition-colors font-medium"
                 >
                   {COMPANY.email}
                 </a>
@@ -141,7 +117,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 4: Institutional Mandate */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#DCEEE4] font-semibold mb-4">
+            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
               Institutional Notice
             </h4>
             <div className="p-4 rounded-xl bg-white/10 border border-white/15 text-xs text-white/85 leading-relaxed font-light">
@@ -150,15 +126,15 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Oversized Wordmark Banner */}
-        <div className="pt-10 select-none overflow-hidden text-center">
-          <span className="font-editorial text-[14vw] sm:text-[13vw] font-extrabold tracking-tighter text-white/10 block leading-none">
+        {/* Wordmark Banner */}
+        <div className="pt-8 select-none overflow-hidden text-center">
+          <span className="font-editorial text-[12vw] sm:text-[10vw] font-extrabold tracking-tighter text-white/10 block leading-none">
             ZILTON
           </span>
         </div>
 
         {/* Bottom Legal Bar */}
-        <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/70">
+        <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
           <p>
             &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
           </p>

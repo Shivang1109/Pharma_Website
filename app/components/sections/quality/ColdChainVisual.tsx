@@ -12,7 +12,7 @@ export function ColdChainVisual() {
           Formulation-Specific Storage Parameters
         </h2>
         <p className="mt-3 text-sm sm:text-base text-[#53635C] leading-relaxed">
-          Storage and distribution conditions are strictly governed by approved technical specifications, ensuring therapeutic efficacy from partner manufacturing through institutional handover.
+          Storage and distribution conditions are strictly governed by approved technical specifications, ensuring formulation integrity from partner manufacturing through institutional handover.
         </p>
       </div>
 

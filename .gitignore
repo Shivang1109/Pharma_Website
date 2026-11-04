@@ -6,5 +6,8 @@
 /.react-router/
 /build/
 
+# Vercel
+/.vercel/
+
 # Nested archive folder
 Pharma_Website-main/

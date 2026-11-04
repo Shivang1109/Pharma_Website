@@ -16,6 +16,8 @@ export const LenisProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       wheelMultiplier: 0.9,
     });
 
+    (window as any).__lenis = lenis;
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
@@ -26,6 +28,7 @@ export const LenisProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as any).__lenis;
     };
   }, []);
 

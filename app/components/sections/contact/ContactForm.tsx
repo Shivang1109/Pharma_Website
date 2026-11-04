@@ -9,6 +9,7 @@ import {
   type EnquiryType,
 } from "~/schemas/contact.schema";
 import { COMPANY } from "~/data/company";
+import { submitContactForm } from "~/services/contact.service";
 import {
   buildCorporateInquiryGmail,
   buildCorporateInquiryWhatsApp,
@@ -57,6 +58,9 @@ export const ContactForm: React.FC = () => {
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState<ContactFormData | null>(null);
 
   const {
     register,
@@ -66,7 +70,7 @@ export const ContactForm: React.FC = () => {
     watch,
     formState: { errors },
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(contactFormSchema) as any,
     defaultValues: {
       fullName: "",
       organization: "",
@@ -86,6 +90,7 @@ export const ContactForm: React.FC = () => {
         : initialEnquiryType === "quality-docs"
         ? "Please furnish recent batch Certificates of Analysis (CoAs) and regulatory documentation for our institutional evaluation."
         : "",
+      consent: false as unknown as true,
     },
   });
 
@@ -121,25 +126,23 @@ export const ContactForm: React.FC = () => {
     setValue("message", "");
   };
 
-  const handleEmailSubmit = (data: ContactFormData) => {
+  const handleEmailSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     setServerError(null);
 
     try {
-      const gmailUrl = buildCorporateInquiryGmail(data);
-      setDispatchNotice({
-        type: "email",
-        title: "Gmail Web Compose Opened",
-        detail: `All submitted inquiry fields have been pre-filled for ${COMPANY.inquiryEmail}.`,
-        actionRequired: "Please review the prefilled draft in the opened Gmail tab and click 'Send' to complete delivery. (If prompted, please sign in to your Google Account).",
-        url: gmailUrl,
-      });
-
-      if (typeof window !== "undefined") {
-        window.open(gmailUrl, "_blank", "noopener,noreferrer");
+      const res = await submitContactForm({ ...data, honeypot });
+      if (res.success) {
+        setIsSuccess(true);
+        setSubmittedData(data);
+        reset();
+      } else {
+        setServerError(res.message || "Unable to dispatch enquiry. Please connect via WhatsApp or phone.");
       }
+    } catch {
+      setServerError("Network error. Please connect directly via WhatsApp or phone.");
     } finally {
-      setTimeout(() => setIsSubmitting(false), 400);
+      setIsSubmitting(false);
     }
   };
 

@@ -25,8 +25,8 @@ export const FloatingWhatsAppButton: React.FC = () => {
       aria-label="Chat with us on WhatsApp"
       className={[
         "fixed z-50 flex items-center justify-center",
-        // Sit above the Fast Enquiry button (~72 px tall incl. padding)
-        "bottom-[5.5rem] right-6",
+        // Elegant bottom-right positioning
+        "bottom-6 right-6",
         // WhatsApp green circle
         "w-14 h-14 rounded-full",
         "bg-[#25D366] hover:bg-[#128C7E] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/50",

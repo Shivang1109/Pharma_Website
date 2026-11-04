@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, FileCheck, CheckCircle2, ShieldCheck, Thermometer, ChevronRight, Download } from "lucide-react";
+import { ArrowRight, Thermometer, ChevronRight } from "lucide-react";
 import { ImageSlot } from "~/components/ui/ImageSlot";
-import { DrawPath } from "~/components/motion/DrawPath";
+import { IMAGES } from "~/data/images";
 import { generateRouteMeta } from "~/utils/seo";
 
 export function meta() {
   return generateRouteMeta({
-    title: "Quality Assurance & Standards",
+    title: "Quality Assurance | Zilton Life Care",
     description:
-      "Learn about ZILTON LIFE CARE's commitment to quality assurance, GMP-audited partner manufacturing, documented governance, and disciplined pharmaceutical distribution.",
+      "Learn about Zilton Life Care's quality assurance framework, Schedule M partner audits, batch documentation, and cold-chain distribution standards.",
     canonicalPath: "/quality",
   });
 }
@@ -21,17 +21,17 @@ export default function QualityPage() {
     {
       num: "01",
       title: "Product Master & Specification",
-      subtitle: "Formulation Specification",
-      desc: "Standardized formulation master data, regulatory labeling compliance, and unique SKU identification established prior to manufacturing authorization.",
-      detail: "Cleanroom compounding protocols, approved pharmacopeial references, and primary packaging integrity standards.",
+      subtitle: "Formulation Parameters",
+      desc: "Standardized formulation master data, regulatory labeling compliance, and verified pharmacopeial parameters established prior to manufacturing authorization.",
+      detail: "Cleanroom compounding protocols, approved pharmacopeial references, and primary packaging integrity specifications.",
       slotKey: "quality01",
     },
     {
       num: "02",
       title: "Batch & Lot Assignment",
-      subtitle: "Partner Production Execution",
-      desc: "Qualified manufacturing partners assign distinct batch and lot numbers upon production, physically stamped with manufacturing and expiry dates.",
-      detail: "Cleanroom environment monitoring, terminal sterilization records, and in-process quality control parameters.",
+      subtitle: "Production Execution",
+      desc: "Contract manufacturing partners assign distinct batch and lot numbers upon production, physically printed with manufacturing and expiry dates.",
+      detail: "Cleanroom environment validation, sterilization records, and in-process quality control checkpoints.",
       slotKey: "quality02",
     },
     {
@@ -39,7 +39,7 @@ export default function QualityPage() {
       title: "Release Testing & CoA Records",
       subtitle: "Analytical Verification",
       desc: "Batch Manufacturing Records (BMR) and Certificate of Analysis (CoA) verified against analytical standards before commercial dispatch approval.",
-      detail: "Assay quantification, sterility confirmation for parenteral lines, and particulate matter limits.",
+      detail: "Active assay quantification, sterility confirmation for parenteral lines, and particulate matter evaluations.",
       slotKey: "quality03",
     },
     {
@@ -47,7 +47,7 @@ export default function QualityPage() {
       title: "Institutional Dispatch & Handover",
       subtitle: "Traceable Distribution",
       desc: "Invoiced consignment documentation matches batch records down to regional distributors and hospital pharmacy receiving departments.",
-      detail: "Controlled thermal logging, temperature excursion monitoring, and verified institutional delivery receipts.",
+      detail: "Controlled thermal logging, insulated shipping for temperature-sensitive vials, and signed hospital delivery receipts.",
       slotKey: "quality04",
     },
   ];
@@ -63,7 +63,7 @@ export default function QualityPage() {
       code: "DOC-BMR",
       title: "Batch Manufacturing Records (BMR)",
       scope: "Production Line Traceability",
-      desc: "Detailed compounding logs, autoclave sterilization cycles, and air filtration records maintained by partner plants.",
+      desc: "Detailed compounding logs, autoclave sterilization cycles, and air filtration records maintained by manufacturing partners.",
     },
     {
       code: "DOC-GMP",
@@ -80,34 +80,51 @@ export default function QualityPage() {
   ];
 
   return (
-    <div className="py-12 sm:py-20">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* ─── 1. SINGLE EDITORIAL HERO (No Duplicate Headings) ─── */}
-        <div className="max-w-3xl mb-16 sm:mb-24">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-3">
-            01 / Quality Charter
-          </span>
-          <h1 className="text-fluid-hero font-editorial font-bold text-[#1B634E] tracking-tight">
-            Safety, Standards &amp; Verification
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#3E6958] font-light leading-relaxed">
-            Our quality assurance framework guarantees that every parenteral and oral therapeutic distributed by ZILTON LIFE CARE satisfies statutory Indian pharmacopeial and cGMP standards.
-          </p>
-        </div>
+    <div className="w-full">
+      {/* ─── 1. FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[36vh] max-h-[44vh] flex flex-col justify-end md:justify-center">
+        {IMAGES.quality01 && (
+          <img
+            src={IMAGES.quality01}
+            alt="Pharmaceutical analytical laboratory and quality testing"
+            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            loading="eager"
+            decoding="sync"
+          />
+        )}
 
-        {/* ─── 2. PINNED BATCH GOVERNANCE STEPPER ───────────────── */}
-        <section className="py-16 sm:py-20 border-t border-[#1B634E]/15">
-          <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        {/* Directional Green Scrim */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#123D32]/95 via-[#165442]/85 to-transparent/30"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="max-w-2xl text-left">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DCEEE4] text-xs font-medium mb-3 border border-white/10 shadow-xs">
+              Quality Assurance Charter
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-editorial font-bold text-white tracking-tight leading-none">
+              Safety, Standards &amp; Verification
+            </h1>
+            <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed max-w-xl font-light">
+              Our quality assurance framework guarantees that every parenteral and oral therapeutic distributed by Zilton Life Care satisfies statutory Indian pharmacopeial and Schedule M standards.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 2. 4-STAGE BATCH LIFECYCLE STEPPER ───────────────── */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <section className="mb-16 sm:mb-20">
+          <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-2">
-                02 / Linear Governance
-              </span>
               <h2 className="text-fluid-h2 font-editorial font-bold text-[#1B634E]">
                 Four-Stage Batch Lifecycle
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#3E6958] font-mono max-w-xs">
-              Physical batch documentation from synthesis partner to hospital delivery.
+            <p className="text-xs sm:text-sm text-[#3E6958] max-w-xs font-light">
+              Physical batch documentation tracking from partner plant to hospital delivery.
             </p>
           </div>
 
@@ -123,12 +140,12 @@ export default function QualityPage() {
                     onClick={() => setActiveStep(idx)}
                     className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex items-start gap-4 ${
                       isActive
-                        ? "bg-[#1B634E] text-[#F6F4EE] border-[#1B634E] shadow-lg"
-                        : "bg-[#FCFAF5] text-[#1B634E] border-[#1B634E]/15 hover:border-[#0D9E71]/40"
+                        ? "bg-[#1B634E] text-[#FAFCFA] border-[#1B634E] shadow-lg"
+                        : "bg-[#FFFFFF] text-[#1B634E] border-[#1B634E]/15 hover:border-[#0D9E71]/40"
                     }`}
                   >
                     <span
-                      className={`font-mono text-sm font-bold px-2.5 py-1 rounded-md ${
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
                         isActive ? "bg-[#0D9E71] text-white" : "bg-[#1B634E]/10 text-[#1B634E]"
                       }`}
                     >
@@ -136,7 +153,11 @@ export default function QualityPage() {
                     </span>
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-editorial text-lg font-bold">
+                        <h3
+                          className={`font-editorial text-lg font-bold leading-tight ${
+                            isActive ? "text-white" : "text-[#1B634E]"
+                          }`}
+                        >
                           {step.title}
                         </h3>
                         <ChevronRight
@@ -146,14 +167,14 @@ export default function QualityPage() {
                         />
                       </div>
                       <p
-                        className={`text-xs mt-1 font-mono uppercase tracking-wider ${
-                          isActive ? "text-[#0D9E71]" : "text-[#3E6958]"
+                        className={`text-xs mt-1.5 font-medium ${
+                          isActive ? "text-[#DCEEE4]" : "text-[#3E6958]"
                         }`}
                       >
                         {step.subtitle}
                       </p>
                       {isActive && (
-                        <p className="text-xs sm:text-sm text-[#F6F4EE]/90 mt-3 font-light leading-relaxed animate-in fade-in duration-200">
+                        <p className="text-xs sm:text-sm text-[#FAFCFA]/90 mt-3 font-light leading-relaxed animate-in fade-in duration-200">
                           {step.desc}
                         </p>
                       )}
@@ -165,16 +186,16 @@ export default function QualityPage() {
 
             {/* Active Step Visual & Detail Card */}
             <div className="lg:col-span-6 sticky top-28">
-              <div className="p-6 sm:p-8 rounded-3xl bg-[#FCFAF5] border border-[#1B634E]/15 shadow-sm space-y-6">
+              <div className="p-6 sm:p-8 rounded-2xl bg-[#FFFFFF] border border-[#1B634E]/15 shadow-sm space-y-5">
                 <ImageSlot
                   slotKey={steps[activeStep].slotKey}
                   ratio="16/9"
-                  caption={`Audit checkpoint: ${steps[activeStep].title}`}
+                  caption={`Process step: ${steps[activeStep].title}`}
                 />
 
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#0D9E71] font-bold block mb-1">
-                    VERIFICATION PROTOCOL
+                  <span className="text-xs text-[#0D9E71] font-semibold block mb-1">
+                    Verification Standard
                   </span>
                   <h4 className="font-editorial text-xl font-bold text-[#1B634E]">
                     {steps[activeStep].title}
@@ -184,98 +205,95 @@ export default function QualityPage() {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#1B634E]/10 flex items-center justify-between font-mono text-xs text-[#3E6958]">
-                  <span>GOVERNANCE STATUS</span>
-                  <span className="text-[#0D9E71] font-bold">STATUTORY AUDIT ACTIVE</span>
+                <div className="pt-4 border-t border-[#1B634E]/10 flex items-center justify-between text-xs text-[#3E6958]">
+                  <span>Partner Compliance</span>
+                  <span className="text-[#0D9E71] font-semibold">Partner Manufacturing Standards</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
+      </div>
 
-        {/* ─── 3. COLD-CHAIN INTEGRITY & THERMAL CONTROL ──────── */}
-        <section className="py-16 sm:py-24 border-t border-[#1B634E]/15">
-          <div className="max-w-2xl mb-12">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-2">
-              03 / Thermal Integrity
+      {/* ─── 3. MID-PAGE QUALITY BAND: FULL-WIDTH EXISTING IMAGE OVERLAY ─── */}
+      <section className="relative w-full overflow-hidden min-h-[40vh] my-10 flex flex-col justify-center">
+        {IMAGES.quality03 && (
+          <img
+            src={IMAGES.quality03}
+            alt="Cold-chain temperature-controlled pharmaceutical distribution"
+            className="absolute inset-0 w-full h-full object-cover object-center select-none"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+
+        {/* Directional Green Scrim */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#123D32]/95 via-[#165442]/85 to-transparent/30"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-white">
+          <div className="max-w-2xl text-left space-y-4">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DCEEE4] text-xs font-semibold border border-white/10">
+              <Thermometer className="w-3.5 h-3.5 text-[#0D9E71]" />
+              <span>Thermal Preservation</span>
             </span>
-            <h2 className="text-fluid-h2 font-editorial font-bold text-[#1B634E]">
+
+            <h2 className="text-3xl sm:text-4xl font-editorial font-bold text-white tracking-tight">
               Cold-Chain Precision (2°C – 8°C)
             </h2>
-            <p className="text-sm text-[#3E6958] font-light leading-relaxed mt-3">
-              Storage and transport conditions are strictly formulation-specific. Temperature-sensitive parenterals are monitored end-to-end to preserve therapeutic stability.
+
+            <p className="text-sm sm:text-base text-white/90 font-light leading-relaxed">
+              Storage and transport conditions are formulation-specific. Temperature-sensitive parenterals are monitored end-to-end to protect therapeutic stability from audited partner plants to hospital receiving bays.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#FCFAF5] rounded-3xl border border-[#1B634E]/15 p-8 sm:p-12">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-2 text-[#0D9E71] font-mono text-xs uppercase tracking-wider font-bold">
-                <Thermometer className="w-4 h-4" />
-                <span>Calibrated Temperature Monitoring</span>
-              </div>
-              <h3 className="font-editorial text-2xl font-bold text-[#1B634E]">
-                Zero-Excursion Distribution Protocol
-              </h3>
-              <p className="text-sm text-[#3E6958] font-light leading-relaxed">
-                Refrigerated transit containers equipped with temperature loggers are deployed for sensitive carbapenems and antifungal injections. Handover receipts are validated before institutional hospital intake.
-              </p>
-
-              {/* Animated SVG Thermal Line */}
-              <div className="pt-4">
-                <span className="font-mono text-[11px] text-[#1B634E]/60 block mb-2">
-                  STABILITY CURVE · STEADY 4.2°C MEAN
-                </span>
-                <svg className="w-full h-16 bg-white rounded-xl border border-[#1B634E]/10 p-2">
-                  <path
-                    d="M 10 30 Q 80 25 150 32 T 300 28 T 450 31 T 600 29"
-                    fill="none"
-                    stroke="#0D9E71"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                  <line x1="10" y1="15" x2="600" y2="15" stroke="#1B634E" strokeOpacity="0.1" strokeDasharray="4 4" />
-                  <line x1="10" y1="45" x2="600" y2="45" stroke="#1B634E" strokeOpacity="0.1" strokeDasharray="4 4" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <ImageSlot
-                slotKey="quality03"
-                ratio="4/3"
-                caption="Refrigerated logistics staging and thermal validation."
-              />
+            {/* Thermal Line Indicator */}
+            <div className="pt-3 max-w-lg">
+              <span className="text-xs text-[#DCEEE4] block mb-2 font-medium">
+                Validated 2°C – 8°C Storage Standard
+              </span>
+              <svg className="w-full h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-2" aria-hidden="true">
+                <path
+                  d="M 10 26 Q 80 20 150 28 T 300 24 T 450 27 T 600 25"
+                  fill="none"
+                  stroke="#0D9E71"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <line x1="10" y1="12" x2="600" y2="12" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
+                <line x1="10" y1="40" x2="600" y2="40" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
+              </svg>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── 4. COMPLIANCE DOCUMENTS AS AN EDITORIAL LIST ─── */}
-        <section className="py-16 sm:py-24 border-t border-[#1B634E]/15">
-          <div className="max-w-2xl mb-12">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#0D9E71] font-semibold block mb-2">
-              04 / Technical Dossiers
-            </span>
+      {/* ─── 4. COMPLIANCE & REGULATORY DOCUMENTATION ─────────── */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <section className="mb-14 sm:mb-18">
+          <div className="max-w-2xl mb-10">
             <h2 className="text-fluid-h2 font-editorial font-bold text-[#1B634E]">
-              Regulatory &amp; Analytical Documentation
+              Verification Documentation
             </h2>
             <p className="text-sm text-[#3E6958] font-light leading-relaxed mt-2">
-              Documentation is furnished to hospital procurement officers and institutional committees upon formal due-diligence request.
+              Institutional purchasers and hospital drug committees can request official batch documentation and manufacturing dossiers for all commercial lines.
             </p>
           </div>
 
-          {/* Large Row Editorial List */}
-          <div className="divide-y divide-[#1B634E]/15 border-y border-[#1B634E]/15">
+          {/* Editorial Document List */}
+          <div className="divide-y divide-[#1B634E]/10 border-y border-[#1B634E]/10">
             {complianceDocs.map((doc) => (
               <div
                 key={doc.code}
-                className="py-6 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-center group hover:bg-[#FCFAF5] transition-colors px-2 sm:px-4 rounded-xl"
+                className="py-6 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-center group hover:bg-[#F3F6F4]/50 px-4 rounded-xl transition-colors duration-200"
               >
                 {/* Code & Scope */}
-                <div className="md:col-span-3 flex items-center gap-3">
-                  <span className="font-mono text-xs font-bold text-[#0D9E71] bg-[#DCEEE4] px-2.5 py-1 rounded">
+                <div className="md:col-span-3">
+                  <span className="text-xs font-bold text-[#0D9E71] bg-[#DCEEE4] px-2.5 py-1 rounded">
                     {doc.code}
                   </span>
-                  <span className="font-mono text-xs text-[#3E6958] uppercase">
+                  <span className="block text-xs text-[#3E6958] mt-2 font-medium">
                     {doc.scope}
                   </span>
                 </div>
@@ -294,10 +312,9 @@ export default function QualityPage() {
                 <div className="md:col-span-3 flex justify-start md:justify-end">
                   <Link
                     to="/contact?type=quality-docs"
-                    className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider font-semibold text-[#1B634E] group-hover:text-[#0D9E71] transition-colors"
+                    className="inline-flex items-center text-xs uppercase tracking-wider font-semibold text-[#1B634E] group-hover:text-[#0D9E71] transition-colors"
                   >
-                    <span>Request File</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>Request file</span>
                   </Link>
                 </div>
               </div>
@@ -305,26 +322,22 @@ export default function QualityPage() {
           </div>
         </section>
 
-        {/* ─── 5. INSTITUTIONAL CTA (Lighter Green Card) ─── */}
-        <div className="my-16 p-8 sm:p-12 rounded-3xl bg-[#1B634E] text-[#F6F4EE] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+        {/* ─── 5. INSTITUTIONAL CTA PANEL ───────────────────────── */}
+        <div className="p-8 sm:p-12 rounded-2xl bg-[#1B634E] text-[#FAFCFA] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
           <div className="max-w-xl text-center md:text-left">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#DCEEE4] font-bold block mb-2">
-              Technical Inquiries
-            </span>
             <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white leading-tight">
               Require batch certificates or regulatory dossiers?
             </h3>
             <p className="text-sm text-white/85 font-light mt-2 leading-relaxed">
-              Our regulatory desk coordinates official CoA dispatches and facility qualification credentials.
+              Our regulatory desk coordinates official CoA dispatches and facility qualification credentials for hospital pharmacy committees.
             </p>
           </div>
 
           <Link
             to="/contact?type=quality-docs"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#1B634E] hover:bg-[#DCEEE4] font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 shadow-md shrink-0"
+            className="inline-flex items-center px-7 py-3.5 rounded-full bg-white text-[#1B634E] hover:bg-[#DCEEE4] text-xs uppercase tracking-wider font-bold transition-all duration-200 shadow-md shrink-0"
           >
-            <span>Contact Quality Desk</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Contact quality desk</span>
           </Link>
         </div>
       </div>
