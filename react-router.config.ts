@@ -1,7 +1,7 @@
 import type { Config } from "@react-router/dev/config";
 
 export default {
-  // Config options...
-  // Server-side render by default, to enable SPA mode set this to `false`
-  ssr: true,
+  // SPA mode: static client-side rendering
+  // SSR disabled — GSAP Flip/ScrollTrigger are browser-only and crash in Node.js
+  ssr: false,
 } satisfies Config;
