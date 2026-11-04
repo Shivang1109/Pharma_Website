@@ -3,10 +3,43 @@
  * Do NOT add unverified claims, certifications, CIN, GSTIN, or history.
  * Mark pending fields clearly — never invent values.
  */
-export const COMPANY = {
+
+/** Company data shape — established is nullable until client supplies MCA Certificate of Incorporation */
+interface CompanyData {
+  name: string;
+  shortName: string;
+  /**
+   * null = unconfirmed — do not render on the public website.
+   * The pending value "3 August 2026" has not been verified as the MCA incorporation date.
+   * Set to the confirmed date string once the client provides documentary proof.
+   */
+  established: string | null;
+  type: string;
+  address: {
+    line1: string;
+    line2: string;
+    city: string;
+    pincode: string;
+    state: string;
+    country: string;
+    full: string;
+    mapsUrl: string;
+  };
+  phone: string;
+  email: string;
+  inquiryEmail: string;
+  whatsapp: string;
+  tagline: string;
+  vision: string;
+  mission: string;
+  values: ReadonlyArray<{ label: string; description: string }>;
+  productCategories: ReadonlyArray<{ id: string; label: string }>;
+}
+
+export const COMPANY: CompanyData = {
   name:        "ZILTON LIFE CARE PRIVATE LIMITED",
   shortName:   "Zilton Life Care",
-  established: "3 August 2026", // Confirm: incorporation date or another milestone
+  established: null, // UNCONFIRMED — awaiting MCA Certificate of Incorporation from client
   type:        "Pharmaceutical Marketing Company",
 
   address: {
@@ -44,5 +77,5 @@ export const COMPANY = {
     { id: "nutrition-iv",            label: "Nutrition IV" },
     { id: "nutrition-sachet",        label: "Nutrition Sachet" },
   ],
-} as const;
+};
 
