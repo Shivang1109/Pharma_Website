@@ -12,7 +12,7 @@ const app = express();
 
 app.use(compression());
 
-// Serve static assets from the client build with long-lived cache headers
+// Serve static assets with long-lived cache headers
 app.use(
   "/assets",
   express.static(path.join(CLIENT_PATH, "assets"), {
@@ -24,9 +24,8 @@ app.use(
 // Serve everything else in build/client (images, favicon, robots.txt, etc.)
 app.use(express.static(CLIENT_PATH, { maxAge: "1h" }));
 
-// SSR handler — loaded dynamically so Vercel bundles it correctly
-app.all(
-  "*",
+// SSR handler — use explicit path pattern compatible with path-to-regexp v8
+app.use(
   createRequestHandler({
     build: () => import(BUILD_PATH),
   })
