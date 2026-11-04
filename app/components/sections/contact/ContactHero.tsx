@@ -31,7 +31,13 @@ export function ContactHero() {
 
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#E4EBE6] shadow-2xs text-xs font-medium text-[#123D32]">
             <PhoneCall className="w-4 h-4 text-[#07845E]" />
-            <span>Direct Line: {COMPANY.phone}</span>
+            <a
+              href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}
+              className="hover:text-[#07845E] transition-colors"
+              title="Call Direct Corporate Desk"
+            >
+              Direct Line: <strong>{COMPANY.phone}</strong>
+            </a>
           </div>
 
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#E4EBE6] shadow-2xs text-xs font-medium text-[#123D32]">

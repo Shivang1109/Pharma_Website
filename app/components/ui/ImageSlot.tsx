@@ -1,4 +1,5 @@
 import React from "react";
+import { getImageSrc } from "~/data/images";
 
 export interface ImageSlotProps {
   src?: string | null;
@@ -21,6 +22,10 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
   slotKey,
   objectFit = "cover",
 }) => {
+  // Resolve image: explicit src wins, else look up registry by slotKey
+  const resolvedSrc: string | null =
+    src !== undefined ? (src ?? null) : slotKey ? getImageSrc(slotKey) : null;
+
   // Convert standard ratio strings to aspect-ratio CSS values
   const aspectStyle = {
     aspectRatio: ratio.includes("/") ? ratio.replace("/", " / ") : ratio,
@@ -36,9 +41,9 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
         style={aspectStyle}
         className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#E8EFEA] border border-[#1B634E]/15 transition-all duration-500"
       >
-        {src ? (
+        {resolvedSrc ? (
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             loading={priority ? "eager" : "lazy"}
             decoding={priority ? "sync" : "async"}
@@ -57,7 +62,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
                 backgroundSize: "16px 16px",
               }}
             />
-            
+
             {/* Subtle Studio Shimmer */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_4s_infinite_linear] pointer-events-none" />
 
@@ -115,4 +120,3 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
     </figure>
   );
 };
-

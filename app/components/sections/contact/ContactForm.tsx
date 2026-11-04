@@ -8,10 +8,11 @@ import {
   ENQUIRY_TYPES,
   type EnquiryType,
 } from "~/schemas/contact.schema";
+import { COMPANY } from "~/data/company";
 import {
-  submitContactForm,
-  type ContactSubmissionResponse,
-} from "~/services/contact.service";
+  buildCorporateInquiryGmail,
+  buildCorporateInquiryWhatsApp,
+} from "~/utils/inquiry";
 import { PRODUCTS } from "~/data/products";
 import {
   CheckCircle2,
@@ -23,6 +24,9 @@ import {
   FileCheck2,
   Building,
   RotateCcw,
+  Mail,
+  ExternalLink,
+  ArrowRight,
 } from "lucide-react";
 
 export const ContactForm: React.FC = () => {
@@ -44,7 +48,13 @@ export const ContactForm: React.FC = () => {
 
   const initialEnquiryType = resolveInitialType(rawTypeParam, productParam);
 
-  const [submissionStatus, setSubmissionStatus] = useState<ContactSubmissionResponse | null>(null);
+  const [dispatchNotice, setDispatchNotice] = useState<{
+    type: "email" | "whatsapp";
+    title: string;
+    detail: string;
+    actionRequired: string;
+    url: string;
+  } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -111,118 +121,49 @@ export const ContactForm: React.FC = () => {
     setValue("message", "");
   };
 
-  const onSubmit = async (data: ContactFormData) => {
+  const handleEmailSubmit = (data: ContactFormData) => {
     setIsSubmitting(true);
     setServerError(null);
 
     try {
-      const response = await submitContactForm(data);
-      if (response.success) {
-        setSubmissionStatus(response);
-      } else {
-        setServerError(response.message || "Unable to dispatch enquiry. Please try again.");
+      const gmailUrl = buildCorporateInquiryGmail(data);
+      setDispatchNotice({
+        type: "email",
+        title: "Gmail Web Compose Opened",
+        detail: `All submitted inquiry fields have been pre-filled for ${COMPANY.inquiryEmail}.`,
+        actionRequired: "Please review the prefilled draft in the opened Gmail tab and click 'Send' to complete delivery. (If prompted, please sign in to your Google Account).",
+        url: gmailUrl,
+      });
+
+      if (typeof window !== "undefined") {
+        window.open(gmailUrl, "_blank", "noopener,noreferrer");
       }
-    } catch {
-      setServerError("A communication error occurred. Please verify your connection or call our corporate desk.");
     } finally {
-      setIsSubmitting(false);
+      setTimeout(() => setIsSubmitting(false), 400);
     }
   };
 
-  const handleResetForm = () => {
-    setSubmissionStatus(null);
-    reset({
-      fullName: "",
-      organization: "",
-      email: "",
-      phone: "",
-      enquiryType: "general",
-      productName: "",
-      subject: "",
-      message: "",
-    });
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.delete("product");
-    nextParams.delete("type");
-    setSearchParams(nextParams);
+  const handleWhatsAppSubmit = (data: ContactFormData) => {
+    setIsSubmitting(true);
+    setServerError(null);
+
+    try {
+      const waUrl = buildCorporateInquiryWhatsApp(data);
+      setDispatchNotice({
+        type: "whatsapp",
+        title: "WhatsApp Window Opened",
+        detail: `All submitted inquiry fields have been pre-filled for our desk at +${COMPANY.whatsapp}.`,
+        actionRequired: "Please review the pre-filled message in WhatsApp and tap Send to complete delivery.",
+        url: waUrl,
+      });
+
+      if (typeof window !== "undefined") {
+        window.open(waUrl, "_blank", "noopener,noreferrer");
+      }
+    } finally {
+      setTimeout(() => setIsSubmitting(false), 400);
+    }
   };
-
-  if (submissionStatus?.success) {
-    return (
-      <div className="bg-white p-8 sm:p-12 rounded-3xl border border-[#E4EBE6] shadow-sm text-center">
-        <div className="w-16 h-16 bg-[#DFF1E9] rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#07845E] shadow-xs">
-          <CheckCircle2 className="w-10 h-10 stroke-[2]" />
-        </div>
-
-        <span className="inline-block text-xs uppercase tracking-wider font-bold text-[#07845E] bg-[#DFF1E9]/70 px-3 py-1 rounded-full mb-3">
-          Enquiry Received
-        </span>
-
-        <h3
-          className="text-2xl sm:text-3xl font-extrabold text-[#123D32]"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
-          Corporate Request Logged
-        </h3>
-
-        <p className="mt-3 text-sm sm:text-base text-[#53635C] max-w-lg mx-auto leading-relaxed">
-          {submissionStatus.message}
-        </p>
-
-        {submissionStatus.submissionId && (
-          <div className="mt-6 inline-flex flex-col sm:flex-row items-center gap-2 bg-[#F2F7F4] border border-[#E4EBE6] px-5 py-3 rounded-2xl text-xs text-[#53635C]">
-            <span className="font-semibold text-[#123D32]">Unique Tracking Reference:</span>
-            <code className="font-mono font-bold text-[#07845E] bg-white px-2.5 py-1 rounded-md border border-[#E4EBE6]">
-              {submissionStatus.submissionId}
-            </code>
-          </div>
-        )}
-
-        {/* Transmission Summary Card */}
-        {submissionStatus.receivedData && (
-          <div className="mt-8 max-w-md mx-auto text-left bg-[#FAFCFA] border border-[#E4EBE6] rounded-2xl p-5 text-xs text-[#53635C] space-y-2">
-            <h4 className="font-bold text-[#123D32] border-b border-[#E4EBE6] pb-2 uppercase tracking-wider text-[11px]">
-              Submission Log Summary
-            </h4>
-            <div className="flex justify-between py-1">
-              <span>Representative:</span>
-              <strong className="text-[#123D32]">{submissionStatus.receivedData.fullName}</strong>
-            </div>
-            {submissionStatus.receivedData.organization && (
-              <div className="flex justify-between py-1">
-                <span>Organization:</span>
-                <strong className="text-[#123D32]">{submissionStatus.receivedData.organization}</strong>
-              </div>
-            )}
-            <div className="flex justify-between py-1">
-              <span>Official Email:</span>
-              <strong className="text-[#123D32]">{submissionStatus.receivedData.email}</strong>
-            </div>
-            <div className="flex justify-between py-1">
-              <span>Subject:</span>
-              <strong className="text-[#123D32] text-right truncate max-w-[200px]">
-                {submissionStatus.receivedData.subject}
-              </strong>
-            </div>
-            <div className="pt-2 border-t border-[#E4EBE6] text-[11px] text-[#53635C]/80 italic">
-              * Staged submission mode. Once production SMTP credentials are provided, communications are directly dispatched to the corporate executive inbox.
-            </div>
-          </div>
-        )}
-
-        <div className="mt-8 flex justify-center gap-4">
-          <button
-            type="button"
-            onClick={handleResetForm}
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-[#123D32] bg-[#DFF1E9] hover:bg-[#cbe3d9] rounded-xl transition-all cursor-pointer shadow-xs"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Submit Another Enquiry
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white p-8 sm:p-10 rounded-3xl border border-[#E4EBE6] shadow-sm relative">
@@ -275,7 +216,87 @@ export const ContactForm: React.FC = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+      {/* Direct Dispatch Feedback Banner */}
+      {dispatchNotice && (
+        <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-[#DFF1E9] border border-[#07845E]/40 text-[#123D32] space-y-2.5 animate-in fade-in duration-300">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-[#07845E]">
+              {dispatchNotice.type === "email" ? (
+                <Mail className="w-4 h-4 text-[#07845E]" />
+              ) : (
+                <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4 text-[#25D366]" aria-hidden="true">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
+                </svg>
+              )}
+              <span>{dispatchNotice.title}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setDispatchNotice(null)}
+              className="text-[#53635C] hover:text-[#123D32] p-1 cursor-pointer"
+              aria-label="Dismiss notice"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <p className="text-xs sm:text-sm text-[#123D32] leading-relaxed">
+            {dispatchNotice.detail}
+          </p>
+
+          <div className="p-3 rounded-xl bg-white/80 border border-[#07845E]/20 text-xs text-[#123D32] leading-relaxed">
+            <strong>Action Required:</strong> {dispatchNotice.actionRequired}
+          </div>
+
+          <div className="pt-1 flex flex-wrap items-center gap-3">
+            {dispatchNotice.type === "email" ? (
+              <>
+                <a
+                  href={dispatchNotice.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#123D32] hover:text-[#07845E] underline"
+                >
+                  <span>Re-open Gmail Web Compose</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <span className="text-[#53635C]/30">·</span>
+                <button
+                  type="button"
+                  onClick={handleSubmit(handleWhatsAppSubmit)}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#07845E] hover:text-[#123D32] cursor-pointer"
+                >
+                  <span>Also Send via WhatsApp</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              </>
+            ) : (
+              <>
+                <a
+                  href={dispatchNotice.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#07845E] hover:text-[#123D32] underline"
+                >
+                  <span>Re-open WhatsApp</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <span className="text-[#53635C]/30">·</span>
+                <button
+                  type="button"
+                  onClick={handleSubmit(handleEmailSubmit)}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#123D32] hover:text-[#07845E] cursor-pointer"
+                >
+                  <span>Also Send via Email</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit(handleEmailSubmit)} noValidate className="space-y-5">
         {/* Full Name & Organization */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
@@ -497,25 +518,42 @@ export const ContactForm: React.FC = () => {
           )}
         </div>
 
-        {/* Submit Button */}
-        <div className="pt-3">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#123D32] hover:bg-[#07845E] text-white font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#07845E] focus:ring-offset-2 transition-all duration-200 disabled:opacity-60 shadow-md hover:shadow-lg cursor-pointer text-sm"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Transmitting Institutional Enquiry...</span>
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                <span>Submit Institutional Enquiry</span>
-              </>
-            )}
-          </button>
+        {/* Submit Action: Direct Email + WhatsApp Integration */}
+        <div className="pt-3 space-y-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            {/* Email Submission */}
+            <button
+              type="button"
+              onClick={handleSubmit(handleEmailSubmit)}
+              disabled={isSubmitting}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#123D32] hover:bg-[#07845E] text-white font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#07845E] focus:ring-offset-2 transition-all duration-200 disabled:opacity-60 shadow-md hover:shadow-lg cursor-pointer text-xs uppercase tracking-wider font-mono"
+            >
+              <Mail className="w-4 h-4 text-[#DFF1E9]" />
+              <span>Submit via Email</span>
+            </button>
+
+            {/* WhatsApp Submission */}
+            <button
+              type="button"
+              onClick={handleSubmit(handleWhatsAppSubmit)}
+              disabled={isSubmitting}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 transition-all duration-200 disabled:opacity-60 shadow-md hover:shadow-lg cursor-pointer text-xs uppercase tracking-wider font-mono"
+            >
+              <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4" aria-hidden="true">
+                <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
+              </svg>
+              <span>Submit via WhatsApp</span>
+            </button>
+          </div>
+
+          <div className="pt-1 flex flex-wrap items-center justify-between text-[11px] font-mono text-[#53635C] gap-2">
+            <span>Recipient: <strong className="text-[#123D32]">{COMPANY.inquiryEmail}</strong></span>
+            <span>WhatsApp: <strong className="text-[#123D32]">+{COMPANY.whatsapp}</strong></span>
+          </div>
+
+          <p className="text-[11px] text-[#53635C]/80 text-center leading-relaxed">
+            Note: Inquiry details are pre-filled directly into your selected client. Review and press <strong>Send</strong> to complete transmission.
+          </p>
         </div>
       </form>
     </div>

@@ -12,16 +12,19 @@ export const COMPANY = {
   address: {
     line1:   "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION",
     line2:   "GURUNANAK ROAD, BANDRA WEST",
-    city:    "Mumbai",
+    city:    "MUMBAI",
     pincode: "400050",
-    state:   "Maharashtra",
-    country: "India",
-    full:    "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI 400050",
+    state:   "MAHARASHTRA",
+    country: "INDIA",
+    full:    "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI – 400050, MAHARASHTRA, INDIA",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Laxmi+Housing+%26+Finance%2C+67+B%2C+Gopal+Mansion%2C+Gurunanak+Road%2C+Bandra+West%2C+Mumbai+400050%2C+Maharashtra%2C+India",
   },
 
-  phone:        "+91 9819667211", // Confirm WhatsApp Business status
-  email:        null,             // PENDING — official email not yet provided
-  whatsapp:     null,             // PENDING — confirm if phone is WhatsApp Business
+  phone:        "+91 9819667211",
+  email:        "info@ziltonlifecare.com",
+  // Centralized Corporate Inquiry testing recipient — easily replace with official email later:
+  inquiryEmail: "r2661048@gmail.com",
+  whatsapp:     "919819667211",
 
   tagline: "Caring for Life, Committed to Health",
   vision:  "Better Healthcare, Healthier Lives.",

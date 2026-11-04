@@ -9,6 +9,7 @@ import { CountUp } from "~/components/motion/CountUp";
 import { ImageSlot } from "~/components/ui/ImageSlot";
 import { generateRouteMeta } from "~/utils/seo";
 import { PRODUCT_CATEGORIES } from "~/data/products";
+import { getWhatsAppLink } from "~/utils/whatsapp";
 
 export function meta() {
   return generateRouteMeta({
@@ -67,6 +68,23 @@ export default function HomePage() {
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </Magnetic>
+
+              {/* WhatsApp Quick Enquiry CTA */}
+              <a
+                href={getWhatsAppLink(
+                  `Hello Zilton Life Care Team,\n\nI am interested in your pharmaceutical products and would like to know more about your product range and business opportunities.\n\nPlease share further details.\n\nThank you.`
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 shadow-md"
+                aria-label="Quick Enquiry on WhatsApp"
+              >
+                {/* WhatsApp icon */}
+                <svg viewBox="0 0 32 32" fill="currentColor" className="w-4 h-4" aria-hidden="true">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.44.655 4.726 1.797 6.69L2 30l7.52-1.773A13.934 13.934 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.3 18.909c-.345-.173-2.045-1.009-2.362-1.124-.317-.115-.547-.173-.778.173-.23.345-.893 1.124-1.095 1.354-.202.23-.403.258-.748.086-.345-.173-1.456-.537-2.773-1.71-1.025-.914-1.717-2.044-1.918-2.389-.202-.345-.022-.531.151-.703.155-.155.345-.404.518-.605.172-.202.23-.345.345-.576.115-.23.057-.432-.029-.605-.086-.173-.778-1.874-1.066-2.566-.28-.673-.565-.582-.778-.593l-.663-.012c-.23 0-.605.086-.922.432s-1.209 1.181-1.209 2.882c0 1.7 1.238 3.344 1.411 3.574.173.23 2.437 3.72 5.902 5.216.825.356 1.468.569 1.97.728.828.263 1.582.226 2.178.137.664-.1 2.045-.836 2.333-1.643.288-.807.288-1.499.202-1.643-.086-.144-.317-.23-.662-.403z" />
+                </svg>
+                <span>Quick Enquiry on WhatsApp</span>
+              </a>
             </div>
           </div>
 

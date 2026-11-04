@@ -2,9 +2,9 @@ import React from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { FloatingContactWidget } from "~/components/common/FloatingContactWidget";
+import { FloatingWhatsAppButton } from "~/components/common/FloatingWhatsAppButton";
 import { LenisProvider } from "~/components/motion/LenisProvider";
 import { CustomCursor } from "~/components/motion/CustomCursor";
-import { Preloader } from "~/components/motion/Preloader";
 import { PageTransition } from "~/components/motion/PageTransition";
 
 type SiteLayoutProps = {
@@ -14,7 +14,6 @@ type SiteLayoutProps = {
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <LenisProvider>
-      <Preloader />
       <CustomCursor />
       <div className="flex min-h-screen flex-col relative bg-[#F6F4EE] text-[#1B634E] selection:bg-[#1B634E] selection:text-[#F6F4EE]">
         <Navbar />
@@ -25,6 +24,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
         </main>
         <Footer />
         <FloatingContactWidget />
+        <FloatingWhatsAppButton />
       </div>
     </LenisProvider>
   );

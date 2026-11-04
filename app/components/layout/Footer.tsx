@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import { ArrowUp, Phone, Mail, MapPin } from "lucide-react";
+import { ArrowUp, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import { NAV_ITEMS, FOOTER_LEGAL_LINKS } from "~/data/navigation";
 import { COMPANY } from "~/data/company";
 
@@ -86,24 +86,55 @@ export const Footer: React.FC = () => {
             <h4 className="font-mono text-xs uppercase tracking-widest text-[#DCEEE4] font-semibold mb-4">
               Communications
             </h4>
-            <div className="space-y-3 text-xs text-white/90">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#DCEEE4] shrink-0 mt-0.5" />
-                <address className="not-italic leading-relaxed">
-                  LAXMI HOUSING &amp; FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI – 400050
-                </address>
+            <div className="space-y-3.5 text-xs text-white/90">
+              <div className="flex items-start gap-2.5 group">
+                <MapPin className="w-4 h-4 text-[#DCEEE4] group-hover:text-white shrink-0 mt-0.5 transition-colors" />
+                <div className="space-y-1.5">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-[#DCEEE4]/80">
+                    Registered Office
+                  </span>
+                  <a
+                    href={COMPANY.address.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors block group/addr"
+                    title="View Registered Office on Google Maps (opens in new tab)"
+                  >
+                    <address className="not-italic leading-relaxed text-white/85 group-hover/addr:text-white transition-colors">
+                      {COMPANY.address.line1},<br />
+                      {COMPANY.address.line2},<br />
+                      {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}, {COMPANY.address.country}.
+                    </address>
+                  </a>
+                  <a
+                    href={COMPANY.address.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#DCEEE4] hover:text-white font-medium underline underline-offset-2 transition-colors"
+                    aria-label="View Registered Office on Google Maps (opens in new tab)"
+                  >
+                    <span>View on Google Maps</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#DCEEE4] shrink-0" />
-                <a href="tel:+919819667211" className="hover:text-white font-mono">
-                  +91 9819667211
+                <a
+                  href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}
+                  className="hover:text-white font-mono transition-colors"
+                >
+                  {COMPANY.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#DCEEE4] shrink-0" />
-                <span className="font-mono text-white/80">
-                  info@ziltonlifecare.com
-                </span>
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  className="font-mono text-white/80 hover:text-white transition-colors"
+                >
+                  {COMPANY.email}
+                </a>
               </div>
             </div>
           </div>
