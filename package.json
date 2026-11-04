@@ -2,6 +2,9 @@
   "name": "zilton-life-care",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
