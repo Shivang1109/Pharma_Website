@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+
+# Nested archive folder
+Pharma_Website-main/
