@@ -10,6 +10,7 @@ export interface ImageRegistry {
   heroMain: string | null;
   aboutPlant: string | null;
   aboutLeadership: string | null;
+  productsHero: string | null;
   quality01: string | null;
   quality02: string | null;
   quality03: string | null;
@@ -28,24 +29,28 @@ export const IMAGES: ImageRegistry = {
   heroMain: "/images/cleanroom/bofu-shaw-yqPZy461skQ-unsplash.jpg",
 
   // ── ABOUT ──────────────────────────────────────────────────
-  // Sterile pharmaceutical manufacturing facility
+  // About page hero: Institutional cleanroom facility
+  aboutLeadership: "/images/cleanroom/scarbor-siu-DBB4mcKRcCs-unsplash.jpg",
+  // Homepage About section: Manufacturing facility
   aboutPlant: "/images/cleanroom/tecnic-bioprocess-solutions-9gZO2N6leRI-unsplash.jpg",
-  // Laboratory research and development
-  aboutLeadership: "/images/lab/roberto-sorin-RS0-h_pyByk-unsplash.jpg",
 
   // ── QUALITY ────────────────────────────────────────────────
-  // Cleanroom facility and sterile compounding
+  // Quality page hero: Cleanroom facility and sterile compounding
   quality01: "/images/cleanroom/toon-lambrechts-E1HSxmVG5lE-unsplash.jpg",
-  // Analytical testing and quality control
+  // Quality page step 2: Analytical testing and quality control
   quality02: "/images/quality/trnava-university-_9xRHrMOjeg-unsplash.jpg",
-  // Laboratory instrumentation and analysis
+  // Quality page cold-chain band: Laboratory instrumentation and analysis
   quality03: "/images/lab/julia-koblitz-RlOAwXt2fEA-unsplash.jpg",
-  // Quality assurance and batch verification
+  // Quality page step 4: Quality assurance and batch verification
   quality04: "/images/quality/etactics-inc-Qp1HJR46xw8-unsplash.jpg",
 
   // ── CONTACT ────────────────────────────────────────────────
   // Professional healthcare environment
   contactOffice: "/images/lab/paul-einerhand-bKd9KEELfmg-unsplash.jpg",
+
+  // ── PRODUCTS PAGE HERO ─────────────────────────────────────
+  // High-impact quality control and analytical testing
+  productsHero: "/images/quality/raimond-klavins-n-7HTOiJPso-unsplash.jpg",
 
   // ── HOME DIVISION PANELS ───────────────────────────────────
   // Division 1: Sterile parenteral glass injection vial & monocarton

@@ -94,10 +94,10 @@ export default function ProductsPage() {
     <div className="w-full">
       {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
       <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
-        {IMAGES.quality01 && (
+        {IMAGES.productsHero && (
           <img
-            src={IMAGES.quality01}
-            alt="Pharmaceutical laboratory analysis and formulation testing"
+            src={IMAGES.productsHero}
+            alt="Pharmaceutical quality control and analytical testing laboratory"
             className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
             loading="eager"
             decoding="sync"

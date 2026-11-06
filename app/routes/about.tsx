@@ -95,11 +95,11 @@ export default function AboutPage() {
       </section>
 
       {/* ─── ABOUT CONTENT BODY ─────────────────────────────────── */}
-      <div className="py-14 sm:py-20">
+      <div className="py-12 sm:py-16">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* ─── 1. OUR STORY & FOUNDING CHARTER ─────────────────── */}
-          <section className="mb-20 sm:mb-28">
-            <div className="py-8 sm:py-12 border-b border-slate-200 mb-12">
+          <section className="mb-16 sm:mb-20">
+            <div className="py-6 sm:py-8 border-b border-slate-200 mb-10">
               <ScrollText as="h2">
                 Founded in Mumbai, Zilton Life Care operates as a dedicated pharmaceutical healthcare company bridging certified cGMP, WHO and US FDA approved manufacturing with clinical care facilities across India.
               </ScrollText>
@@ -143,7 +143,7 @@ export default function AboutPage() {
           </section>
 
           {/* ─── 2. TABBED VISION, MISSION & VALUES ──────────────── */}
-          <section className="py-14 sm:py-20 border-t border-slate-200">
+          <section className="py-12 sm:py-16 border-t border-slate-200">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
@@ -294,7 +294,7 @@ export default function AboutPage() {
           </section>
 
           {/* ─── 3. GUIDING VALUES (NUMBERS REMOVED) ─── */}
-          <section className="py-14 sm:py-20 border-t border-slate-200">
+          <section className="py-12 sm:py-16 border-t border-slate-200">
             <div className="max-w-2xl mb-10">
               <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
                 Operational Framework
@@ -352,7 +352,7 @@ export default function AboutPage() {
             </div>
 
             {/* ─── 4. OUR STRATEGIC OBJECTIVES (INSPIRED BY SERIO HC CLEAN CORPORATE ARCHITECTURE) ─── */}
-            <div className="my-14 sm:my-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white border border-slate-200/90 shadow-sm">
+            <div className="my-12 sm:my-16 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white border border-slate-200/90 shadow-sm">
               <div className="max-w-2xl mb-8">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
                   Institutional Priorities
@@ -425,7 +425,7 @@ export default function AboutPage() {
             </div>
 
             {/* ─── 5. JOIN HANDS WITH US TO ADVANCE CRITICAL CARE ─── */}
-            <div className="mb-14 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0A192F] via-[#0F382C] to-[#0A192F] text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
+            <div className="mb-12 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0A192F] via-[#0F382C] to-[#0A192F] text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
               <div className="max-w-xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0] block mb-2">
                   Institutional Collaboration

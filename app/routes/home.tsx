@@ -41,60 +41,125 @@ export default function HomePage() {
             <img
               src={IMAGES.heroMain}
               alt="Pharmaceutical research and manufacturing"
-              className="w-full h-full object-cover object-center opacity-25"
+              className="w-full h-full object-cover object-center opacity-40"
               loading="eager"
               decoding="sync"
             />
           </div>
         )}
 
-        {/* Simple gradient for text legibility */}
+        {/* Refined gradient for text legibility without excessive darkness */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/95 via-[#0A192F]/85 to-[#0A192F]/70"
+          className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/90 via-[#0A192F]/60 to-transparent"
           aria-hidden="true"
         />
 
         {/* Hero Content */}
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <Reveal delay={0.1}>
-            <div className="max-w-3xl">
-              <div className="text-sm uppercase tracking-widest text-[#A7F3D0] font-semibold mb-6">
-                Critical Care & Clinical Nutrition
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Main Message */}
+            <div className="lg:col-span-7">
+              <Reveal delay={0.1}>
+                <div className="max-w-2xl">
+                  <div className="text-sm uppercase tracking-widest text-[#A7F3D0] font-semibold mb-6">
+                    Critical Care & Clinical Nutrition
+                  </div>
 
-              <h1 className="font-editorial font-bold text-white mb-6">
-                <span className="block text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight mb-2">
-                  Better Healthcare.
-                </span>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-[#10B981]">
-                  Healthier Lives.
-                </span>
-              </h1>
+                  <h1 className="font-editorial font-bold text-white mb-6">
+                    <span className="block text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight mb-2">
+                      Better Healthcare.
+                    </span>
+                    <span className="block text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-[#10B981]">
+                      Healthier Lives.
+                    </span>
+                  </h1>
 
-              <p className="text-lg sm:text-xl text-slate-200 leading-relaxed mb-10 max-w-2xl">
-                We have more than 20+ years experience in Critical Care, Parenteral and Clinical
-                Nutrition formulation across India, supported by audited cGMP, WHO, US FDA approved
-                partner manufacturing.
-              </p>
+                  <p className="text-lg sm:text-xl text-slate-200 leading-relaxed mb-10 max-w-2xl">
+                    We have more than 20+ years experience in Critical Care, Parenteral and Clinical
+                    Nutrition formulation across India, supported by audited cGMP, WHO, US FDA approved
+                    partner manufacturing.
+                  </p>
 
-              <div className="flex flex-wrap items-center gap-4">
-                <Link
-                  to="/products"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0D9E71] hover:bg-[#059669] text-white text-sm font-semibold transition-colors shadow-lg"
-                >
-                  <span>Explore Products</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Link
+                      to="/products"
+                      className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0D9E71] hover:bg-[#059669] text-white text-sm font-semibold transition-colors shadow-lg"
+                    >
+                      <span>Explore Products</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
 
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm font-semibold transition-colors border border-white/20"
-                >
-                  <span>About Zilton</span>
-                </Link>
-              </div>
+                    <Link
+                      to="/about"
+                      className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm font-semibold transition-colors border border-white/20"
+                    >
+                      <span>About Zilton</span>
+                    </Link>
+                  </div>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+
+            {/* Right Column: Layered Credential Card */}
+            <div className="lg:col-span-5 hidden lg:block">
+              <Reveal delay={0.3}>
+                <div className="relative">
+                  {/* Background accent */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-[#0D9E71]/20 to-[#059669]/10 rounded-3xl blur-2xl" />
+                  
+                  {/* Card */}
+                  <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/20">
+                    <div className="space-y-6">
+                      <div>
+                        <div className="text-xs uppercase tracking-wider text-[#0D9E71] font-bold mb-2">
+                          Pharmaceutical Excellence
+                        </div>
+                        <h3 className="font-editorial text-2xl font-bold text-[#0A192F] leading-tight">
+                          Trusted Hospital Supply Partner
+                        </h3>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-2 h-2 rounded-full bg-[#0D9E71] mt-2 shrink-0" />
+                          <div>
+                            <div className="font-semibold text-[#0A192F] text-sm">20+ Years Experience</div>
+                            <div className="text-xs text-slate-600 mt-0.5">Critical care and clinical nutrition formulations</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3">
+                          <div className="w-2 h-2 rounded-full bg-[#0D9E71] mt-2 shrink-0" />
+                          <div>
+                            <div className="font-semibold text-[#0A192F] text-sm">Partner Manufacturing Standards</div>
+                            <div className="text-xs text-slate-600 mt-0.5">Audited cGMP, WHO, US FDA approved facilities</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3">
+                          <div className="w-2 h-2 rounded-full bg-[#0D9E71] mt-2 shrink-0" />
+                          <div>
+                            <div className="font-semibold text-[#0A192F] text-sm">Pan-India Distribution</div>
+                            <div className="text-xs text-slate-600 mt-0.5">Serving hospitals and institutions nationwide</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-4 border-t border-slate-200">
+                        <Link
+                          to="/quality"
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-[#0D9E71] hover:text-[#059669] transition-colors"
+                        >
+                          <span>View Quality Framework</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -209,9 +274,10 @@ export default function HomePage() {
                 </Link>
 
                 <div className="mt-6 pt-6 border-t border-slate-100">
+                  <p className="text-xs text-slate-400 mb-2 italic">Category illustration</p>
                   <img
                     src="/images/products/placeholder-injection.svg"
-                    alt="Critical Care Injection"
+                    alt="Critical Care Injection category"
                     className="w-32 h-32 object-contain opacity-40"
                   />
                 </div>
@@ -243,9 +309,10 @@ export default function HomePage() {
                 </Link>
 
                 <div className="mt-6 pt-6 border-t border-slate-100">
+                  <p className="text-xs text-slate-400 mb-2 italic">Category illustration</p>
                   <img
                     src="/images/products/placeholder-iv.svg"
-                    alt="Nutrition IV"
+                    alt="Nutrition IV category"
                     className="w-32 h-32 object-contain opacity-40"
                   />
                 </div>
@@ -277,9 +344,10 @@ export default function HomePage() {
                 </Link>
 
                 <div className="mt-6 pt-6 border-t border-slate-100">
+                  <p className="text-xs text-slate-400 mb-2 italic">Category illustration</p>
                   <img
                     src="/images/products/placeholder-sachet.svg"
-                    alt="Nutrition Sachet"
+                    alt="Nutrition Sachet category"
                     className="w-32 h-32 object-contain opacity-40"
                   />
                 </div>

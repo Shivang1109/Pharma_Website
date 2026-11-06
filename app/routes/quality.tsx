@@ -114,7 +114,7 @@ export default function QualityPage() {
               Safety, Standards &amp; Verification
             </h1>
             <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
-              Our quality assurance framework guarantees that every parenteral and oral therapeutic distributed by Zilton Life Care satisfies statutory Indian pharmacopeial and Schedule M standards.
+              Our quality assurance framework ensures that every parenteral and oral therapeutic distributed by Zilton Life Care meets statutory Indian pharmacopeial and Schedule M standards.
             </p>
           </div>
         </div>
@@ -272,7 +272,7 @@ export default function QualityPage() {
               <span className="text-xs text-[#A7F3D0] block mb-2 font-bold uppercase tracking-wider">
                 Validated 2°C – 8°C Storage Standard
               </span>
-              <svg className="w-full h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-2" aria-hidden="true">
+              <svg className="w-full h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-2" aria-hidden="true" aria-label="Illustrative temperature stability visualization">
                 <path
                   d="M 10 26 Q 80 20 150 28 T 300 24 T 450 27 T 600 25"
                   fill="none"
@@ -283,6 +283,9 @@ export default function QualityPage() {
                 <line x1="10" y1="12" x2="600" y2="12" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
                 <line x1="10" y1="40" x2="600" y2="40" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
               </svg>
+              <p className="text-xs text-slate-400 mt-2 italic">
+                * Illustrative representation only. Actual thermal monitoring data available upon institutional request.
+              </p>
             </div>
           </div>
         </div>
