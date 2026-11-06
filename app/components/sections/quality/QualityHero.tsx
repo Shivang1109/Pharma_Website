@@ -25,7 +25,7 @@ export const QualityHero: React.FC = () => {
         </p>
 
         <p className="mt-4 text-sm sm:text-base text-[#53635C] leading-relaxed font-normal">
-          As a specialized pharmaceutical marketing organisation, we selectively collaborate with licensed third-party manufacturing plants adhering to certified Good Manufacturing Practices (cGMP). Every batch distributed through our network is supported by documented quality controls and verified Certificate of Analysis protocols.
+          We selectively collaborate with licensed third-party manufacturing plants adhering to certified cGMP, WHO, and US FDA standards. Every batch distributed through our network is supported by documented quality controls and verified Certificate of Analysis protocols.
         </p>
 
         {/* 3 Metric Pills */}

@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     composition: "Meropenem 500mg Injection",
     image: IMAGES.products["merozil-500mg"] || "",
     shortDescription:
-      "Broad-spectrum carbapenem injectable formulation designed for acute bacterial infections and targeted dosage titration in hospital care.",
+      "Broad-spectrum carbapenem injectable formulation designed for severe bacterial infections and targeted dosage titration in hospital care.",
     published: true,
   },
   {
@@ -87,7 +87,7 @@ export const PRODUCTS: Product[] = [
     composition: "Polymyxin B 7,50,000 IU Injection",
     image: IMAGES.products["polyzil-7-5lac"] || "",
     shortDescription:
-      "Higher-strength Polymyxin B formulation indicated for acute resistance profiles and critically ill ICU patient interventions.",
+      "Higher-strength Polymyxin B formulation indicated for critical resistance profiles and critically ill ICU patient interventions.",
     published: true,
   },
   {

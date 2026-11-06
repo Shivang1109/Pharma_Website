@@ -1,0 +1,419 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "name": "Home",
+      "status": "WARN",
+      "title": "Zilton Life Care | Pharmaceutical Marketing & Hospital Supply",
+      "description": "Zilton Life Care Private Limited is a premier pharmaceutical marketing company based in Mumbai, specializing in hospital-grade critical care parenterals and specialized clinical nutrition.",
+      "canonical": "https://ziltonlifecare.com/",
+      "h1": "Better Healthcare.\nHealthier Lives.",
+      "imageCount": 7,
+      "brokenImages": [
+        "https://pharma-website-mocha.vercel.app/images/products/placeholder-sachet.svg",
+        "https://images.unsplash.com/photo-1563213126-a4273aed2016?w=1200&q=85&auto=format&fit=crop"
+      ],
+      "consoleErrors": [],
+      "networkErrors": [
+        {
+          "url": "D3312F6DB8E6A6D24E05582B52FE7922",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
+    },
+    {
+      "path": "/about",
+      "name": "About Us",
+      "status": "PASS",
+      "title": "About Zilton Life Care | Our Company & Mission",
+      "description": "Discover Zilton Life Care Private Limited — corporate vision, clinical mission, operating principles, and commitment to hospital-grade pharmaceutical quality.",
+      "canonical": "https://ziltonlifecare.com/about",
+      "h1": "Institutional Purpose & Governance",
+      "imageCount": 4,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/products",
+      "name": "Products",
+      "status": "PASS",
+      "title": "Pharmaceutical Products | Zilton Life Care",
+      "description": "Explore Zilton Life Care's portfolio in Critical Care Injections, IV Antibiotics, Nutrition IV solutions, and therapeutic Nutrition Sachets.",
+      "canonical": "https://ziltonlifecare.com/products",
+      "h1": "Parenteral & Clinical Portfolios",
+      "imageCount": 15,
+      "brokenImages": [
+        "https://pharma-website-mocha.vercel.app/images/products/zinctrace-iv.svg",
+        "https://pharma-website-mocha.vercel.app/images/products/hmb-zil-3gm.svg",
+        "https://pharma-website-mocha.vercel.app/images/products/glutashape-sachet.svg"
+      ],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/quality",
+      "name": "Quality Assurance",
+      "status": "PASS",
+      "title": "",
+      "description": "",
+      "canonical": "",
+      "h1": "",
+      "imageCount": 0,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/contact",
+      "name": "Contact Us",
+      "status": "PASS",
+      "title": "Contact Zilton Life Care | Corporate Enquiries",
+      "description": "Contact Zilton Life Care Private Limited in Bandra West, Mumbai for pharmaceutical procurement, hospital supply enquiries, and batch documentation.",
+      "canonical": "https://ziltonlifecare.com/contact",
+      "h1": "Send an enquiry",
+      "imageCount": 3,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/privacy-policy",
+      "name": "Privacy Policy",
+      "status": "PASS",
+      "title": "Privacy Policy | ZILTON LIFE CARE",
+      "description": "Privacy Policy for ZILTON LIFE CARE PRIVATE LIMITED detailing our data handling practices for business enquiries.",
+      "canonical": "https://ziltonlifecare.com/privacy-policy",
+      "h1": "Privacy Policy",
+      "imageCount": 2,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/terms",
+      "name": "Terms of Use",
+      "status": "PASS",
+      "title": "Terms of Use | ZILTON LIFE CARE",
+      "description": "Terms and Conditions governing the use of the corporate website of ZILTON LIFE CARE PRIVATE LIMITED.",
+      "canonical": "https://ziltonlifecare.com/terms",
+      "h1": "Terms of Use",
+      "imageCount": 2,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    },
+    {
+      "path": "/disclaimer",
+      "name": "Disclaimer",
+      "status": "PASS",
+      "title": "Legal & Medical Disclaimer | ZILTON LIFE CARE",
+      "description": "Important pharmaceutical and medical disclaimer for ZILTON LIFE CARE PRIVATE LIMITED website visitors.",
+      "canonical": "https://ziltonlifecare.com/disclaimer",
+      "h1": "Legal & Medical Disclaimer",
+      "imageCount": 2,
+      "brokenImages": [],
+      "consoleErrors": [],
+      "networkErrors": []
+    }
+  ],
+  "navigation": {},
+  "products": {
+    "items": [
+      {
+        "title": "MEROZIL 1gm",
+        "composition": "Meropenem 1gm Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/merozil-1gm.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20MEROZIL%201gm.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "MEROZIL 500mg",
+        "composition": "Meropenem 500mg Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/merozil-500mg.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20MEROZIL%20500mg.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Ziltaz 4.5gm",
+        "composition": "Piperacillin 4gm + Tazobactam 500mg Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/ziltaz-4-5gm.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Ziltaz%204.5gm.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Polyzil 5 lac IU",
+        "composition": "Polymyxin B 5,00,000 IU Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/polyzil-5lac.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Polyzil%205%20lac%20IU.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Polyzil 7.5 lac IU",
+        "composition": "Polymyxin B 7,50,000 IU Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/polyzil-7-5lac.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Polyzil%207.5%20lac%20IU.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Fosfozil 4gm",
+        "composition": "Fosfomycin 4gm IV Infusion",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/fosfozil-4gm.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Fosfozil%204gm.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Tigezil 50mg",
+        "composition": "Tigecycline 50mg Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/tigezil-50mg.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Tigezil%2050mg.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "ZilFCM 500mg",
+        "composition": "Ferric Carboxymaltose 500mg Inj (50mg/ml)",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/zilfcm-500mg.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20ZilFCM%20500mg.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Micasure 50mg",
+        "composition": "Micafungin 50mg Injection",
+        "category": "Critical Care Injection",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/micasure-50mg.svg",
+        "imgLoaded": true,
+        "naturalWidth": 200,
+        "naturalHeight": 150,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Micasure%2050mg.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Zinctrace IV",
+        "composition": "Zinc Chloride 10mg / 10ml IV (Each 1ml contains 1mg Zinc Chloride IV)",
+        "category": "Nutrition Iv",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/zinctrace-iv.svg",
+        "imgLoaded": false,
+        "naturalWidth": 0,
+        "naturalHeight": 0,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Zinctrace%20IV.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "HMB ZIL 3gm Sachet",
+        "composition": "Beta-hydroxy-beta-methylbutyrate 3gm",
+        "category": "Nutrition Sachet",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/hmb-zil-3gm.svg",
+        "imgLoaded": false,
+        "naturalWidth": 0,
+        "naturalHeight": 0,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20HMB%20ZIL%203gm%20Sachet.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      },
+      {
+        "title": "Glutashape Sachet",
+        "composition": "L-Glutamine combined with Antioxidants",
+        "category": "Nutrition Sachet",
+        "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/glutashape-sachet.svg",
+        "imgLoaded": false,
+        "naturalWidth": 0,
+        "naturalHeight": 0,
+        "hasWhatsApp": true,
+        "waHref": "https://wa.me/919819667211?text=Hello%20Zilton%20Life%20Care%20Team%2C%0A%0AI%20am%20interested%20in%20your%20product%3A%20Glutashape%20Sachet.%0A%0APlease%20share%20its%20details%2C%20pricing%20information%2C%20availability%2C%20and%20ordering%20process.%0A%0AThank%20you.",
+        "hasSpecsBtn": true
+      }
+    ],
+    "totalCount": 12,
+    "drawer": {
+      "open": true,
+      "title": "MEROZIL 1gm",
+      "productCode": "Critical Care Injection",
+      "hasImg": true,
+      "imgSrc": "https://pharma-website-mocha.vercel.app/images/products/merozil-1gm.svg",
+      "imgLoaded": true,
+      "bodyOverflow": "hidden"
+    }
+  },
+  "contactForm": {
+    "emptyErrors": [
+      "Full name must be at least 2 characters",
+      "Email address is required",
+      "Telephone number is required",
+      "Subject must be at least 3 characters",
+      "Message must be at least 15 characters long",
+      "Please acknowledge our data handling policy to proceed"
+    ]
+  },
+  "responsive": {
+    "viewports": [
+      {
+        "width": 320,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 360,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 375,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 430,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 768,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 1024,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 1280,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 1440,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      },
+      {
+        "width": 1920,
+        "overflow": false,
+        "homeOverflow": false,
+        "productsOverflow": false,
+        "contactOverflow": false
+      }
+    ]
+  },
+  "performance": {
+    "dnsTime": 0,
+    "tcpTime": 0,
+    "ttfb": 108,
+    "domContentLoaded": 136,
+    "loadTime": 143,
+    "transferSize": 0
+  },
+  "technical": {
+    "jsonLd": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://ziltonlifecare.com/#organization",
+          "name": "ZILTON LIFE CARE PRIVATE LIMITED",
+          "legalName": "ZILTON LIFE CARE PRIVATE LIMITED",
+          "url": "https://ziltonlifecare.com",
+          "telephone": "+91 9819667211",
+          "email": "info@ziltonlifecare.com",
+          "slogan": "Better Healthcare, Healthier Lives",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST",
+            "addressLocality": "MUMBAI",
+            "postalCode": "400050",
+            "addressRegion": "MAHARASHTRA",
+            "addressCountry": "IN"
+          },
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+91 9819667211",
+              "contactType": "Customer Support & Hospital Supply",
+              "availableLanguage": [
+                "English",
+                "Hindi"
+              ],
+              "areaServed": "IN"
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://ziltonlifecare.com/#website",
+          "url": "https://ziltonlifecare.com",
+          "name": "ZILTON LIFE CARE",
+          "description": "ZILTON LIFE CARE PRIVATE LIMITED is a pharmaceutical marketing enterprise dedicated to advancing patient health through high-standard Critical Care and Clinical Nutrition formulations.",
+          "publisher": {
+            "@id": "https://ziltonlifecare.com/#organization"
+          },
+          "inLanguage": "en-IN"
+        }
+      ]
+    }
+  }
+}

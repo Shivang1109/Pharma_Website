@@ -75,9 +75,8 @@ export default function PrivacyPolicyPage() {
           </p>
           <address className="not-italic mt-2 p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs text-gray-700">
             <strong>ZILTON LIFE CARE PRIVATE LIMITED</strong><br />
-            LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION,<br />
-            GURUNANAK ROAD, BANDRA WEST,<br />
-            MUMBAI – 400050, MAHARASHTRA, INDIA
+            LAXMI HOUSING &amp; FINANCE<br />
+            67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI 400050
           </address>
         </div>
       </section>

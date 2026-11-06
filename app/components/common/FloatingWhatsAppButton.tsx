@@ -57,14 +57,14 @@ export const FloatingWhatsAppButton: React.FC = () => {
         aria-hidden="true"
         className={[
           "absolute right-16 whitespace-nowrap",
-          "bg-[#1B634E] text-[#F6F4EE] text-xs font-mono font-semibold",
-          "px-3 py-1.5 rounded-full shadow-md",
+          "bg-[#0A192F] text-white text-xs font-semibold",
+          "px-3.5 py-1.5 rounded-full shadow-lg border border-slate-700/80",
           "opacity-0 translate-x-2 pointer-events-none",
           "group-hover:opacity-100 group-hover:translate-x-0",
           "transition-all duration-200",
         ].join(" ")}
       >
-        Chat on WhatsApp
+        WhatsApp Enquiries
       </span>
     </a>
   );

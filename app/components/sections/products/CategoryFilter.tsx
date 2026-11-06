@@ -27,7 +27,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
       <div
         role="tablist"
         aria-label="Filter formulations by category"
-        className="inline-flex p-1.5 rounded-full bg-[#FFFFFF] border border-[#1B634E]/15 gap-1.5 shadow-2xs"
+        className="inline-flex p-1.5 rounded-full bg-white border border-slate-200/90 gap-1.5 shadow-[0_2px_12px_rgba(15,23,42,0.04)]"
       >
         {options.map((option) => {
           const isActive = selectedCategory === option.id;
@@ -37,20 +37,13 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelectCategory(option.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+              className={`px-5 sm:px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-200 flex items-center justify-center cursor-pointer ${
                 isActive
-                  ? "bg-[#1B634E] text-[#FAFCFA] shadow-xs"
-                  : "text-[#3E6958] hover:text-[#1B634E] hover:bg-[#1B634E]/5"
+                  ? "bg-gradient-to-r from-[#0D9E71] to-[#059669] text-white shadow-[0_4px_14px_rgba(13,158,113,0.35)] scale-[1.02]"
+                  : "text-slate-600 hover:text-[#0A192F] hover:bg-slate-100/80"
               }`}
             >
               <span>{option.label}</span>
-              <span
-                className={`text-[11px] px-1.5 py-0.5 rounded-full font-bold ${
-                  isActive ? "bg-[#0D9E71] text-white" : "bg-[#1B634E]/10 text-[#1B634E]"
-                }`}
-              >
-                {option.count}
-              </span>
             </button>
           );
         })}

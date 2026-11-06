@@ -22,9 +22,15 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
   slotKey,
   objectFit = "cover",
 }) => {
-  // Resolve image: explicit src wins, else look up registry by slotKey
+  const [hasError, setHasError] = React.useState(false);
+
+  // Resolve image: explicit non-empty src wins, else look up registry by slotKey
   const resolvedSrc: string | null =
-    src !== undefined ? (src ?? null) : slotKey ? getImageSrc(slotKey) : null;
+    src && src.trim() !== "" ? src : slotKey ? getImageSrc(slotKey) : null;
+
+  React.useEffect(() => {
+    setHasError(false);
+  }, [resolvedSrc]);
 
   // Convert standard ratio strings to aspect-ratio CSS values
   const aspectStyle = {
@@ -39,12 +45,13 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
     <figure className={`group relative w-full overflow-hidden ${className}`}>
       <div
         style={aspectStyle}
-        className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#E8EFEA] border border-[#1B634E]/15 transition-all duration-500"
+        className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-slate-100 border border-slate-200/90 transition-all duration-500"
       >
-        {resolvedSrc ? (
+        {resolvedSrc && !hasError ? (
           <img
             src={resolvedSrc}
             alt={alt}
+            onError={() => setHasError(true)}
             loading={priority ? "eager" : "lazy"}
             decoding={priority ? "sync" : "async"}
             className={`w-full h-full ${

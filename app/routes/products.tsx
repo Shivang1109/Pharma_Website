@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
-import { Search, X } from "lucide-react";
+import { Search, X, ShieldAlert } from "lucide-react";
 import { CategoryFilter } from "~/components/sections/products/CategoryFilter";
 import { ProductGrid } from "~/components/sections/products/ProductGrid";
 import { ProductDrawer } from "~/components/sections/products/ProductDrawer";
@@ -93,7 +93,7 @@ export default function ProductsPage() {
   return (
     <div className="w-full">
       {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
-      <section className="relative w-full overflow-hidden min-h-[36vh] max-h-[44vh] flex flex-col justify-end md:justify-center">
+      <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
         {IMAGES.quality01 && (
           <img
             src={IMAGES.quality01}
@@ -104,90 +104,97 @@ export default function ProductsPage() {
           />
         )}
 
-        {/* Directional Green Scrim */}
+        {/* Directional Corporate Authority Scrim: Deep Navy & Emerald with vibrant Cyan highlights */}
         <div
-          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#123D32]/95 via-[#165442]/85 to-transparent/30"
+          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A192F]/98 via-[#0F382C]/92 to-[#0A192F]/55"
           aria-hidden="true"
         />
 
-        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        {/* Subtle Scientific Molecular Mesh Texture */}
+        <div
+          className="absolute inset-0 bg-science-mesh-dark opacity-35 mix-blend-screen pointer-events-none"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="max-w-2xl text-left">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DCEEE4] text-xs font-medium mb-3 border border-white/10 shadow-xs">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold mb-3.5 border border-emerald-400/25 shadow-xs">
               Formulations Catalogue
             </span>
-            <h1 className="text-3xl sm:text-5xl font-editorial font-bold text-white tracking-tight leading-none">
+            <h1 className="text-3xl sm:text-5xl font-editorial font-extrabold text-white tracking-tight leading-none drop-shadow-sm">
               Parenteral &amp; Clinical Portfolios
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed max-w-xl font-light">
-              12 specialized pharmaceutical preparations spanning intensive critical care injectables, trace element infusions, and therapeutic oral nutrition sachets.
+            <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
+              Specialized pharmaceutical preparations spanning intensive critical care injectables, trace element infusions, and therapeutic oral nutrition sachets.
             </p>
           </div>
         </div>
       </section>
 
       {/* ─── CATALOGUE BODY CONTAINER ─────────────────────────── */}
-      <div className="py-10 sm:py-14">
+      <div className="py-12 sm:py-16">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Institutional Prescription Notice */}
-          <div className="mb-8 p-4 rounded-xl bg-[#FFFFFF] border border-[#1B634E]/15 flex items-center justify-between gap-4 text-xs text-[#1B634E] shadow-xs">
+          <div className="mb-8 p-4.5 rounded-2xl bg-white border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#0A192F] shadow-[0_2px_12px_rgba(15,23,42,0.03)]">
             <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#0D9E71]" />
-              <span>
-                <strong>Institutional Notice:</strong> Exclusively for hospital procurement committees, registered stockists, and licensed pharmacies. Prescription only.
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0D9E71] shrink-0" />
+              <span className="text-slate-700">
+                <strong className="text-[#0A192F]">Institutional Notice:</strong> Exclusively for hospital procurement committees, registered stockists, and licensed pharmacies. Prescription only.
               </span>
             </div>
-            <span className="hidden sm:inline text-[#3E6958] text-[11px] font-medium">
+            <span className="inline-flex items-center gap-1.5 text-slate-500 text-[11px] font-bold uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full shrink-0">
+              <ShieldAlert className="w-3.5 h-3.5 text-[#0D9E71]" />
               Schedule Drugs
             </span>
           </div>
 
-        {/* Search & Category Filter Bar */}
-        <div className="mb-10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-6 border-b border-[#1B634E]/10">
-          {/* Category Filter */}
-          <CategoryFilter
-            selectedCategory={selectedCategory}
-            onSelectCategory={handleCategoryChange}
-            productCounts={productCounts}
-          />
-
-          {/* Search Input */}
-          <div className="relative w-full md:w-72 shrink-0">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1B634E]/50 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search active molecule..."
-              className="w-full pl-10 pr-9 py-2 rounded-full bg-[#FFFFFF] border border-[#1B634E]/15 text-xs text-[#1B634E] placeholder:text-[#3E6958]/60 focus:outline-none focus:ring-2 focus:ring-[#0D9E71]/30 shadow-2xs"
+          {/* Search & Category Filter Bar */}
+          <div className="mb-10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 pb-6 border-b border-slate-200/80">
+            {/* Category Filter */}
+            <CategoryFilter
+              selectedCategory={selectedCategory}
+              onSelectCategory={handleCategoryChange}
+              productCounts={productCounts}
             />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3E6958] hover:text-[#1B634E] cursor-pointer"
-                aria-label="Clear search"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
 
-        {/* Catalog Grid */}
-        <div ref={gridContainerRef}>
-          <ProductGrid
-            products={displayedProducts}
-            onSelectProduct={(p) => setActiveDrawerProduct(p)}
+            {/* Search Input */}
+            <div className="relative w-full md:w-80 shrink-0">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search active molecule..."
+                className="w-full pl-11 pr-10 py-2.5 rounded-full bg-white border border-slate-200/90 text-xs text-[#0A192F] placeholder:text-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:border-transparent shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer p-0.5"
+                  aria-label="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Catalog Grid */}
+          <div ref={gridContainerRef}>
+            <ProductGrid
+              products={displayedProducts}
+              onSelectProduct={(p) => setActiveDrawerProduct(p)}
+            />
+          </div>
+
+          {/* Technical Specs Drawer */}
+          <ProductDrawer
+            product={activeDrawerProduct}
+            onClose={() => setActiveDrawerProduct(null)}
           />
         </div>
-
-        {/* Technical Specs Drawer */}
-        <ProductDrawer
-          product={activeDrawerProduct}
-          onClose={() => setActiveDrawerProduct(null)}
-        />
       </div>
     </div>
-  </div>
-);
+  );
 }

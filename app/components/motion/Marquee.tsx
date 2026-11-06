@@ -67,12 +67,12 @@ export const Marquee: React.FC<MarqueeProps> = ({
   const combined = [...items, ...items, ...items, ...items];
 
   return (
-    <div className={`overflow-hidden whitespace-nowrap select-none py-3 border-y border-[#1B634E]/15 bg-[#FCFAF5] ${className}`}>
-      <div ref={trackRef} className="inline-flex items-center gap-6 text-xs sm:text-sm font-mono tracking-widest text-[#1B634E] font-semibold uppercase">
+    <div className={`overflow-hidden whitespace-nowrap select-none py-3.5 border-y border-slate-200/90 bg-white shadow-2xs ${className}`}>
+      <div ref={trackRef} className="inline-flex items-center gap-7 text-xs sm:text-sm font-sans tracking-wider text-[#0A192F] font-bold uppercase">
         {combined.map((item, idx) => (
-          <span key={idx} className="inline-flex items-center gap-6">
+          <span key={idx} className="inline-flex items-center gap-7">
             <span>{item}</span>
-            <span className="text-[#0D9E71] text-xs font-bold">{separator}</span>
+            <span className="text-[#0D9E71] text-xs font-extrabold">{separator}</span>
           </span>
         ))}
       </div>

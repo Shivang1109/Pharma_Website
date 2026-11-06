@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import { ArrowUp, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
+import { ArrowUp, Phone, Mail, MapPin, ExternalLink, ShieldCheck } from "lucide-react";
 import { NAV_ITEMS, FOOTER_LEGAL_LINKS } from "~/data/navigation";
 import { COMPANY } from "~/data/company";
 
@@ -10,35 +10,35 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#1B634E] text-[#FAFCFA] pt-14 sm:pt-20 pb-12 overflow-hidden border-t border-[#1B634E]">
+    <footer className="bg-[#0A192F] text-slate-100 pt-16 sm:pt-24 pb-12 overflow-hidden border-t border-slate-800">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Tagline & Back-To-Top */}
-        <div className="pb-10 border-b border-white/15 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+        <div className="pb-10 border-b border-white/10 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#DCEEE4] block mb-2">
-              Pharmaceutical Marketing · Mumbai
+            <span className="text-xs font-bold uppercase tracking-wider text-[#10B981] block mb-2">
+              Critical Care & Clinical Nutrition · Mumbai
             </span>
-            <p className="font-editorial text-2xl sm:text-3xl text-white tracking-tight leading-snug">
+            <p className="font-editorial text-2xl sm:text-3xl text-white tracking-tight leading-snug font-bold">
               {COMPANY.tagline}
             </p>
           </div>
           <button
             type="button"
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-xs font-semibold text-[#DCEEE4] hover:text-white transition-colors cursor-pointer group"
+            className="flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-[#10B981] transition-colors cursor-pointer group px-4 py-2 rounded-full bg-white/5 border border-white/10"
             aria-label="Scroll back to top"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+            <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform text-[#10B981]" />
           </button>
         </div>
 
         {/* 4-Column Grid */}
-        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/15">
+        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/10">
           {/* Col 1: Registered Entity & Logo */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-3.5 mb-4">
+              <div className="w-13 h-13 rounded-2xl bg-white p-1.5 shadow-md flex items-center justify-center shrink-0 border border-slate-200">
                 <img
                   src="/images/branding/logo-512.png"
                   alt="Zilton Life Care Logo"
@@ -47,31 +47,31 @@ export const Footer: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="font-editorial text-lg font-bold text-white">
+                <span className="font-editorial text-xl font-extrabold text-white">
                   Zilton Life Care
                 </span>
-                <span className="text-xs text-[#DCEEE4]">
+                <span className="text-xs text-[#10B981] font-bold tracking-wider uppercase">
                   Private Limited
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-white/85 leading-relaxed font-light">
-              Dedicated to acute care hospital formulations, critical IV parenterals, and specialized clinical nutrition therapy.
+            <p className="text-xs text-slate-300 leading-relaxed font-normal">
+              Dedicated to hospital formulations, critical IV parenterals, and specialized clinical nutrition therapy across India.
             </p>
           </div>
 
           {/* Col 2: Navigation */}
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
+            <h4 className="text-xs uppercase tracking-wider text-[#10B981] font-bold mb-4">
               Navigation
             </h4>
-            <ul className="space-y-2.5 text-xs text-white/90">
+            <ul className="space-y-2.5 text-xs text-slate-200">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="hover:text-white transition-colors flex items-center gap-2"
+                    className="hover:text-[#10B981] transition-colors flex items-center gap-2 py-0.5"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
                     <span>{item.label}</span>
@@ -83,31 +83,32 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Communications */}
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
+            <h4 className="text-xs uppercase tracking-wider text-[#10B981] font-bold mb-4">
               Registered Office
             </h4>
-            <div className="space-y-3 text-xs text-white/90">
+            <div className="space-y-3.5 text-xs text-slate-200">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#DCEEE4] shrink-0 mt-0.5" />
-                <address className="not-italic leading-relaxed text-white/85">
+                <MapPin className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                <address className="not-italic leading-relaxed text-slate-300">
                   {COMPANY.address.line1},<br />
-                  {COMPANY.address.city} – {COMPANY.address.pincode}, {COMPANY.address.state}.
+                  {COMPANY.address.line2},<br />
+                  {COMPANY.address.city} {COMPANY.address.pincode}
                 </address>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#DCEEE4] shrink-0" />
+                <Phone className="w-4 h-4 text-[#10B981] shrink-0" />
                 <a
                   href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}
-                  className="hover:text-white transition-colors font-medium"
+                  className="hover:text-[#10B981] transition-colors font-bold text-white"
                 >
                   {COMPANY.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#DCEEE4] shrink-0" />
+                <Mail className="w-4 h-4 text-[#10B981] shrink-0" />
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="text-white/85 hover:text-white transition-colors font-medium"
+                  className="text-slate-300 hover:text-white transition-colors"
                 >
                   {COMPANY.email}
                 </a>
@@ -117,10 +118,10 @@ export const Footer: React.FC = () => {
 
           {/* Col 4: Institutional Mandate */}
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#DCEEE4] font-semibold mb-4">
+            <h4 className="text-xs uppercase tracking-wider text-[#10B981] font-bold mb-4">
               Institutional Notice
             </h4>
-            <div className="p-4 rounded-xl bg-white/10 border border-white/15 text-xs text-white/85 leading-relaxed font-light">
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-slate-300 leading-relaxed font-normal">
               This site is designed strictly for licensed medical professionals, hospital procurement bodies, and authorized stockists. Formulations are scheduled prescription drugs.
             </div>
           </div>
@@ -128,13 +129,13 @@ export const Footer: React.FC = () => {
 
         {/* Wordmark Banner */}
         <div className="pt-8 select-none overflow-hidden text-center">
-          <span className="font-editorial text-[12vw] sm:text-[10vw] font-extrabold tracking-tighter text-white/10 block leading-none">
+          <span className="font-editorial text-[12vw] sm:text-[10vw] font-extrabold tracking-tighter text-white/5 block leading-none">
             ZILTON
           </span>
         </div>
 
         {/* Bottom Legal Bar */}
-        <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>
             &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
           </p>

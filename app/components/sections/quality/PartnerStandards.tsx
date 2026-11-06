@@ -31,7 +31,7 @@ export const PartnerStandards: React.FC = () => {
             Corporate Operating Model
           </h4>
           <p>
-            <strong>ZILTON LIFE CARE PRIVATE LIMITED</strong> operates as a specialized pharmaceutical marketing organisation. We collaborate with licensed, state-of-the-art third-party contract manufacturers equipped with validated formulation technology, cleanroom standards, and automated packaging systems.
+            <strong>ZILTON LIFE CARE PRIVATE LIMITED</strong> focuses on Critical Care, Parenteral and Clinical Nutrition formulations. We collaborate with licensed, state-of-the-art third-party contract manufacturers equipped with audited cGMP, WHO, US FDA approved partner manufacturing, validated formulation technology, cleanroom standards, and automated packaging systems.
           </p>
         </div>
 

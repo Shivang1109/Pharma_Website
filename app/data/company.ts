@@ -40,16 +40,16 @@ export const COMPANY: CompanyData = {
   name:        "ZILTON LIFE CARE PRIVATE LIMITED",
   shortName:   "Zilton Life Care",
   established: null, // UNCONFIRMED — awaiting MCA Certificate of Incorporation from client
-  type:        "Pharmaceutical Marketing Company",
+  type:        "Critical Care & Clinical Nutrition Formulations",
 
   address: {
-    line1:   "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION",
-    line2:   "GURUNANAK ROAD, BANDRA WEST",
+    line1:   "LAXMI HOUSING & FINANCE",
+    line2:   "67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST",
     city:    "MUMBAI",
     pincode: "400050",
     state:   "MAHARASHTRA",
     country: "INDIA",
-    full:    "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI – 400050, MAHARASHTRA, INDIA",
+    full:    "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI 400050",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Laxmi+Housing+%26+Finance%2C+67+B%2C+Gopal+Mansion%2C+Gurunanak+Road%2C+Bandra+West%2C+Mumbai+400050%2C+Maharashtra%2C+India",
   },
 
@@ -64,10 +64,10 @@ export const COMPANY: CompanyData = {
   mission: "Delivering Quality, Building Trust, Improving Lives.",
 
   values: [
-    { label: "Quality",     description: "Uncompromising standards in every product we market." },
+    { label: "Quality",     description: "Uncompromising standards in every formulation we deliver." },
     { label: "Integrity",   description: "Transparent and honest in all our partnerships." },
     { label: "Trust",       description: "Building lasting relationships with healthcare providers." },
-    { label: "Innovation",  description: "Embracing modern approaches to pharmaceutical marketing." },
+    { label: "Innovation",  description: "Embracing modern scientific approaches to advanced healthcare formulations." },
     { label: "Commitment",  description: "Dedicated to improving patient outcomes." },
     { label: "Excellence",  description: "Striving for the highest in everything we do." },
   ],

@@ -23,7 +23,7 @@ export default function DisclaimerPage() {
             No Medical Advice
           </h2>
           <p className="text-xs leading-relaxed">
-            The content provided on this website is for corporate, informational, and B2B pharmaceutical marketing purposes only. It does not constitute medical advice, diagnosis, treatment recommendation, or patient instruction.
+            The content provided on this website is for corporate, institutional, and informational purposes only. It does not constitute medical advice, diagnosis, treatment recommendation, or patient instruction.
           </p>
         </div>
 

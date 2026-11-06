@@ -15,7 +15,7 @@ export const SITE_CONFIG = {
   shortName: "ZILTON LIFE CARE",
   domain: "https://ziltonlifecare.com", // Canonical placeholder pending final domain setup
   defaultDescription:
-    "ZILTON LIFE CARE PRIVATE LIMITED is a pharmaceutical marketing enterprise dedicated to advancing patient health through high-standard Critical Care and Clinical Nutrition formulations.",
+    "ZILTON LIFE CARE PRIVATE LIMITED is dedicated to advancing patient health through high-standard Critical Care, Parenteral and Clinical Nutrition formulations.",
   phone: "+91 9819667211",
   address: {
     street: "LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST",

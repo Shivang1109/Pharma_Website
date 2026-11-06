@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { NAV_ITEMS } from "~/data/navigation";
 import { COMPANY } from "~/data/company";
 import { Magnetic } from "~/components/motion/Magnetic";
@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      setScrolled(currentY > 20);
+      setScrolled(currentY > 15);
 
       // Hide on scroll down, show on scroll up
       if (currentY > lastScrollY.current && currentY > 150) {
@@ -41,19 +41,20 @@ export const Navbar: React.FC = () => {
         hidden ? "-translate-y-full" : "translate-y-0"
       } ${
         scrolled
-          ? "bg-[#FAFCFA]/92 backdrop-blur-md border-b border-[#1B634E]/12 py-3 shadow-xs"
-          : "bg-transparent py-4 sm:py-5"
+          ? "bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.06)] py-2.5 sm:py-3"
+          : "bg-white/90 backdrop-blur-sm border-b border-slate-100/60 py-3 sm:py-4"
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between" aria-label="Main Navigation">
-          {/* Logo & Clinical Wordmark — Using EXACT client logo */}
+          {/* ─── Prominent Logo & Company Branding ─── */}
           <Link
             to="/"
             className="flex items-center gap-3.5 group rounded-xl outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] focus-visible:ring-offset-2"
             aria-label={`${COMPANY.name} — Homepage`}
           >
-            <div className="w-11 h-11 rounded-xl bg-white p-1 border border-[#1B634E]/15 shadow-xs flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[#0D9E71]/40 transition-all">
+            {/* Enlarged official logo container with subtle shadow & pristine aspect ratio */}
+            <div className="w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-white p-1.5 border border-slate-200/90 shadow-[0_2px_10px_rgba(15,23,42,0.06)] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[#0D9E71]/50 group-hover:shadow-[0_4px_16px_rgba(13,158,113,0.2)] transition-all duration-300">
               <img
                 src="/images/branding/logo-512.png"
                 alt="Zilton Life Care Logo"
@@ -61,26 +62,33 @@ export const Navbar: React.FC = () => {
                 loading="eager"
               />
             </div>
+
+            {/* Prominent Company Wordmark & Category Tag */}
             <div className="flex flex-col leading-none">
-              <span className="font-editorial text-xl tracking-tight font-bold text-[#1B634E] group-hover:text-[#0D9E71] transition-colors">
-                Zilton
-              </span>
-              <span className="text-[9.5px] tracking-widest uppercase text-[#0D9E71] font-semibold mt-0.5">
+              <div className="flex items-center gap-1.5">
+                <span className="font-editorial text-2xl sm:text-[27px] tracking-tight font-extrabold text-[#0A192F] group-hover:text-[#0D9E71] transition-colors duration-200">
+                  Zilton
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0D9E71] animate-pulse hidden sm:inline-block" />
+              </div>
+              <span className="text-[10px] sm:text-[11.5px] tracking-[0.24em] uppercase text-[#0D9E71] font-bold mt-0.5">
                 Life Care
               </span>
             </div>
           </Link>
 
-          {/* Desktop Nav Items with Sliding Underline Indicator */}
-          <ul className="hidden md:flex items-center gap-8 relative" role="list">
+          {/* ─── Desktop Nav Links ─── */}
+          <ul className="hidden md:flex items-center gap-7 lg:gap-9 relative" role="list">
             {NAV_ITEMS.map((item) => (
               <li key={item.to} className="relative">
                 <NavLink
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `text-sm font-medium transition-colors py-1.5 px-1 rounded-md outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] ${
-                      isActive ? "text-[#1B634E] font-semibold" : "text-[#3E6958] hover:text-[#0D9E71]"
+                    `text-[14.5px] font-semibold transition-all py-1.5 px-1 rounded-md outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] ${
+                      isActive
+                        ? "text-[#0D9E71] font-bold"
+                        : "text-[#1E293B] hover:text-[#0D9E71]"
                     }`
                   }
                 >
@@ -88,7 +96,7 @@ export const Navbar: React.FC = () => {
                     <>
                       {item.label}
                       {isActive && (
-                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0D9E71] rounded-full animate-in fade-in duration-300" />
+                        <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-[#0D9E71] to-[#06B6D4] rounded-full animate-in fade-in duration-300 shadow-[0_1px_6px_rgba(13,158,113,0.4)]" />
                       )}
                     </>
                   )}
@@ -97,44 +105,45 @@ export const Navbar: React.FC = () => {
             ))}
           </ul>
 
-          {/* Desktop Magnetic Enquiry Action */}
+          {/* ─── Desktop Vibrant CTA Action Button (Inspired by Serio's prominent green CTA) ─── */}
           <div className="hidden md:block">
-            <Magnetic strength={0.3}>
+            <Magnetic strength={0.25}>
               <Link
                 to="/contact"
-                className="inline-flex items-center px-4.5 py-2.5 rounded-full bg-[#1B634E] hover:bg-[#0D9E71] text-[#FAFCFA] text-xs uppercase tracking-wider font-semibold shadow-xs transition-colors duration-200 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#0D9E71] to-[#059669] hover:from-[#10B981] hover:to-[#047857] text-white text-xs uppercase tracking-wider font-bold shadow-[0_4px_16px_rgba(13,158,113,0.35)] hover:shadow-[0_6px_22px_rgba(13,158,113,0.5)] hover:-translate-y-0.5 transition-all duration-200 outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9E71] focus-visible:ring-offset-2"
               >
-                <span>Contact us</span>
+                <span>Enquire Now</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </Magnetic>
           </div>
 
-          {/* Mobile Menu Hamburger */}
+          {/* ─── Mobile Menu Hamburger ─── */}
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 text-[#1B634E] hover:bg-[#1B634E]/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9E71]"
+            className="md:hidden p-2 text-[#0A192F] hover:bg-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9E71] transition-colors"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {menuOpen ? <X className="w-6 h-6 text-[#0D9E71]" /> : <Menu className="w-6 h-6" />}
           </button>
         </nav>
 
-        {/* Mobile Navigation Drawer */}
+        {/* ─── Mobile Navigation Drawer ─── */}
         {menuOpen && (
-          <div className="md:hidden mt-4 pt-4 pb-6 border-t border-[#1B634E]/10 bg-[#FAFCFA] animate-in fade-in slide-in-from-top-2 duration-200">
-            <ul className="space-y-3 px-2">
+          <div className="md:hidden mt-3 pt-4 pb-6 border-t border-slate-200/90 bg-white/98 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+            <ul className="space-y-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <NavLink
                     to={item.to}
                     end={item.to === "/"}
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-lg text-sm font-medium ${
+                      `block px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                         isActive
-                          ? "bg-[#1B634E] text-[#FAFCFA] font-semibold"
-                          : "text-[#3E6958] hover:bg-[#1B634E]/5 text-[#1B634E]"
+                          ? "bg-gradient-to-r from-[#0D9E71] to-[#059669] text-white shadow-[0_4px_14px_rgba(13,158,113,0.25)]"
+                          : "text-[#1E293B] hover:bg-slate-100"
                       }`
                     }
                   >
@@ -143,12 +152,13 @@ export const Navbar: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-4 pt-3 border-t border-[#1B634E]/10 px-2">
+            <div className="mt-4 pt-3 border-t border-slate-200/90">
               <Link
                 to="/contact"
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1B634E] text-[#FAFCFA] text-xs uppercase tracking-wider font-semibold"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-[#0D9E71] to-[#059669] text-white text-xs uppercase tracking-wider font-bold shadow-[0_4px_16px_rgba(13,158,113,0.35)]"
               >
-                <span>Contact us</span>
+                <span>Enquire Now</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
