@@ -1,12 +1,9 @@
 /**
  * Centralized Image Slot Registry for ZILTON LIFE CARE
  *
- * Instructions:
- * - All images across the application route through this registry.
- * - Adding an asset path here is the ONLY step needed to display photography.
- * - Stock images below are professional pharmaceutical/clinical illustrations
- *   sourced from Unsplash. They are used for illustrative purposes only and
- *   do NOT represent actual Zilton Life Care infrastructure or products.
+ * All images route through this registry. Professional pharmaceutical imagery
+ * used for illustrative purposes. These do NOT represent actual Zilton facilities
+ * unless explicitly verified by the client.
  */
 
 export interface ImageRegistry {
@@ -27,36 +24,28 @@ export interface ImageRegistry {
 
 export const IMAGES: ImageRegistry = {
   // ── HOME HERO ──────────────────────────────────────────────
-  // Minimalist high-end pharmaceutical research environment with natural clinical daylight
-  heroMain:
-    "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1600&q=85&auto=format&fit=crop",
+  // Premium pharmaceutical cleanroom manufacturing environment
+  heroMain: "/images/cleanroom/bofu-shaw-yqPZy461skQ-unsplash.jpg",
 
   // ── ABOUT ──────────────────────────────────────────────────
-  // Audited cGMP pharmaceutical cleanroom manufacturing & automated packaging line
-  aboutPlant:
-    "https://images.unsplash.com/photo-1563213126-a4273aed2016?w=1200&q=85&auto=format&fit=crop",
-  // Executive corporate healthcare governance meeting
-  aboutLeadership:
-    "https://images.unsplash.com/photo-1516841273335-e39b37888115?w=1600&q=85&auto=format&fit=crop",
+  // Sterile pharmaceutical manufacturing facility
+  aboutPlant: "/images/cleanroom/tecnic-bioprocess-solutions-9gZO2N6leRI-unsplash.jpg",
+  // Laboratory research and development
+  aboutLeadership: "/images/lab/roberto-sorin-RS0-h_pyByk-unsplash.jpg",
 
   // ── QUALITY ────────────────────────────────────────────────
-  // Step 01: Audited cleanroom facility & cGMP sterile compounding suite
-  quality01:
-    "https://images.unsplash.com/photo-1563213126-a4273aed2016?w=1200&q=85&auto=format&fit=crop",
-  // Step 02: Analytical HPLC testing & spectrophotometry assay (Replaced cake photo)
-  quality02:
-    "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1200&q=85&auto=format&fit=crop",
-  // Step 03: Temperature-monitored refrigerated cold chain transit container (2°C – 8°C)
-  quality03:
-    "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1200&q=85&auto=format&fit=crop",
-  // Step 04: Hospital clinical department receiving dock and lot verification
-  quality04:
-    "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1200&q=85&auto=format&fit=crop",
+  // Cleanroom facility and sterile compounding
+  quality01: "/images/cleanroom/toon-lambrechts-E1HSxmVG5lE-unsplash.jpg",
+  // Analytical testing and quality control
+  quality02: "/images/quality/trnava-university-_9xRHrMOjeg-unsplash.jpg",
+  // Laboratory instrumentation and analysis
+  quality03: "/images/lab/julia-koblitz-RlOAwXt2fEA-unsplash.jpg",
+  // Quality assurance and batch verification
+  quality04: "/images/quality/etactics-inc-Qp1HJR46xw8-unsplash.jpg",
 
   // ── CONTACT ────────────────────────────────────────────────
-  // Professional pharmaceutical corporate office suite & reception
-  contactOffice:
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85&auto=format&fit=crop",
+  // Professional healthcare environment
+  contactOffice: "/images/lab/paul-einerhand-bKd9KEELfmg-unsplash.jpg",
 
   // ── HOME DIVISION PANELS ───────────────────────────────────
   // Division 1: Sterile parenteral glass injection vial & monocarton
