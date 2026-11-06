@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ChevronDown, MapPin, Building2, ShieldCheck, Target, Eye, HeartHandshake, Award, Sparkles, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { ImageSlot } from "~/components/ui/ImageSlot";
 import { ScrollText } from "~/components/motion/ScrollText";
 import { COMPANY } from "~/data/company";
@@ -54,59 +55,73 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="w-full">
-      {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
-      <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
+    <div className="w-full bg-[#F0FDF4]">
+      {/* ─── PREMIUM HERO BANNER ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[50vh] flex items-center bg-[#0A192F]">
         {IMAGES.aboutLeadership && (
-          <img
+          <motion.img
             src={IMAGES.aboutLeadership}
             alt="Pharmaceutical corporate governance and clinical team"
-            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             decoding="sync"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.55 }}
+            transition={{ duration: 1.2 }}
           />
         )}
 
-        {/* Directional Corporate Authority Scrim */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A192F]/98 via-[#0F382C]/92 to-[#0A192F]/60"
-          aria-hidden="true"
-        />
+        {/* Gradient overlay - lighter */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/85 via-[#0A192F]/80 to-[#0A192F]/50" />
 
-        {/* Subtle Scientific Molecular Mesh Texture */}
-        <div
-          className="absolute inset-0 bg-science-mesh-dark opacity-35 mix-blend-screen pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="max-w-2xl text-left">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold mb-3.5 border border-emerald-400/25 shadow-xs">
-              Corporate Overview
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-editorial font-extrabold text-white tracking-tight leading-none drop-shadow-sm">
-              Institutional Purpose &amp; Governance
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-8 lg:px-16 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-2.5 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="text-xs uppercase tracking-wider text-[#A7F3D0] font-bold">
+                Corporate Overview
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-editorial font-bold text-white leading-[1.1] mb-6">
+              Institutional Purpose & Governance
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
               Bridging certified cGMP, WHO and US FDA approved manufacturing with clinical care facilities across India through uncompromised quality assurance and ethical governance.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─── ABOUT CONTENT BODY ─────────────────────────────────── */}
       <div className="py-12 sm:py-16">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-16">
           {/* ─── 1. OUR STORY & FOUNDING CHARTER ─────────────────── */}
-          <section className="mb-16 sm:mb-20">
-            <div className="py-6 sm:py-8 border-b border-slate-200 mb-10">
+          <section className="mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-12"
+            >
               <ScrollText as="h2">
                 Founded in Mumbai, Zilton Life Care operates as a dedicated pharmaceutical healthcare company bridging certified cGMP, WHO and US FDA approved manufacturing with clinical care facilities across India.
               </ScrollText>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              <div className="lg:col-span-7 space-y-5 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="lg:col-span-7 space-y-6 text-lg text-slate-600 leading-relaxed"
+              >
                 <p>
                   Modern hospital pharmacotherapy demands uncompromising quality control, verified batch release documentation, and disciplined cold-chain management.
                 </p>
@@ -117,91 +132,100 @@ export default function AboutPage() {
                   Our operational model pairs audited cGMP, WHO and US FDA compliant manufacturing partner facilities with rigorous technical due-diligence in Mumbai, ensuring institutional healthcare providers receive formulations that meet exact pharmacopeial monographs.
                 </p>
 
-                <div className="pt-3 flex flex-col sm:flex-row gap-4 text-xs font-semibold text-[#0A192F]">
-                  <div className="inline-flex items-start gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                    <MapPin className="w-4 h-4 text-[#0D9E71] shrink-0 mt-0.5" />
-                    <span>LAXMI HOUSING &amp; FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI 400050</span>
+                <div className="pt-4 flex flex-col gap-3">
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-[#F0FDF4] border border-emerald-100">
+                    <MapPin className="w-5 h-5 text-[#0D9E71] shrink-0 mt-0.5" />
+                    <span className="text-sm font-medium text-slate-700">LAXMI HOUSING & FINANCE, 67 B, GOPAL MANSION, GURUNANAK ROAD, BANDRA WEST, MUMBAI 400050</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs shrink-0">
-                    <Building2 className="w-4 h-4 text-[#0D9E71]" />
-                    <span>Dedicated Institutional Supply Desk</span>
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-[#F0FDF4] border border-emerald-100">
+                    <Building2 className="w-5 h-5 text-[#0D9E71]" />
+                    <span className="text-sm font-medium text-slate-700">Dedicated Institutional Supply Desk</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="lg:col-span-5">
-                <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-200">
-                  <ImageSlot
-                    slotKey="aboutPlant"
-                    ratio="4/3"
-                    caption="Cleanroom terminal packaging and batch inspection."
-                    className="w-full h-full object-cover"
-                  />
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="lg:col-span-5"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-gradient-to-br from-[#0D9E71]/20 to-transparent rounded-3xl blur-2xl" />
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                    <ImageSlot
+                      slotKey="aboutPlant"
+                      ratio="4/3"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </section>
 
           {/* ─── 2. TABBED VISION, MISSION & VALUES ──────────────── */}
-          <section className="py-12 sm:py-16 border-t border-slate-200">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
-                  Guiding Principles
-                </span>
-                <h2 className="text-fluid-h2 font-editorial font-bold text-[#0A192F]">
-                  Discover Our Healthcare Commitment
-                </h2>
+          <section className="py-12 border-t border-emerald-200/60 bg-slate-50 -mx-6 sm:-mx-8 lg:-mx-16 px-6 sm:px-8 lg:px-16">
+            <div className="max-w-[1400px] mx-auto">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                <div>
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
+                      Guiding Principles
+                    </span>
+                  </div>
+                  <h2 className="text-4xl sm:text-5xl font-editorial font-bold text-[#0A192F]">
+                    Discover Our Healthcare Commitment
+                  </h2>
+                </div>
+                <p className="text-base text-slate-600 max-w-md">
+                  A focused corporate vision paired with disciplined execution for institutional hospital trust.
+                </p>
               </div>
-              <p className="text-sm text-slate-600 max-w-sm">
-                A focused corporate vision paired with disciplined execution for institutional hospital trust.
-              </p>
-            </div>
 
-            {/* Interactive Green Tabs */}
-            <div className="flex items-center gap-2 border-b border-slate-200 pb-px mb-8 overflow-x-auto no-scrollbar">
-              <button
-                type="button"
-                onClick={() => setActiveTab("mission")}
-                className={`px-6 py-3 rounded-t-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
-                  activeTab === "mission"
-                    ? "bg-[#0D9E71] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200/80"
-                }`}
-              >
-                <Target className="w-4 h-4" />
-                <span>Our Mission</span>
-              </button>
+              {/* Premium Tabs */}
+              <div className="flex items-center gap-2 border-b border-emerald-200/60 pb-px mb-8">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("mission")}
+                  className={`px-6 py-3 text-sm font-bold transition-all ${
+                    activeTab === "mission"
+                      ? "text-[#0D9E71] border-b-2 border-[#0D9E71] -mb-px"
+                      : "text-slate-600 hover:text-[#0D9E71]"
+                  }`}
+                >
+                  Our Mission
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setActiveTab("vision")}
-                className={`px-6 py-3 rounded-t-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
-                  activeTab === "vision"
-                    ? "bg-[#0D9E71] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200/80"
-                }`}
-              >
-                <Eye className="w-4 h-4" />
-                <span>Our Vision</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("vision")}
+                  className={`px-6 py-3 text-sm font-bold transition-all ${
+                    activeTab === "vision"
+                      ? "text-[#0D9E71] border-b-2 border-[#0D9E71] -mb-px"
+                      : "text-slate-600 hover:text-[#0D9E71]"
+                  }`}
+                >
+                  Our Vision
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setActiveTab("values")}
-                className={`px-6 py-3 rounded-t-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
-                  activeTab === "values"
-                    ? "bg-[#0D9E71] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200/80"
-                }`}
-              >
-                <HeartHandshake className="w-4 h-4" />
-                <span>Our Values</span>
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("values")}
+                  className={`px-6 py-3 text-sm font-bold transition-all ${
+                    activeTab === "values"
+                      ? "text-[#0D9E71] border-b-2 border-[#0D9E71] -mb-px"
+                      : "text-slate-600 hover:text-[#0D9E71]"
+                  }`}
+                >
+                  Our Values
+                </button>
+              </div>
 
             {/* Tab Contents */}
-            <div className="bg-white rounded-2xl p-8 sm:p-12 border border-slate-200/90 shadow-[0_4px_24px_rgba(15,23,42,0.05)]">
+            <div className="bg-[#F0FDF4] rounded-2xl p-8 sm:p-12 border border-emerald-200/60 shadow-[0_4px_24px_rgba(15,23,42,0.05)]">
               {activeTab === "mission" && (
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                   <div className="md:col-span-8">
@@ -215,7 +239,7 @@ export default function AboutPage() {
                       Building lasting confidence with healthcare specialists, hospital drug committees, and distributors through batch-level traceability, zero-deviation dispatch, and strict cGMP, WHO and US FDA partner compliance.
                     </p>
                   </div>
-                  <div className="md:col-span-4 p-6 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="md:col-span-4 p-6 rounded-xl bg-white/80 border border-emerald-200/60">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A192F] mb-3">Key Focus</h4>
                     <ul className="space-y-2 text-xs text-slate-600 font-medium">
                       <li className="flex items-center gap-2">
@@ -248,7 +272,7 @@ export default function AboutPage() {
                       Establishing a dependable national benchmark in hospital formulations through clinical discipline, transparent batch documentation, and uninterrupted product availability for critical care settings.
                     </p>
                   </div>
-                  <div className="md:col-span-4 p-6 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="md:col-span-4 p-6 rounded-xl bg-white/80 border border-emerald-200/60">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-[#0A192F] mb-3">Strategic Goals</h4>
                     <ul className="space-y-2 text-xs text-slate-600 font-medium">
                       <li className="flex items-center gap-2">
@@ -278,7 +302,7 @@ export default function AboutPage() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {COMPANY.values.map((val) => (
-                      <div key={val.label} className="p-4.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <div key={val.label} className="p-4.5 rounded-xl bg-white/80 border border-emerald-200/60">
                         <h4 className="font-editorial text-base font-bold text-[#0A192F] mb-1.5 text-[#0D9E71]">
                           {val.label}
                         </h4>
@@ -291,14 +315,18 @@ export default function AboutPage() {
                 </div>
               )}
             </div>
+            </div>
           </section>
 
-          {/* ─── 3. GUIDING VALUES (NUMBERS REMOVED) ─── */}
-          <section className="py-12 sm:py-16 border-t border-slate-200">
-            <div className="max-w-2xl mb-10">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
-                Operational Framework
-              </span>
+          {/* ─── 3. CORE VALUES ACCORDION ─── */}
+          <section className="py-12">
+            <div className="max-w-3xl mb-10">
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
+                  Operational Framework
+                </span>
+              </div>
               <h2 className="text-fluid-h2 font-editorial font-bold text-[#0A192F]">
                 Guiding Corporate Standards
               </h2>
@@ -308,7 +336,7 @@ export default function AboutPage() {
             </div>
 
             {/* Values List with Clean Check Indicators (Numbers removed) */}
-            <div className="divide-y divide-slate-200 border-y border-slate-200 mb-12">
+            <div className="divide-y divide-emerald-100/60 border-y border-emerald-100/60 mb-12">
               {values.map((val, idx) => {
                 const isExpanded = activeValue === idx;
                 return (
@@ -351,12 +379,15 @@ export default function AboutPage() {
               })}
             </div>
 
-            {/* ─── 4. OUR STRATEGIC OBJECTIVES (INSPIRED BY SERIO HC CLEAN CORPORATE ARCHITECTURE) ─── */}
-            <div className="my-12 sm:my-16 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white border border-slate-200/90 shadow-sm">
-              <div className="max-w-2xl mb-8">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
-                  Institutional Priorities
-                </span>
+            {/* ─── 4. STRATEGIC OBJECTIVES ─── */}
+            <div className="my-10 p-10 sm:p-12 rounded-3xl bg-[#F0FDF4] border border-emerald-200/60 shadow-sm">
+              <div className="max-w-2xl mb-10">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
+                    Institutional Priorities
+                  </span>
+                </div>
                 <h3 className="text-fluid-h2 font-editorial font-bold text-[#0A192F]">
                   Our Strategic Objectives
                 </h3>
@@ -366,7 +397,7 @@ export default function AboutPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="p-6 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-2xs">
                   <div className="flex items-center gap-3 mb-2.5">
                     <span className="w-8 h-8 rounded-xl bg-emerald-50 text-[#0D9E71] flex items-center justify-center shrink-0 border border-emerald-200/60">
                       <Target className="w-4 h-4" />
@@ -380,7 +411,7 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="p-6 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-2xs">
                   <div className="flex items-center gap-3 mb-2.5">
                     <span className="w-8 h-8 rounded-xl bg-emerald-50 text-[#0D9E71] flex items-center justify-center shrink-0 border border-emerald-200/60">
                       <ShieldCheck className="w-4 h-4" />
@@ -394,7 +425,7 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="p-6 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-2xs">
                   <div className="flex items-center gap-3 mb-2.5">
                     <span className="w-8 h-8 rounded-xl bg-emerald-50 text-[#0D9E71] flex items-center justify-center shrink-0 border border-emerald-200/60">
                       <Sparkles className="w-4 h-4" />
@@ -408,7 +439,7 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="p-6 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-2xs">
                   <div className="flex items-center gap-3 mb-2.5">
                     <span className="w-8 h-8 rounded-xl bg-emerald-50 text-[#0D9E71] flex items-center justify-center shrink-0 border border-emerald-200/60">
                       <Award className="w-4 h-4" />
@@ -424,12 +455,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* ─── 5. JOIN HANDS WITH US TO ADVANCE CRITICAL CARE ─── */}
-            <div className="mb-12 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0A192F] via-[#0F382C] to-[#0A192F] text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
+            {/* ─── 5. PARTNERSHIP CTA ─── */}
+            <div className="mb-10 p-10 rounded-3xl bg-gradient-to-r from-[#0A192F] to-[#0F382C] text-white flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="max-w-xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0] block mb-2">
-                  Institutional Collaboration
-                </span>
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
+                    Institutional Collaboration
+                  </span>
+                </div>
                 <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white leading-tight mb-3">
                   Join Hands with Us to Advance Critical Care &amp; Clinical Nutrition
                 </h3>
@@ -456,7 +490,7 @@ export default function AboutPage() {
             </div>
 
             {/* Statutory Governance Note */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.03)]">
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-[0_4px_20px_rgba(15,23,42,0.03)]">
               <div className="flex items-center gap-2.5 text-[#0D9E71] font-bold text-xs mb-2">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Statutory Regulatory Compliance</span>
@@ -464,7 +498,7 @@ export default function AboutPage() {
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                 Zilton Life Care Private Limited strictly adheres to the Drugs and Cosmetics Act, cGMP, WHO and US FDA manufacturing partner requirements, and Indian Pharmacopoeia standards. We do not engage in direct-to-consumer dispensing. All clinical information is addressed exclusively to licensed practitioners and authorized hospital channels.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100">
+              <div className="mt-4 pt-3 border-t border-emerald-100/60">
                 <Link
                   to="/contact"
                   className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-[#0D9E71] hover:text-[#059669] transition-colors"

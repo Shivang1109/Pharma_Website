@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -129,58 +130,63 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="w-full">
-      {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
-      <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
+    <div className="w-full bg-[#F0FDF4]">
+      {/* ─── PREMIUM HERO BANNER ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[50vh] flex items-center bg-[#0A192F]">
         {IMAGES.contactOffice && (
-          <img
+          <motion.img
             src={IMAGES.contactOffice}
             alt="Zilton Life Care corporate office in Mumbai"
-            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             decoding="sync"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.55 }}
+            transition={{ duration: 1.2 }}
           />
         )}
 
-        {/* Directional Corporate Authority Scrim */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A192F]/98 via-[#0F382C]/92 to-[#0A192F]/60"
-          aria-hidden="true"
-        />
+        {/* Gradient overlay - lighter */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/85 via-[#0A192F]/80 to-[#0A192F]/50" />
 
-        {/* Subtle Scientific Molecular Mesh Texture */}
-        <div
-          className="absolute inset-0 bg-science-mesh-dark opacity-35 mix-blend-screen pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="max-w-2xl text-left">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold mb-3.5 border border-emerald-400/25 shadow-xs">
-              Corporate Office &amp; Supply Desk
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-editorial font-extrabold text-white tracking-tight leading-none drop-shadow-sm">
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-8 lg:px-16 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-2.5 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="text-xs uppercase tracking-wider text-[#A7F3D0] font-bold">
+                Corporate Office &amp; Supply Desk
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-editorial font-bold text-white leading-[1.1] mb-6">
               Send an enquiry
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
               Direct your commercial inquiries, hospital supply schedules, or regulatory batch documentation requests to our Mumbai corporate office.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─── CONTACT BODY ───────────────────────────────────────── */}
-      <div className="py-14 sm:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-12 sm:py-16 bg-slate-50">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-16">
           {/* ─── SPLIT LAYOUT ──────────────────────────────────────── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Corporate Panel with Deep Navy Authority */}
             <div className="lg:col-span-5 bg-gradient-to-br from-[#0A192F] via-[#0F2438] to-[#0A192F] text-white p-6 sm:p-10 rounded-3xl shadow-xl border border-white/10 space-y-6 select-none">
               {/* Registered Office Address Card */}
               <div className="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6 transition-all duration-200">
-                <span className="text-xs font-bold text-[#10B981] uppercase tracking-wider block mb-2">
-                  Registered Corporate Office
-                </span>
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+                  <span className="text-xs font-bold text-[#10B981] uppercase tracking-wider">
+                    Registered Corporate Office
+                  </span>
+                </div>
                 <h2 className="font-editorial text-2xl sm:text-3xl font-extrabold text-white leading-tight">
                   {COMPANY.name}
                 </h2>
@@ -299,12 +305,15 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right Column: Institutional Enquiry Form (Crisp White Card) */}
-            <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_rgba(15,23,42,0.05)]">
-              <div className="mb-6 pb-4 border-b border-slate-100">
-                <span className="text-xs font-bold text-[#0D9E71] bg-emerald-50 border border-emerald-200/80 px-3 py-1 rounded-full inline-block mb-1.5">
-                  Direct Submission
-                </span>
+            {/* Right Column: Institutional Enquiry Form (Mint Tinted Card) */}
+            <div className="lg:col-span-7 bg-[#F0FDF4] p-6 sm:p-10 rounded-3xl border border-emerald-200/60 shadow-[0_4px_24px_rgba(15,23,42,0.05)]">
+              <div className="mb-6 pb-4 border-b border-emerald-100/60">
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                  <span className="text-xs font-bold text-[#0D9E71] uppercase tracking-wider">
+                    Direct Submission
+                  </span>
+                </div>
                 <h3 className="font-editorial text-2xl font-bold text-[#0A192F]">
                   Corporate Enquiry Form
                 </h3>
@@ -349,7 +358,7 @@ export default function ContactPage() {
                         setSubmittedSuccess(false);
                         setSubmittedData(null);
                       }}
-                      className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0A192F] border border-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                      className="px-5 py-2.5 rounded-full bg-[#F0FDF4] hover:bg-emerald-50 text-[#0A192F] border border-emerald-200 text-xs font-bold transition-colors cursor-pointer"
                     >
                       Submit Another Enquiry
                     </button>
@@ -402,7 +411,7 @@ export default function ContactPage() {
                         type="text"
                         placeholder="Dr. Rajesh Sharma"
                         {...register("fullName")}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/80 border border-emerald-200/60 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
                       />
                       {errors.fullName && (
                         <p className="text-[11px] text-red-600 mt-1">{errors.fullName.message}</p>
@@ -417,7 +426,7 @@ export default function ContactPage() {
                         type="text"
                         placeholder="Hospital or Distribution Entity"
                         {...register("organization")}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/80 border border-emerald-200/60 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
                       />
                       {errors.organization && (
                         <p className="text-[11px] text-red-600 mt-1">{errors.organization.message}</p>
@@ -435,7 +444,7 @@ export default function ContactPage() {
                         type="email"
                         placeholder="procurement@hospital.org"
                         {...register("email")}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/80 border border-emerald-200/60 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
                       />
                       {errors.email && (
                         <p className="text-[11px] text-red-600 mt-1">{errors.email.message}</p>
@@ -450,7 +459,7 @@ export default function ContactPage() {
                         type="tel"
                         placeholder="+91 9819667211"
                         {...register("phone")}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/80 border border-emerald-200/60 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
                       />
                       {errors.phone && (
                         <p className="text-[11px] text-red-600 mt-1">{errors.phone.message}</p>
@@ -465,7 +474,7 @@ export default function ContactPage() {
                     </label>
                     <select
                       {...register("enquiryType")}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/80 border border-emerald-200/60 text-xs text-[#0A192F] focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:bg-white transition-all font-medium"
                     >
                       {ENQUIRY_TYPES.map((type) => (
                         <option key={type.value} value={type.value}>

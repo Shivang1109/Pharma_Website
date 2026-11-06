@@ -41,8 +41,8 @@ export const Navbar: React.FC = () => {
         hidden ? "-translate-y-full" : "translate-y-0"
       } ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.06)] py-2.5 sm:py-3"
-          : "bg-white/90 backdrop-blur-sm border-b border-slate-100/60 py-3 sm:py-4"
+          ? "bg-[#F0FDF4]/95 backdrop-blur-md border-b border-emerald-200/60 shadow-[0_4px_25px_rgba(15,23,42,0.06)] py-2.5 sm:py-3"
+          : "bg-[#F0FDF4]/90 backdrop-blur-sm border-b border-emerald-100/50 py-3 sm:py-4"
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,7 +132,7 @@ export const Navbar: React.FC = () => {
 
         {/* ─── Mobile Navigation Drawer ─── */}
         {menuOpen && (
-          <div className="md:hidden mt-3 pt-4 pb-6 border-t border-slate-200/90 bg-white/98 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden mt-3 pt-4 pb-6 border-t border-emerald-200/60 bg-[#F0FDF4]/98 backdrop-blur-xl rounded-2xl p-4 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
             <ul className="space-y-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 import { ArrowRight, Thermometer, ChevronRight, ShieldCheck, FileCheck, CheckCircle2 } from "lucide-react";
 import { ImageSlot } from "~/components/ui/ImageSlot";
 import { IMAGES } from "~/data/images";
@@ -80,54 +81,59 @@ export default function QualityPage() {
   ];
 
   return (
-    <div className="w-full">
-      {/* ─── 1. FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
-      <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
+    <div className="w-full bg-[#F0FDF4]">
+      {/* ─── PREMIUM HERO BANNER ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[50vh] flex items-center bg-[#0A192F]">
         {IMAGES.quality01 && (
-          <img
+          <motion.img
             src={IMAGES.quality01}
             alt="Pharmaceutical analytical laboratory and quality testing"
-            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             decoding="sync"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.55 }}
+            transition={{ duration: 1.2 }}
           />
         )}
 
-        {/* Directional Corporate Authority Scrim: Deep Navy & Emerald with vibrant Cyan highlights */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A192F]/98 via-[#0F382C]/92 to-[#0A192F]/60"
-          aria-hidden="true"
-        />
+        {/* Gradient overlay - lighter */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/85 via-[#0A192F]/80 to-[#0A192F]/50" />
 
-        {/* Subtle Scientific Molecular Mesh Texture */}
-        <div
-          className="absolute inset-0 bg-science-mesh-dark opacity-35 mix-blend-screen pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="max-w-2xl text-left">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold mb-3.5 border border-emerald-400/25 shadow-xs">
-              Quality Assurance Charter
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-editorial font-extrabold text-white tracking-tight leading-none drop-shadow-sm">
-              Safety, Standards &amp; Verification
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-8 lg:px-16 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-2.5 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="text-xs uppercase tracking-wider text-[#A7F3D0] font-bold">
+                Quality Assurance Charter
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-editorial font-bold text-white leading-[1.1] mb-6">
+              Safety, Standards & Verification
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
               Our quality assurance framework ensures that every parenteral and oral therapeutic distributed by Zilton Life Care meets statutory Indian pharmacopeial and Schedule M standards.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─── 2. 4-STAGE BATCH LIFECYCLE STEPPER ───────────────── */}
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-        <section className="mb-16 sm:mb-20">
-          <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-16 py-12 sm:py-16">
+        <section className="mb-12">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
-                Process Traceability
-              </span>
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
+                  Process Traceability
+                </span>
+              </div>
               <h2 className="text-fluid-h2 font-editorial font-bold text-[#0A192F]">
                 Quality Batch Lifecycle &amp; Traceability
               </h2>
@@ -150,7 +156,7 @@ export default function QualityPage() {
                     className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex items-start gap-4 ${
                       isActive
                         ? "bg-gradient-to-r from-[#0A192F] to-[#0F382C] text-white border-[#0D9E71]/50 shadow-[0_8px_24px_rgba(10,25,47,0.18)]"
-                        : "bg-white text-[#0A192F] border-slate-200/90 hover:border-emerald-500/50 hover:shadow-sm"
+                        : "bg-[#F0FDF4] text-[#0A192F] border-emerald-200/60 hover:border-emerald-500/50 hover:shadow-sm"
                     }`}
                   >
                     <span
@@ -197,12 +203,11 @@ export default function QualityPage() {
 
             {/* Active Step Visual & Detail Card */}
             <div className="lg:col-span-6 sticky top-28">
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_24px_rgba(15,23,42,0.05)] space-y-5">
-                <div className="rounded-xl overflow-hidden border border-slate-100 shadow-2xs">
+              <div className="p-6 sm:p-8 rounded-2xl bg-[#F0FDF4] border border-emerald-200/60 shadow-[0_4px_24px_rgba(15,23,42,0.05)] space-y-5">
+                <div className="rounded-xl overflow-hidden border border-emerald-100/60 shadow-2xs">
                   <ImageSlot
                     slotKey={steps[activeStep].slotKey}
                     ratio="16/9"
-                    caption={`Process step: ${steps[activeStep].title}`}
                   />
                 </div>
 
@@ -218,7 +223,7 @@ export default function QualityPage() {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div className="pt-4 border-t border-emerald-100/60 flex items-center justify-between text-xs text-slate-500">
                   <span>Partner Compliance</span>
                   <span className="text-[#0D9E71] font-bold flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
@@ -254,10 +259,12 @@ export default function QualityPage() {
 
         <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-white">
           <div className="max-w-2xl text-left space-y-4">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold border border-emerald-400/20">
+            <div className="inline-flex items-center gap-2.5">
               <Thermometer className="w-3.5 h-3.5 text-[#10B981]" />
-              <span>Thermal Preservation</span>
-            </span>
+              <span className="text-xs uppercase tracking-wider text-[#A7F3D0] font-bold">
+                Thermal Preservation
+              </span>
+            </div>
 
             <h2 className="text-3xl sm:text-4xl font-editorial font-extrabold text-white tracking-tight drop-shadow-sm">
               Cold-Chain Precision (2°C – 8°C)
@@ -266,38 +273,20 @@ export default function QualityPage() {
             <p className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed">
               Storage and transport conditions are formulation-specific. Temperature-sensitive parenterals are monitored end-to-end to protect therapeutic stability from audited partner plants to hospital receiving bays.
             </p>
-
-            {/* Thermal Line Indicator */}
-            <div className="pt-3 max-w-lg">
-              <span className="text-xs text-[#A7F3D0] block mb-2 font-bold uppercase tracking-wider">
-                Validated 2°C – 8°C Storage Standard
-              </span>
-              <svg className="w-full h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-2" aria-hidden="true" aria-label="Illustrative temperature stability visualization">
-                <path
-                  d="M 10 26 Q 80 20 150 28 T 300 24 T 450 27 T 600 25"
-                  fill="none"
-                  stroke="#10B981"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <line x1="10" y1="12" x2="600" y2="12" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
-                <line x1="10" y1="40" x2="600" y2="40" stroke="white" strokeOpacity="0.2" strokeDasharray="4 4" />
-              </svg>
-              <p className="text-xs text-slate-400 mt-2 italic">
-                * Illustrative representation only. Actual thermal monitoring data available upon institutional request.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* ─── 4. COMPLIANCE & REGULATORY DOCUMENTATION ─────────── */}
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-        <section className="mb-14 sm:mb-18">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71] block mb-2">
-              Official Records
-            </span>
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-16 py-12 sm:py-16">
+        <section className="mb-12">
+          <div className="max-w-2xl mb-8">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0D9E71]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#0D9E71]">
+                Official Records
+              </span>
+            </div>
             <h2 className="text-fluid-h2 font-editorial font-bold text-[#0A192F]">
               Verification Documentation
             </h2>
@@ -307,11 +296,11 @@ export default function QualityPage() {
           </div>
 
           {/* Editorial Document List with Clean Cards */}
-          <div className="divide-y divide-slate-200 border-y border-slate-200">
+          <div className="divide-y divide-emerald-100/60 border-y border-emerald-100/60">
             {complianceDocs.map((doc) => (
               <div
                 key={doc.code}
-                className="py-6 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-center group hover:bg-slate-50/70 px-4 rounded-xl transition-colors duration-200"
+                className="py-5 sm:py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-center group hover:bg-[#F0FDF4]/50 px-4 rounded-xl transition-colors duration-200"
               >
                 {/* Code & Scope */}
                 <div className="md:col-span-3">
@@ -337,9 +326,9 @@ export default function QualityPage() {
                 <div className="md:col-span-3 flex justify-start md:justify-end">
                   <Link
                     to="/contact?type=quality-docs"
-                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-[#0D9E71] hover:text-[#059669] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-bold text-[#0D9E71] hover:text-[#059669] transition-colors"
                   >
-                    <span>Request file</span>
+                    <span>Request</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>

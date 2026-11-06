@@ -16,9 +16,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
     <article
       data-cursor="view"
       onClick={() => onSelect(product)}
-      className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 transition-all duration-300 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_40px_-6px_rgba(13,158,113,0.18)] hover:-translate-y-1.5 cursor-pointer select-none"
+      className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-gradient-to-b from-[#F0FDF4]/80 to-white/90 backdrop-blur-sm border border-emerald-200/60 hover:border-[#0D9E71]/40 transition-all duration-500 shadow-[0_8px_32px_-8px_rgba(13,158,113,0.12)] hover:shadow-[0_24px_48px_-8px_rgba(13,158,113,0.25)] hover:-translate-y-2 cursor-pointer select-none overflow-hidden"
     >
-      <div>
+      {/* Subtle glow on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0D9E71]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      
+      <div className="relative z-10">
         {/* Top Meta Line: Division Badge & Rx Spec */}
         <div className="flex items-center justify-between text-xs mb-4">
           <span className="text-[#065F46] font-bold bg-emerald-50 border border-emerald-200/90 px-3 py-1 rounded-full capitalize text-[11px] shadow-2xs">
@@ -30,12 +33,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
         </div>
 
         {/* Elevated Architectural Packshot Presentation Stage */}
-        <div className="mb-5 overflow-hidden rounded-2xl bg-gradient-to-b from-slate-100/60 via-emerald-50/20 to-white border border-slate-200/70 p-4 relative flex items-center justify-center min-h-[175px]">
+        <div className="mb-5 overflow-hidden rounded-2xl bg-gradient-to-b from-white/90 via-emerald-50/40 to-white/80 border border-emerald-100/80 p-4 relative flex items-center justify-center min-h-[175px] backdrop-blur-sm">
           {/* Subtle Radial Ambient Spotlight */}
           <div
-            className="absolute inset-0 opacity-40 pointer-events-none"
+            className="absolute inset-0 opacity-50 pointer-events-none"
             style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(13, 158, 113, 0.12) 0%, transparent 70%)",
+              background: "radial-gradient(circle at 50% 50%, rgba(13, 158, 113, 0.15) 0%, transparent 70%)",
             }}
           />
           <ImageSlot
@@ -63,7 +66,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
       </div>
 
       {/* Card Footer Actions */}
-      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+      <div className="relative z-10 mt-6 pt-4 border-t border-emerald-100/60 flex items-center justify-between gap-2">
         <button
           type="button"
           onClick={(e) => {

@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
 import { Search, X, ShieldAlert } from "lucide-react";
@@ -91,65 +92,71 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="w-full">
-      {/* ─── FULL-WIDTH INNER-PAGE HERO BANNER (~42vh) ─────────── */}
-      <section className="relative w-full overflow-hidden min-h-[38vh] max-h-[46vh] flex flex-col justify-end md:justify-center">
+    <div className="w-full bg-[#F0FDF4]">
+      {/* ─── PREMIUM HERO BANNER ─────────── */}
+      <section className="relative w-full overflow-hidden min-h-[50vh] flex items-center bg-[#0A192F]">
         {IMAGES.productsHero && (
-          <img
+          <motion.img
             src={IMAGES.productsHero}
             alt="Pharmaceutical quality control and analytical testing laboratory"
-            className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             decoding="sync"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.55 }}
+            transition={{ duration: 1.2 }}
           />
         )}
 
-        {/* Directional Corporate Authority Scrim: Deep Navy & Emerald with vibrant Cyan highlights */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A192F]/98 via-[#0F382C]/92 to-[#0A192F]/55"
-          aria-hidden="true"
-        />
+        {/* Gradient overlay - lighter */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/85 via-[#0A192F]/80 to-[#0A192F]/50" />
 
-        {/* Subtle Scientific Molecular Mesh Texture */}
-        <div
-          className="absolute inset-0 bg-science-mesh-dark opacity-35 mix-blend-screen pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="max-w-2xl text-left">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#A7F3D0] text-xs font-semibold mb-3.5 border border-emerald-400/25 shadow-xs">
-              Formulations Catalogue
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-editorial font-extrabold text-white tracking-tight leading-none drop-shadow-sm">
-              Parenteral &amp; Clinical Portfolios
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-8 lg:px-16 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-2.5 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="text-xs uppercase tracking-wider text-[#A7F3D0] font-bold">
+                Formulations Catalogue
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-editorial font-bold text-white leading-[1.1] mb-6">
+              Parenteral & Clinical Portfolios
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-slate-100/90 leading-relaxed max-w-xl font-normal">
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
               Specialized pharmaceutical preparations spanning intensive critical care injectables, trace element infusions, and therapeutic oral nutrition sachets.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─── CATALOGUE BODY CONTAINER ─────────────────────────── */}
       <div className="py-12 sm:py-16">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-16">
           {/* Institutional Prescription Notice */}
-          <div className="mb-8 p-4.5 rounded-2xl bg-white border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#0A192F] shadow-[0_2px_12px_rgba(15,23,42,0.03)]">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#0D9E71] shrink-0" />
-              <span className="text-slate-700">
-                <strong className="text-[#0A192F]">Institutional Notice:</strong> Exclusively for hospital procurement committees, registered stockists, and licensed pharmacies. Prescription only.
-              </span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-10 p-5 rounded-2xl bg-[#F0FDF4] border border-emerald-200 flex items-start gap-4"
+          >
+            <ShieldAlert className="w-5 h-5 text-[#0D9E71] shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <div className="text-sm font-bold text-[#0A192F] mb-1">
+                Institutional Notice
+              </div>
+              <div className="text-sm text-slate-700">
+                Exclusively for hospital procurement committees, registered stockists, and licensed pharmacies. Prescription only.
+              </div>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-slate-500 text-[11px] font-bold uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full shrink-0">
-              <ShieldAlert className="w-3.5 h-3.5 text-[#0D9E71]" />
-              Schedule Drugs
-            </span>
-          </div>
+          </motion.div>
 
           {/* Search & Category Filter Bar */}
-          <div className="mb-10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 pb-6 border-b border-slate-200/80">
+          <div className="mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
             {/* Category Filter */}
             <CategoryFilter
               selectedCategory={selectedCategory}
@@ -158,23 +165,23 @@ export default function ProductsPage() {
             />
 
             {/* Search Input */}
-            <div className="relative w-full md:w-80 shrink-0">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <div className="relative w-full md:w-96 shrink-0">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search active molecule..."
-                className="w-full pl-11 pr-10 py-2.5 rounded-full bg-white border border-slate-200/90 text-xs text-[#0A192F] placeholder:text-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:border-transparent shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-all"
+                placeholder="Search by name or composition..."
+                className="w-full pl-12 pr-12 py-3.5 rounded-full bg-white/90 border-2 border-emerald-200/60 text-sm text-[#0A192F] placeholder:text-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-[#0D9E71] focus:border-[#0D9E71] transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer p-0.5"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors p-1"
                   aria-label="Clear search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-4 h-4" />
                 </button>
               )}
             </div>
